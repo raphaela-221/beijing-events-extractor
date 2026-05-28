@@ -1,0 +1,13 @@
+.env
+.env.local
+output/
+input/
+state/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.python-version
+*.log
