@@ -13,6 +13,12 @@ build/
 .python-version
 *.log
 
+# Example/output files (user data, not core code)
+示例文件/
+output/
+input/
+state/
+
 # Original Coze reference projects (not core code)
 coze projects/
 coze 演唱会提取 projects/
