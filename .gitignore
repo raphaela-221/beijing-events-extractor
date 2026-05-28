@@ -3,6 +3,7 @@
 output/
 input/
 state/
+python/
 __pycache__/
 *.pyc
 *.pyo
