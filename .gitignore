@@ -12,3 +12,7 @@ dist/
 build/
 .python-version
 *.log
+
+# Original Coze reference projects (not core code)
+coze projects/
+coze 演唱会提取 projects/
