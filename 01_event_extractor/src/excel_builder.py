@@ -76,15 +76,15 @@ EV_DATA_BORDER_LAST = Border(
 )
 
 COLUMNS = [
-    "No.", "事件类型", "Link", "Start Date", "End Date", "Priority",
+    "No.", "Topic", "Link", "Start Date", "End Date", "Priority",
     "Event Keywords", "Event English Keywords", "Event Description",
-    "Headline", "备注/地点", "来源"
+    "Headline", "备注"
 ]
 
 EV_COL_WIDTHS = {
     "A": 8.27, "B": 27.09, "C": 8.73, "D": 13, "E": 12.09,
     "F": 11, "G": 35, "H": 22.82, "I": 36.09,
-    "J": 46, "K": 19.54, "L": 19.54
+    "J": 46, "K": 19.54
 }
 
 
@@ -236,7 +236,7 @@ def _apply_events_list_styles(ws, num_events: int):
 
             if col_name == "No.":
                 cell.alignment = Alignment(horizontal="center", vertical="center")
-            elif col_name == "事件类型":
+            elif col_name == "Topic":
                 cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
             elif col_name == "Link":
                 cell.font = EV_LINK_FONT
@@ -249,10 +249,8 @@ def _apply_events_list_styles(ws, num_events: int):
                 cell.alignment = Alignment(horizontal="center", vertical="center")
             elif col_name == "Event Description":
                 cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-            elif col_name in ("Headline", "备注/地点"):
+            elif col_name in ("Headline", "备注"):
                 cell.alignment = Alignment(vertical="center", wrap_text=True)
-            elif col_name == "来源":
-                cell.alignment = Alignment(vertical="center")
 
         ws.row_dimensions[r].height = 40
 
@@ -325,7 +323,7 @@ def build_excel(events: List[Dict], policy_count: int = 0) -> bytes:
 
             if col_name == "No.":
                 value = extraction_date
-            elif col_name == "事件类型" and isinstance(value, str):
+            elif col_name == "Topic" and isinstance(value, str):
                 value = value.replace("\\n", "\n")
             elif col_name in ("Start Date", "End Date"):
                 value = _parse_to_date(value)

@@ -1,0 +1,277 @@
+# Ark vs Qwen 月度主题对比
+
+> 生成时间：2026-07-08T17:48:32.625933
+> 共对比 39 个月份
+
+## 2024-01（1 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月，北京市发布龙年春节文化活动安排，节日氛围渐浓。 | This month, Beijing announced its Spring Festival cultural activities for the Year of the Dragon, with festive atmosphere building up. |
+| **QWEN** | 龙年春节文化活动专场发布引领全城节庆预热，传统文化氛围为京城注入新春活力。 | The dedicated launch of Year of the Dragon Spring Festival cultural activities sets the stage for city-wide celebrations, infusing Beijing with traditional festive vitality. |
+
+## 2024-02（2 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京春节庙会活动丰富，厂甸庙会与地坛庙会相继举办，为市民和游客带来浓厚的京味年节氛围。 | This month, Beijing's Spring Festival temple fairs were vibrant, with the Changdian Temple Fair and Ditan Temple Fair successively held, bringing a strong traditional Beijing festive atmosphere to residents and visitors. |
+| **QWEN** | 本月北京城市脉搏聚焦于春节传统庙会文化，厂甸与地坛等经典民俗活动集中开展，生动展现古都年味与文化传承。 | This month's urban pulse in Beijing centered on traditional Spring Festival temple fairs, with events at Changdian and Ditan vividly showcasing the ancient capital's festive atmosphere and cultural heritage. |
+
+## 2024-03（2 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京进入全国两会时间，城市运行围绕重大政治会议展开，交通与安保措施加强。 | This month, Beijing entered the season of the Two Sessions, with urban operations centered around major political meetings, leading to enhanced traffic and security measures. |
+| **QWEN** | 本月北京城市脉搏聚焦于全国两会的顺利召开，政治议程与行政保障主导了城市运行节奏。 | This month, Beijing's urban pulse focused on the successful convening of the National Two Sessions, with political agendas and administrative support dominating the city's operational rhythm. |
+
+## 2024-04（3 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 四月北京迎来体育、文化、展览三大盛事，城市脉搏因大型活动密集举办而加速跳动。 | In April, Beijing witnessed three major events in sports, culture, and exhibitions, with the city's pulse quickening due to the密集 schedule of large-scale activities. |
+| **QWEN** | 四月北京城市脉搏由半程马拉松的体育活力、国际电影节的文艺氛围与国际车展的产业热度共同交织，呈现出文体商展多元共振的运行态势。 | In April, Beijing's urban pulse was shaped by the sporting vitality of the half marathon, the cultural atmosphere of the international film festival, and the industrial momentum of the auto show, reflecting a dynamic city operation marked by the convergence of sports, culture, commerce, and exhibitions. |
+
+## 2024-05（6 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 五月北京文体活动密集，鸟巢与工体接连上演演唱会与足球赛，同时举办中阿合作论坛部长级会议，城市脉搏在活力与开放中跳动。 | In May, Beijing saw a dense schedule of cultural and sports events at the Bird's Nest and Workers' Stadium, alongside the China-Arab States Cooperation Forum ministerial meeting, reflecting a vibrant and open urban pulse. |
+| **QWEN** | 五月北京依托鸟巢与工体等大型场馆密集举办演唱会与足球赛事，汇聚广泛人气，同期高规格外交会议彰显国际交往功能，城市脉搏在文体活力与政务庄重间稳健跳动。 | In May, Beijing hosted numerous concerts and football matches at major venues like the Bird's Nest and Workers' Stadium, drawing widespread attendance, while high-level diplomatic meetings underscored its international role, keeping the city's pulse steady between cultural-sports vitality and official solemnity. |
+
+## 2024-06（4 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京大型文体活动密集，鸟巢和工人体育场分别举办顶级演唱会及两场中超联赛，带动城市活力与场馆周边人流。 | This month, Beijing saw a concentration of major cultural and sports events, with the Bird's Nest hosting a top-tier concert and the Workers' Stadium holding two Chinese Super League matches, boosting urban vitality and foot traffic around the venues. |
+| **QWEN** | 六月北京城市脉搏由鸟巢演唱会与工体中超赛事等标志性文体活动主导，大型场馆的密集运营持续释放首都夏日活力。 | June's urban pulse in Beijing was shaped by landmark cultural and sports events at the Bird's Nest and Workers' Stadium, with intensive operations at these major venues underscoring the capital's dynamic summer rhythm. |
+
+## 2024-07（10 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 7月北京迎来党的二十届三中全会，同时中超联赛、薛之谦及刘德华演唱会等大型文体活动密集举办，但暴雨黄色预警对部分户外活动和交通造成一定影响。 | In July, Beijing hosted the Third Plenary Session of the 20th Central Committee of the CPC, alongside密集 large-scale cultural and sports events such as the Chinese Super League and concerts by Xue Zhiqian and Andy Lau, while a yellow rainstorm warning affected some outdoor activities and transportation. |
+| **QWEN** | 七月北京在承办党的二十届三中全会等重大政治活动的同时，工人体育场与国家体育场等大型场馆迎来密集文体赛事与演出，而台风“格美”及强降雨天气则对市郊铁路、航空及跨区域交通运行造成阶段性影响。 | In July, Beijing hosted major political events such as the Third Plenary Session of the 20th CPC Central Committee while iconic venues like the Workers' Stadium and National Stadium saw a surge in cultural and sports activities, with Typhoon Gaemi and heavy rainfall temporarily disrupting suburban railways, aviation, and cross-regional transportation. |
+
+## 2024-08（4 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 八月北京大型文体活动密集，国家体育场和工人体育场接连举办多场演唱会及足球赛事，持续带动场馆周边人流与城市活力。 | In August, Beijing saw a密集 schedule of large-scale cultural and sports events, with consecutive concerts and football matches at the National Stadium and Workers' Stadium, continuously boosting foot traffic and urban vitality around the venues. |
+| **QWEN** | 八月北京文体活动高度聚焦国家体育场与工人体育场等核心地标，多场顶级演唱会与中超主场比赛轮番上演，持续释放城市消费活力与夏日人气。 | In August, Beijing's cultural and sports activities centered on landmark venues like the National Stadium and Workers' Stadium, with successive top-tier concerts and CSL home matches driving urban consumer vitality and summer footfall. |
+
+## 2024-09（11 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 九月北京迎来中非合作论坛峰会、服贸会、香山论坛等高级别会议，以及华晨宇、周深演唱会、中网、WTT大满贯、中超等文体活动，城市脉搏活跃，国际交往与文体消费并进。 | In September, Beijing hosted high-level meetings including the FOCAC Summit, CIFTIS, and Xiangshan Forum, along with cultural and sports events such as Hua Chenyu and Zhou Shen concerts, China Open, WTT Grand Smash, and CSL matches, reflecting a vibrant urban pulse driven by international exchanges and recreational consumption. |
+| **QWEN** | 九月北京城市运行呈现高端外交峰会与国际展会密集交汇、顶级体育赛事与大型演艺活动多点并发的活跃态势，国家会议中心、国家体育场、国家网球中心及首钢园等标志性场馆高效承载了国际交流与公众文体消费需求。 | September witnessed Beijing's urban operations characterized by a dense convergence of high-level diplomatic summits and international exhibitions alongside concurrent top-tier sports tournaments and large-scale cultural performances, with landmark venues efficiently accommodating international exchanges and public cultural-sports consumption. |
+
+## 2024-10（6 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 十月北京文体活动密集，CBA联赛、中超足球赛及演唱会接连上演，同时金融街论坛年会与全国民政会议等重要会议召开，城市活力充沛。 | In October, Beijing saw a dense schedule of cultural and sports events, including CBA league matches, a CSL football game, and a concert, alongside major conferences like the Financial Street Forum and the National Civil Affairs Conference, reflecting vibrant urban dynamics. |
+| **QWEN** | 十月北京城市运行呈现政务会议、顶级赛事与大型文娱活动密集交织的活跃态势，金融街、工人体育场、鸟巢及首都体育馆等核心地标相继承载国家级对话与公众休闲需求，整体城市脉搏稳健而多元。 | In October, Beijing's urban operations featured a dynamic convergence of high-level conferences, premier sports matches, and large-scale cultural events, with core landmarks such as Financial Street, Workers' Stadium, the Bird's Nest, and Capital Gymnasium hosting national dialogues and public leisure activities, reflecting a steady and diverse urban pulse. |
+
+## 2024-11（7 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 11月北京文旅消费博览会、中超足球赛和马拉松相继举办，带动文旅与体育热潮；中央社会工作会议聚焦社会治理；月底国际速度滑冰和单板滑雪大跳台世界杯在冬奥场馆开赛，延续冰雪运动热度。 | In November, Beijing hosted the Cultural Tourism Consumption Expo, a CSL football match, and the marathon, boosting cultural tourism and sports; the Central Social Work Conference focused on social governance; late November saw the ISU Speed Skating World Cup and FIS Snowboard & Freestyle Ski Big Air World Cup at Winter Olympic venues, sustaining the ice and snow sports momentum. |
+| **QWEN** | 本月北京城市脉搏呈现文体活动密集与治理议题深化交织的特征，文旅消费展、职业足球、城市马拉松及多项国际冰雪赛事相继落地，配合中央社会工作会议召开，凸显城市在促消费、强体育与优治理方面的综合活力。 | This month's urban pulse in Beijing reflects an intersection of intensive cultural and sports activities with deepened governance initiatives, as the cultural tourism expo, professional football, the city marathon, and multiple international winter sports events unfold alongside the central social work conference, highlighting the city's comprehensive vitality in boosting consumption, strengthening sports, and optimizing governance. |
+
+## 2024-12（4 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京以延庆冰雪赛事和首都体育馆短道速滑世界巡回赛点燃冬季运动热情，同时五棵松两场大型演唱会掀起文娱高潮，城市文体活动双线并进。 | This month, Beijing ignited winter sports enthusiasm with ice and snow events in Yanqing and the Short Track Speed Skating World Tour at Capital Indoor Stadium, while two major concerts at Wukesong sparked cultural entertainment highlights, driving a dual-track boom in sports and cultural activities. |
+| **QWEN** | 12月北京城市脉搏以延庆及首都体育馆的国际冰雪赛事为核心，叠加五棵松的大型流行演唱会，呈现出冬季专业竞技与都市文娱消费交织的活跃态势。 | December's urban pulse in Beijing centered on international ice and snow events in Yanqing and at the Capital Indoor Stadium, alongside major pop concerts at Wukesong, presenting an active interplay between winter professional sports and urban cultural consumption. |
+
+## 2025-01（3 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 2025年1月，北京以春节庙会与近万场文化活动展现古都文化魅力，城市脉搏聚焦节庆氛围与文旅活力。 | In January 2025, Beijing showcased its cultural charm through Spring Festival temple fairs and nearly 10,000 cultural events, with the city's pulse centered on festive atmosphere and cultural tourism vitality. |
+| **QWEN** | 本月北京城市运行呈现政治治理与文化惠民交织的脉搏，月初聚焦高层决策部署，月末则以密集的春节庙会与近万场文化活动彰显国家文化中心的节日活力。 | This month's urban pulse in Beijing reflects a blend of top-level governance and cultural celebration, transitioning from high-level political meetings to a vibrant Spring Festival marked by numerous temple fairs and nearly ten thousand cultural events that highlight the city's role as a national cultural hub. |
+
+## 2025-02（2 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 2月，延庆国际冰雪赛事与五棵松演唱会并行，体育与文娱共同点燃城市活力。 | In February, international ice and snow events in Yanqing and a concert at Wukesong jointly ignited the city's vitality through sports and entertainment. |
+| **QWEN** | 2月北京城市脉搏呈现冰雪赛事与流行文化交织的活力图景，延庆冬奥场馆持续释放国际体育影响力，中心城区演艺空间吸引年轻群体汇聚，共同彰显城市文体消费的双轮驱动态势。 | In February, Beijing's urban pulse reflects a dynamic blend of winter sports and pop culture, with Yanqing's Olympic venues sustaining international sporting influence while central urban performance spaces draw youthful crowds, highlighting the dual drive of cultural and sports consumption across the city. |
+
+## 2025-03（6 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京迎来全国两会，同时国家体育馆、五棵松、工人体育场等场馆密集举办篮球、足球赛事及演唱会，城市文体活动与政务会议并行，展现首都多元活力。 | This month, Beijing hosted the Two Sessions, while venues like the National Stadium, Wukesong, and Workers' Stadium saw a dense schedule of basketball games, football matches, and concerts, showcasing the capital's diverse vitality alongside political events. |
+| **QWEN** | 三月北京城市运行呈现政务活动与文体消费交替发力的节奏，月初聚焦全国两会等重大会议，中下旬则依托国家体育馆、五棵松及工人体育场等大型场馆密集承接职业赛事与演唱会，凸显首都政治中心功能与文体活动枢纽活力的有机融合。 | In March, Beijing's urban operations exhibited a rhythm alternating between major political gatherings and cultural-sports consumption, with the early month focused on the Two Sessions and the mid-to-late month leveraging large venues like the National Indoor Stadium, Wukesong, and Workers' Stadium to host professional matches and concerts, highlighting the organic integration of the capital's political functions and its vitality as a cultural and sports hub. |
+
+## 2025-04（10 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 四月北京文体活动密集，但遭遇极端大风天气导致部分高铁停运，月底两大庙会开幕迎接五一。 | In April, Beijing saw a dense schedule of cultural and sports events, but was hit by extreme gale winds that led to partial high-speed rail suspensions, while two major temple fairs opened at month's end to welcome the May Day holiday. |
+| **QWEN** | 四月北京城市脉搏在文体盛宴与季节气候的交替中跳动，大型演唱会与中超赛事密集点亮五棵松、鸟巢与工体，半马跑动串联城市地标，强风天气短暂扰动铁路运行，而平谷与门头沟的传统庙会则提前奏响五一假期的文化序曲。 | In April, Beijing's urban pulse resonated through a blend of cultural and sporting events alongside seasonal weather shifts, as major concerts and football matches energized Wukesong, the Bird's Nest, and Workers' Stadium, a half marathon linked key city landmarks, strong winds temporarily disrupted rail services, and traditional temple fairs in Pinggu and Mentougou set the cultural stage for the upcoming May Day holiday. |
+
+## 2025-05（6 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 五月北京文体赛事与演唱会密集上演，同时遭遇极端大风天气考验，国际经贸峰会亦汇聚全球目光，城市脉搏在活力与挑战中交织。 | In May, Beijing witnessed a dense schedule of sports events and concerts, alongside extreme gale weather challenges, while an international trade summit drew global attention, weaving a tapestry of vitality and resilience in the city's pulse. |
+| **QWEN** | 本月北京城市运行呈现文体盛会与极端天气交织的态势，地标场馆密集承办国际赛事与大型演出，强风天气考验城市应急响应能力，同时高水平经贸峰会彰显开放活力。 | This month, Beijing's urban operations featured a mix of major cultural and sporting events and extreme weather, with landmark venues hosting international competitions and large-scale concerts, strong winds testing the city's emergency response capabilities, while a high-level trade summit highlighted its openness and vitality. |
+
+## 2025-06（13 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 六月北京迎来亚投行年会、CBD论坛等国际会议，同时国家体育场、国家体育馆、工人体育场及华熙LIVE·五棵松等场馆密集举办多场演唱会和体育赛事，城市文体活动与国际交流热度高涨。 | In June, Beijing hosted international events such as the AIIB Annual Meeting and the CBD Forum, while venues like the National Stadium, National Indoor Stadium, Workers' Stadium, and Huaxi LIVE·Wukesong saw a密集 schedule of concerts and sports events, reflecting a vibrant mix of cultural, sports, and international exchange activities. |
+| **QWEN** | 六月北京密集承办亚投行年会与CBD论坛等国际高端会议，同时国家体育场、工人体育场及五棵松等标志性场馆接连上演顶级演唱会与中超赛事，凸显城市作为国际交往枢纽与文体活力中心的强劲脉搏。 | In June, Beijing hosted a dense schedule of high-level international conferences including the AIIB Annual Meeting and the CBD Forum, while iconic venues such as the National Stadium, Workers' Stadium, and Wukesong consecutively staged top-tier concerts and CSL matches, underscoring the city's robust pulse as both a global diplomatic hub and a vibrant cultural-sports center. |
+
+## 2025-07（11 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京迎来多场大型文娱演出、体育赛事和展览活动，同时遭遇多次暴雨预警及红色预警，城市运行面临活动密集与极端天气的双重考验。 | This month, Beijing hosted multiple large-scale entertainment performances, sports events, and exhibitions, while facing several rainstorm warnings and a red alert, putting urban operations under the dual pressure of dense activities and extreme weather. |
+| **QWEN** | 七月北京城市运行呈现文体盛会与汛期考验交织的脉搏，鸟巢、五棵松及工体等大型场馆密集承接演艺与赛事活动，而台风外围影响与本地强降雨频发直接导致市郊铁路临时停运并触发防汛一级应急响应，城市在文化活力释放与高标准防汛调度中平稳过渡。 | July's urban pulse in Beijing reflected an interplay between cultural-sports galas and flood-season challenges, with major venues such as the Bird's Nest, Wukesong, and Workers' Stadium densely hosting performances and matches, while typhoon peripheries and frequent local heavy rainfall directly caused temporary suburban railway suspensions and triggered a Level I flood emergency response, ensuring steady operations amid cultural vitality and rigorous flood control dispatch. |
+
+## 2025-08（12 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 八月北京大型文娱体育赛事密集，同时遭遇暴雨红色预警，城市运行面临双重考验。 | In August, Beijing saw a dense schedule of major entertainment and sports events, while facing a red rainstorm warning, putting urban operations under dual pressure. |
+| **QWEN** | 八月北京城市脉搏呈现文体活动密集与极端天气应对交织的特征，鸟巢、五棵松及工人体育场接连承办大型演唱会与体育赛事，暴雨红色预警期间市郊铁路与跨省客运有序调整，叠加世界机器人大会等行业盛会，彰显超大城市在高频活动聚集与防汛应急调度下的韧性运转。 | August's urban pulse in Beijing was characterized by the intersection of intensive cultural and sporting events with extreme weather response, as the Bird's Nest, Wukesong, and Workers' Stadium successively hosted large-scale concerts and matches, while red rainstorm warnings prompted orderly adjustments to suburban railways and intercity passenger services, complemented by industry summits like the World Robot Conference, demonstrating the megacity's resilient operations amid frequent gatherings and flood control dispatches. |
+
+## 2025-09（13 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 9月北京迎来阅兵、服贸会、中网、WTT大满贯及多场演唱会和体育赛事，城市脉搏在政治纪念、国际会展与文体盛事中强劲跳动。 | In September, Beijing hosts a military parade, CIFTIS, China Open, WTT China Smash, and multiple concerts and sports events, with the city's pulse beating strongly through political commemorations, international exhibitions, and cultural-sports spectacles. |
+| **QWEN** | 九月北京以国家级庆典与高端外交论坛为引领，多项国际顶级体育赛事、大型展会及文娱活动在奥运场馆群、首钢园及传统地标密集落地，呈现政务、文体与商贸高度协同的城市运行高峰态势。 | September in Beijing featured a peak in urban operations anchored by national ceremonies and high-level diplomatic forums, with a dense schedule of international sports events, major exhibitions, and cultural performances across Olympic venues, Shougang Park, and historic landmarks, reflecting a highly coordinated integration of governance, culture, sports, and commerce. |
+
+## 2025-10（20 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 金秋十月，北京文化活动、体育赛事与高端会议密集交织，城市脉搏在多元活力中强劲跳动。 | In golden October, Beijing's pulse beats strongly with a dense weave of cultural events, sports competitions, and high-level conferences. |
+| **QWEN** | 十月北京城市运行呈现文体展演密集与高端会议交织的态势，核心场馆承接多场大型演唱会与文博活动，亦庄聚焦智能网联汽车与赛车赛事形成产业热点，多项马拉松串联各区活力，市政调度在应对降雨预警与保障重大政治会议中保持平稳高效。 | October's urban operations in Beijing were characterized by a dense convergence of cultural performances and high-level conferences, with core venues hosting major concerts and exhibitions, Yizhuang emerging as a hub for smart vehicle technology and motorsports, marathons activating multiple districts, and municipal management maintaining stable and efficient coordination amid rainfall alerts and key political meetings. |
+
+## 2025-11（11 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 11月北京文体活动密集，国家体育馆、五棵松、工人体育场等场馆迎来多场演唱会、足球赛及国际篮球预选赛，通州半程马拉松同步开跑，城市活力充沛。 | In November, Beijing saw a dense schedule of cultural and sports events, with multiple concerts, football matches, and an international basketball qualifier held at venues like the National Stadium, Wukesong, and Workers' Stadium, alongside the Tongzhou Half Marathon, showcasing vibrant urban energy. |
+| **QWEN** | 11月的北京以国家体育馆、五棵松及工人体育场等大型场馆为枢纽，密集承载多场热门演唱会、职业体育赛事与高端产业展会，文体活动高频联动持续跃动城市脉搏。 | In November, Beijing used major venues such as the National Indoor Stadium, Wukesong, and Workers' Stadium as hubs to densely host multiple popular concerts, professional sports events, and high-end industry exhibitions, with frequent cultural and sports activities continuously pulsating the city's rhythm. |
+
+## 2025-12（15 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 12月北京迎来国际滑雪赛事、多场演唱会及亚冠联赛等文体活动密集举办，同时中央经济工作会议在京举行，城市在冰雪运动热潮与年终经济部署中展现活力。 | In December, Beijing saw a dense schedule of cultural and sports events including an international skiing competition, multiple concerts, and an AFC Champions League match, alongside the Central Economic Work Conference, showcasing the city's vitality amid winter sports enthusiasm and year-end economic planning. |
+| **QWEN** | 12月的北京在中央经济工作会议定调宏观发展的同时，依托首钢大跳台、工人体育场及五棵松等标志性场馆密集承接国际体育赛事与多场头部演唱会，呈现出政策引领与文化体育消费双轮驱动的城市运行态势。 | In December, Beijing balanced macroeconomic policy guidance from the Central Economic Work Conference with a dense schedule of international sporting events and top-tier concerts at landmark venues like the Shougang Big Air Slope, Workers' Stadium, and Wukesong, reflecting an urban rhythm driven by both policy direction and robust cultural-sports consumption. |
+
+## 2026-01（9 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京会展与文体活动密集，国家体育馆、华熙LIVE·五棵松及亦庄会展中心等场馆迎来多场大型赛事、演出和展览，城市活力充沛。 | This month, Beijing sees a dense schedule of exhibitions, cultural and sports events, with major venues like the National Indoor Stadium, Huaxi LIVE·Wukesong, and Yizhuang Convention Center hosting large-scale competitions, performances, and exhibitions, showcasing vibrant urban energy. |
+| **QWEN** | 本月北京城市脉搏呈现专业会展与文体活动交织的活跃态势，出版、运动时尚与商业航天等产业盛会密集落地，叠加华熙LIVE与国家体育馆等标志性场馆的演艺与赛事引流，彰显首都产业创新与文化活力的双重跃升。 | This month, Beijing's urban pulse features a dynamic convergence of professional exhibitions and cultural-sports activities, with intensive industry summits in publishing, sports fashion, and commercial aerospace, alongside performances and competitions at landmark venues such as Huaxi LIVE and the National Indoor Stadium, reflecting the capital's dual momentum in industrial innovation and cultural vitality. |
+
+## 2026-02（3 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京以春节文化活动为主线，博物馆展览、庙会灯会、演出等多元形式共同营造浓郁节日氛围。 | This month, Beijing's urban pulse is centered around Spring Festival cultural activities, with museum exhibitions, temple fairs, lantern shows, and performances jointly creating a festive atmosphere. |
+| **QWEN** | 二月北京城市脉搏聚焦新春文化盛宴，全市依托博物馆、专业剧院与传统节庆空间密集推出超五千项展演活动，彰显浓厚的节日氛围与多元文化交流活力。 | In February, Beijing's urban pulse centers on a grand Spring Festival cultural feast, with over 5,000 exhibitions and performances launched across museums, professional theaters, and traditional festive spaces, highlighting a rich holiday atmosphere and vibrant multicultural exchange. |
+
+## 2026-03（26 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 三月北京进入“两会时间”与展会旺季，两会、多场大型展览、体育赛事及文娱活动密集举办，城市活力显著提升。 | In March, Beijing entered the 'Two Sessions' period and exhibition peak season, with intensive large-scale conferences, exhibitions, sports events, and entertainment activities significantly boosting urban vitality. |
+| **QWEN** | 3月北京城市脉搏围绕全国两会召开与多场大型专业展会、文体赛事密集展开，核心政务区与朝阳、顺义等会展场馆承载高频商务客流，配合CBA、中超及时装周等活动，呈现政治庄重与商贸文体活力并重的运行特征。 | In March, Beijing's urban pulse revolves around the convening of the Two Sessions alongside a dense schedule of large-scale professional exhibitions and sports-cultural events, with core government districts and exhibition venues in Chaoyang and Shunyi handling high-frequency business traffic, complemented by CBA, CSL, and Fashion Week activities, reflecting an operational rhythm that balances political solemnity with commercial and cultural vitality. |
+
+## 2026-04（43 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 四月北京迎来会展与体育赛事高峰，北京国际电影节、北京车展、多场马拉松及演唱会密集上演，城市活力全面释放。 | In April, Beijing sees a peak of exhibitions and sports events, with the Beijing International Film Festival, Auto China, multiple marathons and concerts creating a vibrant urban pulse. |
+| **QWEN** | 四月北京的城市脉搏由密集的高端会展、跨区马拉松赛事与多元文娱活动共同驱动，国际车展、电影节与大型演唱会的接连亮相，凸显了首都作为产业创新枢纽与活力文化中心的繁荣态势。 | April's urban pulse in Beijing is driven by a dense schedule of high-end exhibitions, cross-district marathons, and diverse cultural events, with the consecutive launch of the international auto show, film festival, and major concerts highlighting the capital's prosperity as an industrial innovation hub and vibrant cultural center. |
+
+## 2026-05（27 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 五月北京文体活动密集，国际赛事与高端会展交织，城市活力充沛。 | In May, Beijing is bustling with a dense mix of cultural and sports events, international competitions, and high-end exhibitions, showcasing the city's vibrant pulse. |
+| **QWEN** | 五月北京城市脉搏强劲，国际顶级体育赛事、头部明星演唱会与多场大型行业展会密集落地国家体育场、工人体育场及各大展馆，全面彰显首都文体商旅融合发展的国际枢纽活力。 | In May, Beijing's urban pulse intensifies as premier international sports events, headline concerts, and large-scale industry exhibitions converge at major venues including the National Stadium, Workers' Stadium, and key convention centers, highlighting the capital's dynamic role as a global hub for sports, culture, and trade. |
+
+## 2026-06（28 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 六月北京迎来国际会议、展览、演出与体育赛事密集叠加的超级活动月，城市活力全面迸发。 | In June, Beijing experienced a super-intensive month of international conferences, exhibitions, performances, and sports events, with the city's vitality fully unleashed. |
+| **QWEN** | 六月北京城市脉搏聚焦高水平国际交往与文化体育活力，香山旅游峰会、APEC工商论坛及链博会等重大会议密集召开，鸟巢、国家体育馆等核心场馆迎来多场顶流演唱会与国际赛事，彰显开放包容的城市气质与蓬勃的文化消费动能。 | June's urban pulse in Beijing centered on high-level international exchanges and vibrant cultural-sports activities, with major forums like the Xiangshan Tourism Summit and APEC CEO Summit held in succession alongside a surge of top-tier concerts and international matches at landmark venues such as the Bird's Nest and National Indoor Stadium, underscoring the city's openness and dynamic cultural vitality. |
+
+## 2026-07（42 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 七月北京迎来暑期高峰，大型会议、体育赛事与文娱活动密集举办，叠加全国多地中小学暑假启动，预计将显著带动本地旅游与消费热度。 | In July, Beijing enters its summer peak season with a dense schedule of major conferences, sports events, and entertainment activities, while the start of summer vacations for primary and secondary schools nationwide is expected to significantly boost local tourism and consumption. |
+| **QWEN** | 7月的北京在国家级科技盛会、两岸青年交流与密集的大型文体演出中展现多元活力，叠加全国多地中小学同步开启暑假，预计将显著释放亲子研学与家庭出游潜力，形成政务商务与文旅消费共振的城市脉搏。 | July in Beijing showcases diverse vitality through national tech summits, cross-strait youth exchanges, and a dense lineup of major cultural and sports events, while synchronized summer vacations across multiple provinces are poised to unlock significant potential for family and study-tour travel, forming an urban pulse resonating with both business and cultural consumption. |
+
+## 2026-08（11 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月北京体育赛事与大型展览密集举办，城市活力充沛。 | This month, Beijing hosts a dense schedule of sports events and large-scale exhibitions, showcasing vibrant urban energy. |
+| **QWEN** | 八月北京城市脉搏聚焦于大型体育赛事与多元产业展览的密集交汇，工人体育场足球赛与国家网球中心国际格斗赛事持续释放竞技活力，而朝阳、顺义及亦庄等地的核心展馆则全面承载了前沿科技、数字文娱与生活方式领域的跨行业商贸交流。 | August's urban pulse in Beijing centers on the dense convergence of major sporting events and diverse industry exhibitions, with football matches at Workers' Stadium and international combat sports at the National Tennis Center sustaining competitive vitality, while core exhibition venues in Chaoyang, Shunyi, and Yizhuang comprehensively host cross-sector commercial exchanges in advanced technology, digital entertainment, and lifestyle sectors. |
+
+## 2026-09（8 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 九月北京迎来国际篮联洲际杯连续三年落户、服贸会及多场大型工业与消费类展会，城市会展与体育赛事活力集中释放。 | In September, Beijing hosts the FIBA Intercontinental Cup for three consecutive years, the CIFTIS, and multiple large-scale industrial and consumer exhibitions, showcasing a concentrated release of urban vitality in conventions and sports events. |
+| **QWEN** | 九月北京城市脉搏聚焦高端会展与国际赛事，服贸会引领服务贸易出海合作，顺义与朝阳展馆密集承接先进制造与数字智能产业交流，首钢园与大西山分别承载全球商贸对话与专业越野挑战，彰显首都作为国际交往中心与科技创新高地的双重活力。 | September's urban pulse in Beijing centers on premier international exhibitions and professional sports, with CIFTIS driving service trade globalization, major exhibition hubs hosting advanced manufacturing and digital tech dialogues, and venues like Shougang Park and the Western Mountains staging global commerce and trail running events, underscoring the city's role as a hub for international exchange and industrial innovation. |
+
+## 2026-10（3 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 十月北京迎来多项大型体育赛事，从亦庄GT世界挑战赛到鸟巢马术大师赛，再到工体足球联赛，城市体育脉搏强劲跳动。 | In October, Beijing hosts multiple major sports events, from the Yizhuang GT World Challenge to the Bird's Nest Equestrian Masters and the Workers' Stadium football league, showcasing the city's vibrant sports pulse. |
+| **QWEN** | 十月北京聚焦亦庄赛道、鸟巢与工体等大型场馆，密集呈现GT赛车、国际马术与中超足球等高水平赛事，凸显国际体育名城的竞技活力与城市脉动。 | In October, Beijing focuses on major venues such as the Yizhuang circuit, Bird's Nest, and Workers' Stadium to host high-level events like GT racing, international equestrian masters, and CSL football, highlighting the competitive vitality and urban pulse of an international sports city. |
+
+## 2026-11（4 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月外地多个城市中小学秋假集中，有望带动北京亲子游与消费热度；同时工人体育场举办中超联赛，吸引球迷观赛。 | This month, multiple cities outside Beijing have concentrated primary and secondary school autumn breaks, which is expected to boost family tourism and consumption in Beijing; meanwhile, the Chinese Super League match at Workers' Stadium attracts fans to the game. |
+| **QWEN** | 本月北京城市脉搏受多地中小学秋假释放的亲子与研学客流预期牵引，叠加工体大型足球赛事激发的局部体育活力，整体呈现休闲消费潜力稳步蓄积与本土文体氛围交织的运行态势。 | This month's urban pulse in Beijing is shaped by anticipated family and study-tour inflows from autumn breaks across multiple provinces, alongside localized sports vitality from a major football match at Workers' Stadium, reflecting a steady rhythm where leisure consumption potential accumulates alongside local cultural and sporting atmospheres. |
+
+## 2026-12（1 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 北京获得2026年短池游泳世锦赛举办权，彰显国际体育中心地位。 | Beijing secures the hosting rights for the 2026 Short Course Swimming World Championships, highlighting its status as an international sports hub. |
+| **QWEN** | 本月北京城市脉搏聚焦国际体育枢纽建设，成功申办短池游泳世锦赛彰显全球赛事承办实力与水上运动发展活力。 | This month's urban pulse centers on Beijing's development as an international sports hub, with the successful bid for the Short Course World Swimming Championships highlighting its global event-hosting capabilities and vitality in aquatic sports. |
+
+## 2027-01（1 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月，外地中小学寒假启动，预计将带动北京亲子游与研学客流，提升城市消费热度。 | This month, the start of winter break for primary and secondary schools in other regions is expected to boost family and study tour visits to Beijing, enhancing urban consumption activity. |
+| **QWEN** | 珠海中小学寒假于月底启动，预计将释放亲子游与研学需求，为北京文旅市场带来潜在的外地客流与消费增量。 | The launch of winter breaks for primary and secondary schools in Zhuhai at month-end is expected to release demand for family and study tours, bringing potential out-of-town visitor flow and consumption growth to Beijing's cultural and tourism market. |
+
+## 2027-07（1 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 天津中小学暑假开启，预计将带动北京暑期亲子游与消费热度。 | The start of summer vacation for primary and secondary schools in Tianjin is expected to boost Beijing's summer family tourism and consumption. |
+| **QWEN** | 天津中小学陆续开启暑假，预计将带动京津冀亲子游与研学客流向北京汇聚，推高暑期文旅消费热度。 | The staggered start of summer vacations for primary and secondary schools in Tianjin is expected to drive cross-city family and study tour traffic toward Beijing, boosting summer cultural and tourism consumption. |
+
+## 2027-09（1 个事件）
+
+| 模型 | 中文 | 英文 |
+| --- | --- | --- |
+| **ARK** | 本月，北京2027年世界田径锦标赛官方新媒体上线，赛事将于国家体育场（鸟巢）举行，城市体育氛围升温，鸟巢周边将迎来显著人流。 | This month, the official new media for the 2027 World Athletics Championships in Beijing went live; the event will be held at the National Stadium (Bird's Nest), boosting the city's sports atmosphere and bringing significant crowds around the venue. |
+| **QWEN** | 九月北京迎来世界田径锦标赛，国际顶级赛事为城市增添体育活力。 | In September, Beijing welcomes the World Athletics Championships, adding sporting vitality to the city with a premier international event. |

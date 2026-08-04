@@ -17,6 +17,7 @@ from urllib.parse import quote
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 from openai import OpenAI
+from src.llm_client import get_llm_client, get_llm_model
 
 logger = logging.getLogger(__name__)
 
@@ -82,27 +83,6 @@ def _is_concert(name: str) -> bool:
     return False
 
 
-def _get_llm_client() -> OpenAI:
-    api_key = os.getenv("OPENAI_API_KEY")
-    base_url = os.getenv("OPENAI_BASE_URL", "https://api.deepseek.com/v1")
-
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY not set")
-
-    import httpx
-    bypass_proxy = os.getenv("OPENAI_BYPASS_PROXY", "1") == "1"
-    http_client = httpx.Client(
-        timeout=120.0,
-        trust_env=not bypass_proxy,
-    )
-
-    return OpenAI(
-        base_url=base_url,
-        api_key=api_key,
-        http_client=http_client,
-    )
-
-
 def _fallback_english_title(name: str) -> str:
     text = name.strip()
     replacements = {
@@ -126,22 +106,33 @@ def _translate_concert_names(names: List[str]) -> Dict[str, str]:
     fallback = {name: _fallback_english_title(name) for name in unique_names}
 
     try:
-        client = _get_llm_client()
-        model = os.getenv("OPENAI_MODEL", "deepseek-v4-flash")
-        response = client.chat.completions.create(
-            model=model,
-            messages=[
-                {
-                    "role": "system",
-                    "content": "Translate Chinese concert event titles into fluent English event title phrases. Keep artist names and official English tour names. Output strict JSON only.",
-                },
-                {
-                    "role": "user",
-                    "content": json.dumps({"titles": unique_names}, ensure_ascii=False),
-                },
-            ],
-            response_format={"type": "json_object"},
-        )
+        client = get_llm_client(timeout=120.0)
+        model = get_llm_model()
+        messages = [
+            {
+                "role": "system",
+                "content": "Translate Chinese concert event titles into fluent English event title phrases. Keep artist names and official English tour names. Output strict JSON only.",
+            },
+            {
+                "role": "user",
+                "content": json.dumps({"titles": unique_names}, ensure_ascii=False),
+            },
+        ]
+
+        # Some providers (including Ark) do not support response_format=json_object.
+        # Try it first; if it fails, fall back to plain text and parse JSON manually.
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+                response_format={"type": "json_object"},
+            )
+        except Exception:
+            response = client.chat.completions.create(
+                model=model,
+                messages=messages,
+            )
+
         content = response.choices[0].message.content or "{}"
         data = json.loads(content)
         translations = data.get("translations", data)
@@ -295,7 +286,7 @@ def _scrape_list_items(page, start_date: str, end_date: str) -> List[Dict]:
             page.goto(url, wait_until="networkidle", timeout=30000)
 
             # 等待表格渲染（等待 tbody 中有数据行）
-            page.wait_for_selector(".table_cons tr", timeout=10000)
+            page.wait_for_selector(".table_cons tr", timeout=15000)
 
             # 提取总记录数
             total_text = page.inner_text("body")
@@ -458,7 +449,19 @@ def _scrape_concerts_impl(
     new_urls = []
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        try:
+            browser = p.chromium.launch(headless=True)
+        except Exception as launch_err:
+            msg = str(launch_err)
+            if "Executable doesn't exist" in msg or "playwright install" in msg:
+                raise RuntimeError(
+                    "Playwright Chromium 浏览器未安装，演唱会采集无法启动。\n"
+                    "请先运行安装命令（一次性）：\n"
+                    "  macOS:   python3 -m playwright install chromium\n"
+                    "  Windows: python -m playwright install chromium\n"
+                    "或直接跑项目根目录的 setup.sh / setup.bat。"
+                ) from launch_err
+            raise
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                        "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
@@ -664,7 +667,7 @@ def _concert_to_event(c: Dict, english_name: str = "") -> Optional[Dict]:
 
     return {
         "No.": 0,  # 由调用方重新编号
-        "事件类型": "文娱活动\nCultural and Entertainment Activities",
+        "Topic": "文娱活动\nCultural and Entertainment Activities",
         "Link": url,
         "Start Date": start_fmt,
         "End Date": end_fmt,
@@ -673,8 +676,7 @@ def _concert_to_event(c: Dict, english_name: str = "") -> Optional[Dict]:
         "Event English Keywords": english_name or _fallback_english_title(name),
         "Event Description": description,
         "Headline": headline,
-        "备注/地点": remark,
-        "来源": organizer,
+        "备注": remark,
         "_source": "concert_scraper",
     }
 

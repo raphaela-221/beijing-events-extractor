@@ -15,6 +15,7 @@ import logging
 import os
 import sys
 from datetime import datetime, date
+from pathlib import Path
 from typing import List
 
 from openpyxl import load_workbook
@@ -27,13 +28,16 @@ except AttributeError:
 
 from dotenv import load_dotenv
 
-# Ensure src/ is discoverable when running from any working directory
-_PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# Ensure src/ is discoverable when running from any working directory.
+# main.py lives in 01_event_extractor/; project root is its parent.
+_STEP1_DIR = Path(__file__).parent
+ROOT_DIR = _STEP1_DIR.parent
+_PROJECT_ROOT = str(_STEP1_DIR)
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-# Load .env before importing src modules (they read env vars at import time)
-load_dotenv()
+# Load .env from project root before importing src modules (they read env vars at import time)
+load_dotenv(dotenv_path=ROOT_DIR / ".env")
 
 from src.extractor import (
     extract_events,
@@ -57,10 +61,17 @@ logger = logging.getLogger(__name__)
 _MAX_RAW_TEXT_CHARS = 50_000
 _SUPPORTED_EXT = ('.xlsx', '.xls', '.csv', '.txt', '.json', '.doc', '.docx', '.pdf')
 _EVENT_COLUMNS = [
-    "No.", "事件类型", "Link", "Start Date", "End Date", "Priority",
+    "No.", "Topic", "Link", "Start Date", "End Date", "Priority",
     "Event Keywords", "Event English Keywords", "Event Description",
-    "Headline", "备注/地点", "来源"
+    "Headline", "备注"
 ]
+
+# Legacy header names used in older Step 1 outputs (pre-2026-07-08).
+_LEGACY_COLUMN_MAP = {
+    "事件类型": "Topic",
+    "备注/地点": "备注",
+    "来源": None,  # dropped from the reader-facing Events List
+}
 
 
 def _format_excel_date(value) -> str:
@@ -81,9 +92,18 @@ def _load_existing_events(output_path: str) -> List[dict]:
             return []
         ws = wb["Events List"]
         headers = [str(cell.value).strip() if cell.value is not None else "" for cell in ws[1]]
-        col_indexes = {col: headers.index(col) for col in _EVENT_COLUMNS if col in headers}
-        events = []
+        header_index = {h: i for i, h in enumerate(headers)}
 
+        # Support both the new sample-format headers and legacy headers.
+        col_indexes = {}
+        for col in _EVENT_COLUMNS:
+            if col in header_index:
+                col_indexes[col] = header_index[col]
+        for legacy_col, new_col in _LEGACY_COLUMN_MAP.items():
+            if legacy_col in header_index and (new_col is not None and new_col not in col_indexes):
+                col_indexes[new_col] = header_index[legacy_col]
+
+        events = []
         for row in ws.iter_rows(min_row=2, values_only=True):
             event = {}
             has_content = False
@@ -125,7 +145,7 @@ def process_files(
     category: str = "",
     topic: str = "",
     extra_info: str = "",
-    output_dir: str = "./output",
+    output_dir: str = str(ROOT_DIR / "01_event_list_output"),
     include_concerts: bool = False,
     concert_force: bool = False,
     concert_start: str = "",
@@ -151,7 +171,7 @@ def process_files(
                 if cat:
                     detected_categories.add(cat)
 
-            if detected_categories == {"中小学春秋假"}:
+            if detected_categories and detected_categories.issubset({"中小学春秋假", "中小学寒暑假"}):
                 effective_mode = "spring_break"
                 logger.info("Auto mode: all files are school break → spring_break mode")
             else:
@@ -170,7 +190,8 @@ def process_files(
         fname = os.path.basename(file_path)
 
         if effective_mode == "spring_break":
-            file_category = "中小学春秋假"
+            # 按文件名推断中小学春秋假 / 中小学寒暑假；事件级细分由 _postprocess_events 逐条判定
+            file_category = guess_category_from_filename(fname) or category or "中小学春秋假"
         else:
             file_category = guess_category_from_filename(fname) or category or "中小学春秋假"
 
@@ -309,7 +330,7 @@ def _print_summary(events, file_paths, effective_mode, policy_count, output_path
         return s.strip()
 
     detected_categories = sorted(set(
-        _get_category_name(e.get("事件类型", "")) for e in events
+        _get_category_name(e.get("Topic", "")) for e in events
     ))
     detected_categories = [c for c in detected_categories if c]
 
@@ -326,7 +347,7 @@ def _print_summary(events, file_paths, effective_mode, policy_count, output_path
     # Category distribution
     dist_lines = []
     for cat in detected_categories:
-        cnt = sum(1 for e in events if _get_category_name(e.get("事件类型", "")) == cat)
+        cnt = sum(1 for e in events if _get_category_name(e.get("Topic", "")) == cat)
         pct = (cnt / total * 100) if total else 0
         dist_lines.append(f"{cat}：{cnt} 个（占 {pct:.1f}%）")
     category_dist = "\n".join(dist_lines)
@@ -342,7 +363,7 @@ def _print_summary(events, file_paths, effective_mode, policy_count, output_path
         headline = str(ev.get("Headline", "") or ev.get("Event Keywords", "")).strip()
         start = str(ev.get("Start Date", "")).strip()
         end = str(ev.get("End Date", "")).strip()
-        location = str(ev.get("备注/地点", "") or ev.get("备注", "")).strip()
+        location = str(ev.get("备注", "") or ev.get("备注/地点", "")).strip()
 
         date_str = f"{start} - {end}" if start and end and start != end else start
         location_short = location.split("，")[0].split(",")[0].split(" ")[0][:20] if location else ""
@@ -388,8 +409,8 @@ def main():
     )
     parser.add_argument(
         "--input-dir",
-        default="./input",
-        help="输入目录（默认: ./input）。当未指定 files 参数时，自动读取此目录下所有支持的文件",
+        default=str(ROOT_DIR / "01_raw_input"),
+        help="输入目录（默认: 01_raw_input/）。当未指定 files 参数时，自动读取此目录下所有支持的文件",
     )
     parser.add_argument(
         "--mode",
@@ -414,8 +435,8 @@ def main():
     )
     parser.add_argument(
         "--output-dir",
-        default="./output",
-        help="输出目录（默认: ./output）",
+        default=str(ROOT_DIR / "01_event_list_output"),
+        help="输出目录（默认: 01_event_list_output/）",
     )
     parser.add_argument(
         "--concert",
@@ -485,8 +506,8 @@ def main():
             sys.exit(1)
 
     # Validate API key (required if processing files, optional for concert-only mode)
-    if file_paths and not os.getenv("OPENAI_API_KEY"):
-        print("错误：未设置 OPENAI_API_KEY。请在 .env 文件或环境变量中配置。", file=sys.stderr)
+    if file_paths and not (os.getenv("ARK_API_KEY") or os.getenv("OPENAI_API_KEY")):
+        print("错误：未设置 ARK_API_KEY 或 OPENAI_API_KEY。请在 .env 文件或环境变量中配置。", file=sys.stderr)
         sys.exit(1)
 
     output_path = process_files(
