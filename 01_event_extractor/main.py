@@ -50,6 +50,7 @@ from src.preprocess import read_and_preprocess_file, pre_filter_raw_text
 from src.excel_builder import build_excel
 from src.file_utils import extract_filename_from_url
 from src.concert_scraper import scrape_beijing_concerts
+from src.llm_client import print_usage_summary
 
 logging.basicConfig(
     level=logging.INFO,
@@ -313,6 +314,9 @@ def process_files(
 
     # Print summary
     _print_summary(all_events, file_paths, effective_mode, policy_count, output_path)
+
+    # Print LLM usage (which API handled each call + token consumption)
+    print_usage_summary()
 
     return output_path
 

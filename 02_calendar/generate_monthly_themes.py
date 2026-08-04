@@ -26,9 +26,13 @@ from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
-from openai import OpenAI
 
 load_dotenv(Path(__file__).parent.parent / ".env")
+
+# 复用 01_event_extractor 的共享 LLM client（Ark 主 + DeepSeek 直连兜底），
+# 避免 calendar 层重复维护 client 配置逻辑。
+sys.path.insert(0, str(Path(__file__).parent.parent / "01_event_extractor"))
+from src.llm_client import call_llm, print_usage_summary  # noqa: E402
 
 ROOT = Path(__file__).parent
 JSON_PATH = ROOT / "events_data.json"
@@ -204,39 +208,12 @@ def _extract_json_object(text: str) -> str:
     return text[start : end + 1]
 
 
-def _using_ark() -> bool:
-    return bool(os.getenv("ARK_API_KEY") or os.getenv("ARK_BASE_URL"))
-
-
-def _get_ark_model() -> str:
-    if _using_ark():
-        return os.getenv("ARK_MODEL") or os.getenv("OPENAI_MODEL", "deepseek-v4-flash")
-    return os.getenv("OPENAI_MODEL") or os.getenv("ARK_MODEL", "deepseek-v4-flash")
-
-
-def _get_ark_client() -> OpenAI:
-    api_key = os.getenv("ARK_API_KEY") or os.getenv("OPENAI_API_KEY")
-    if _using_ark():
-        base_url = os.getenv("ARK_BASE_URL", "https://ark.cn-beijing.volces.com/api/v3")
-    else:
-        base_url = os.getenv("OPENAI_BASE_URL", "https://api.deepseek.com/v1")
-    if not api_key:
-        raise ValueError(
-            "API key not set. Please set ARK_API_KEY (recommended) or OPENAI_API_KEY."
-        )
-    return OpenAI(base_url=base_url, api_key=api_key)
-
-
 def call_ark(prompt: str, retries: int = 1):
-    """Call Volcano Engine Ark via the OpenAI-compatible endpoint."""
-    client = _get_ark_client()
-    model = _get_ark_model()
-
+    """Call Ark (with DeepSeek-direct fallback) via the shared LLM client."""
     last_error = None
     for attempt in range(retries + 1):
         try:
-            response = client.chat.completions.create(
-                model=model,
+            response = call_llm(
                 messages=[
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": prompt},
@@ -405,6 +382,9 @@ def main():
     state["changed_months"] = sorted((changed_months - processed) | failed_months)
     state["month_themes"] = cached_themes
     save_state(state)
+
+    # Print LLM usage (which API handled each call + token consumption)
+    print_usage_summary()
     return 0
 
 

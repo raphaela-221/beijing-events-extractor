@@ -11,7 +11,7 @@ import traceback
 from typing import List, Dict, Optional
 
 from openai import OpenAI
-from src.llm_client import get_llm_client, get_llm_model
+from src.llm_client import get_llm_model, call_llm
 from src import dedup_key
 
 logger = logging.getLogger(__name__)
@@ -609,7 +609,6 @@ def _extract_events_single(
 ) -> List[Dict]:
     """Single LLM call for event extraction."""
     model = model or get_llm_model()
-    client = get_llm_client()
 
     system_prompt = build_system_prompt(effective_category)
 
@@ -660,12 +659,12 @@ def _extract_events_single(
         )
 
     try:
-        response = client.chat.completions.create(
-            model=model,
+        response = call_llm(
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message},
             ],
+            model=model,
             temperature=0.3,
             max_completion_tokens=32768,
         )
@@ -680,14 +679,14 @@ def _extract_events_single(
 
         # Retry with correction prompt
         try:
-            retry_response = client.chat.completions.create(
-                model=model,
+            retry_response = call_llm(
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_message},
                     {"role": "assistant", "content": content},
                     {"role": "user", "content": "你上次输出的 JSON 格式有误，请修正后重新输出。要求：1) 严格输出合法 JSON 数组；2) 所有字符串值中的引号必须转义为 \\\"；3) 不要包含任何 JSON 之外的文字。"},
                 ],
+                model=model,
                 temperature=0.1,
                 max_completion_tokens=32768,
             )
@@ -865,8 +864,6 @@ def extract_from_city_activity_list(
     # Filter empty-priority events via LLM
     filtered_empty = []
     if empty_priority_events:
-        client = get_llm_client()
-        model = get_llm_model()
         batch_size = 30
 
         for i in range(0, len(empty_priority_events), batch_size):
@@ -908,8 +905,7 @@ def extract_from_city_activity_list(
             )
 
             try:
-                resp = client.chat.completions.create(
-                    model=model,
+                resp = call_llm(
                     messages=[{"role": "user", "content": filter_prompt}],
                     temperature=0.1,
                 )
