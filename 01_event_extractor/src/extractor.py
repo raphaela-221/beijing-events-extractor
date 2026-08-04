@@ -11,6 +11,8 @@ import traceback
 from typing import List, Dict, Optional
 
 from openai import OpenAI
+from src.llm_client import get_llm_client, get_llm_model
+from src import dedup_key
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +27,7 @@ CATEGORIES = {
     "高级别政府会议": "High-profile Government Meetings",
     "极端天气及自然灾害": "Extreme Weather & Natural Disasters",
     "中小学春秋假": "Spring and Autumn Breaks",
+    "中小学寒暑假": "Winter and Summer Vacations",
     "进出京政策": "Entry and Exit Beijing Policies",
 }
 
@@ -52,9 +55,9 @@ _FILENAME_CATEGORY_MAP = {
     "春秋假": "中小学春秋假",
     "春假": "中小学春秋假",
     "秋假": "中小学春秋假",
-    "寒暑假": "中小学春秋假",
-    "寒假": "中小学春秋假",
-    "暑假": "中小学春秋假",
+    "寒暑假": "中小学寒暑假",
+    "寒假": "中小学寒暑假",
+    "暑假": "中小学寒暑假",
     "进出京": "进出京政策",
     "进京": "进出京政策",
     "出京": "进出京政策",
@@ -168,6 +171,8 @@ CATEGORY_PROMPTS = {
 ## Priority 判定（严格）
 **只有放假时间公告类事件才可能标High，配套措施/文旅促销一律不标High！**
 
+**为何纳入外地城市（inbound 原理）**：各地中小学寒暑假虽发生在京外，但会**带动**北京入境游（亲子家庭假期出行赴京），与「各地极端天气阻挡游客进京」作用相反。故省会/新一线城市的放假安排纳入本分类并按下方规则标High。
+
 放假时间公告事件的Priority判定：
 - **High**：该城市为省会城市 且 文章包含明确的放假时间安排
 - **High**：连休窗口总天数 ≥ 6天（假期本身 + 相连的法定假日/周末）
@@ -223,12 +228,14 @@ CATEGORY_PROMPTS = {
 - **仅提取参与人数大于10,000人的活动，或国际级/国家级重要会议和展览**
 - 地方性/行业性小型活动（参与人数<10,000且非国际国家级）不提取
 - 无法判断人数时，需根据会议/展览名称和内容评估其级别
+- **博物馆/纪念馆/美术馆的展览一律不提取**（含常设展、特展、临展、馆藏精品展、科普主题展、光影展等，不论规模）。本分类只提取大型会议、博览会、交易会、论坛等，不收任何博物馆展览
 
 ## Priority 判定
 - **High**：参与人数明确>10,000人的活动
 - **High**：无法判断人数，但为国际知名展会/会议（如广交会、博鳌论坛、达沃斯论坛、进博会等）
 - **High**：国家级重要会议/展览（如全国两会相关、中国国际工业博览会等）
 - 空字符串：其他符合筛选标准但非国际/国家级的活动
+- **强制不标High（Priority必须为空）**：会期>20天（End Date - Start Date + 1 > 20）的跨月长周期展会/会议，即使符合上述High条件也必须留空——这类不是离散大事件，在月历视图会拉出超长条形。如确为重要长周期活动，可在"备注"说明并按主力活动窗口拆分或收窄日期。
 
 ## Event Keywords 格式
 只保留**事件名称**即可，例如：
@@ -259,6 +266,7 @@ CATEGORY_PROMPTS = {
 - **High**：国际知名赛事（如奥运会、世界杯、亚运会、F1、NBA中国赛等）
 - **High**：国家级重大赛事（如全运会、中超联赛、CBA全明星等）
 - 空字符串：其他符合筛选标准但非国际/国家级的赛事
+- **强制不标High（Priority必须为空）**：会期>20天（End Date - Start Date + 1 > 20）的跨月长周期赛事/联赛段（如3x3超级争霸赛赛季、贯穿数月的联赛周期），即使符合上述High条件也必须留空——这类不是离散大事件，在月历视图会拉出超长条形。如确为重要长周期赛事，可在"备注"说明并按主力比赛窗口拆分或收窄日期。
 
 ## Event Keywords 格式
 只保留**赛事名称**即可，例如：
@@ -382,6 +390,8 @@ CATEGORY_PROMPTS = {
 - **High**：导致航班大面积取消、高铁停运、高速封闭的事件
 - 空字符串：局部影响、普通预警（蓝/黄色）、未造成实质交通影响
 
+**为何纳入外地极端天气（inbound 原理）**：各地极端天气虽发生在京外，但会**阻挡**外地游客进京（航班取消/高铁停运/高速封闭导致出行中断），与「各地中小学寒暑假带动入境游」作用相反。故多省大范围、导致交通中断的极端天气纳入本分类并标High。
+
 ## Event Keywords 格式
 简洁表明事件即可，例如：
 - "2026年4月华北地区沙尘暴 导致航班大面积取消"
@@ -419,30 +429,6 @@ CATEGORY_PROMPTS = {
 }
 
 
-def get_llm_client() -> OpenAI:
-    """Create an OpenAI client configured from environment variables."""
-    api_key = os.getenv("OPENAI_API_KEY")
-    base_url = os.getenv("OPENAI_BASE_URL", "https://api.deepseek.com/v1")
-
-    if not api_key:
-        raise ValueError(
-            "OPENAI_API_KEY not set. Please set it in .env file or environment variable."
-        )
-
-    import httpx
-    bypass_proxy = os.getenv("OPENAI_BYPASS_PROXY", "1") == "1"
-    http_client = httpx.Client(
-        timeout=300.0,
-        trust_env=not bypass_proxy,
-    )
-
-    return OpenAI(
-        base_url=base_url,
-        api_key=api_key,
-        http_client=http_client,
-    )
-
-
 def guess_category_from_filename(file_name: str) -> Optional[str]:
     """Infer event category from filename."""
     from urllib.parse import unquote
@@ -475,8 +461,18 @@ def get_category_type_name(category: str) -> str:
 def build_system_prompt(category: str) -> str:
     """Build full system prompt for a category."""
     base = _BASE_SYSTEM_PROMPT
-    category_prompt = CATEGORY_PROMPTS.get(category, "")
-    type_name_note = f'\n\n# 当前提取的事件类型\n事件类型固定为："{get_category_type_name(category)}"'
+    # 中小学寒暑假 与 中小学春秋假 共用同一套假期提取 prompt（该 prompt 已覆盖
+    # 寒假/暑假/春假/秋假）。事件级 Topic 由 _postprocess_events 按 keywords 里的
+    # 假期类型逐条判定，LLM 只需准确提取放假时间，无需纠结事件类型字段。
+    prompt_category = "中小学春秋假" if category in ("中小学春秋假", "中小学寒暑假") else category
+    category_prompt = CATEGORY_PROMPTS.get(prompt_category, "")
+    if category in ("中小学春秋假", "中小学寒暑假"):
+        type_name_note = (
+            "\n\n# 当前提取的事件类型\n本任务提取中小学假期（春假/秋假/寒假/暑假）放假时间。"
+            "事件类型字段可留空，系统会按假期类型自动归类为「中小学春秋假」或「中小学寒暑假」。"
+        )
+    else:
+        type_name_note = f'\n\n# 当前提取的事件类型\n事件类型固定为："{get_category_type_name(category)}"'
 
     return base + category_prompt + type_name_note
 
@@ -489,7 +485,7 @@ def _filter_events_by_city(events: List[Dict]) -> List[Dict]:
             str(event.get("Headline", "")),
             str(event.get("Event Keywords", "")),
             str(event.get("Event Description", "")),
-            str(event.get("备注/地点", "") or event.get("备注", "")),
+            str(event.get("备注", "") or event.get("备注/地点", "")),
         ])
 
         is_province_level = False
@@ -538,11 +534,13 @@ def extract_events(
     Auto-chunks long text to avoid context window limits.
     """
     if mode == "spring_break":
-        effective_category = "中小学春秋假"
+        # 不再强制中小学春秋假：用文件级 category（main.py 按文件名推断的中小学春秋假 /
+        # 中小学寒暑假）。事件级细分由 _postprocess_events 按 keywords 里的假期类型逐条判定。
+        effective_category = category or "中小学春秋假"
     else:
         effective_category = category or "中小学春秋假"
 
-    model = model or os.getenv("OPENAI_MODEL", "deepseek-v4-flash")
+    model = model or get_llm_model()
 
     _CHUNK_SIZE = 25_000
     _CHUNK_OVERLAP = 2_000
@@ -593,7 +591,7 @@ def extract_events(
     events = _postprocess_events(events, effective_category)
 
     # City whitelist filter for spring break
-    if mode == "spring_break" or effective_category == "中小学春秋假":
+    if mode == "spring_break" or effective_category in ("中小学春秋假", "中小学寒暑假"):
         events = _filter_events_by_city(events)
         for idx, event in enumerate(events, 1):
             event["No."] = idx
@@ -606,10 +604,11 @@ def _extract_events_single(
     raw_text: str,
     effective_category: str,
     topic: str = "",
-    model: str = "deepseek-v4-flash",
+    model: str = "",
     extra_info: str = "",
 ) -> List[Dict]:
     """Single LLM call for event extraction."""
+    model = model or get_llm_model()
     client = get_llm_client()
 
     system_prompt = build_system_prompt(effective_category)
@@ -618,6 +617,7 @@ def _extract_events_single(
 
     _KEYWORDS_RULES = {
         "中小学春秋假": "Event Keywords 用一句话清楚表述放假城市和时间（如'杭州市3月27-31日春假，连休5天'）",
+        "中小学寒暑假": "Event Keywords 用一句话清楚表述放假城市和时间（如'合肥市义务教育阶段暑假7月1日至8月31日 共62天'）",
         "大型会议和展览": "Event Keywords 只保留事件名称即可（如'中国发展高层论坛2026年年会'）",
         "体育赛事": "Event Keywords 只保留赛事名称即可（如'2026北京马拉松'）",
         "文娱活动": "Event Keywords 只保留活动名称即可（如'第十六届北京国际电影节'）",
@@ -728,60 +728,11 @@ def _parse_json_response(content: str) -> List[Dict]:
     return events
 
 
-def _normalize_city(name: str) -> str:
-    """Normalize city/province name for fuzzy matching."""
-    if not name:
-        return ""
-    n = re.sub(r"(省|市|自治区|壮族自治区|维吾尔|回族|藏族|特别行政区)$", "", name.strip())
-    n = n.replace(" ", "")
-    return n
-
-
-_CITY_ALIASES = {
-    "内蒙": "内蒙古", "呼和浩特": "内蒙古",
-    "银川": "宁夏",
-    "拉萨": "西藏",
-    "南宁": "广西",
-    "乌鲁木齐": "新疆",
-    "长春": "吉林", "吉林市": "吉林",
-    "哈尔滨": "黑龙江",
-    "沈阳": "辽宁", "大连": "辽宁",
-    "石家庄": "河北",
-    "济南": "山东", "青岛": "山东",
-    "郑州": "河南",
-    "武汉": "湖北",
-    "长沙": "湖南",
-    "南昌": "江西",
-    "合肥": "安徽",
-    "南京": "江苏",
-    "杭州": "浙江",
-    "福州": "福建",
-    "广州": "广东", "深圳": "广东",
-    "海口": "海南",
-    "成都": "四川", "重庆": "重庆",
-    "贵阳": "贵州",
-    "昆明": "云南",
-    "西安": "陕西",
-    "兰州": "甘肃",
-    "西宁": "青海",
-    "太原": "山西",
-    "北京": "北京",
-    "上海": "上海",
-    "天津": "天津",
-}
-
-
-def _extract_city_from_headline(headline: str) -> str:
-    """Extract city/province name from Headline."""
-    if not headline:
-        return ""
-    for city, region in _CITY_ALIASES.items():
-        if city in headline:
-            return region
-    m = re.search(r"([一-鿿]{2,4})(省|市|自治区)", headline)
-    if m:
-        return _normalize_city(m.group(0))
-    return ""
+# City extraction + dedup keying live in src.dedup_key (shared with the
+# calendar pipeline). The old _CITY_ALIASES mapped city->PROVINCE, which both
+# missed dups (province not extractable from some headlines) and risked false
+# merges (two cities in one province). dedup_key.extract_city returns the CITY.
+# _deduplicate_events below delegates to dedup_key.deduplicate_events.
 
 
 def extract_from_city_activity_list(
@@ -853,6 +804,15 @@ def extract_from_city_activity_list(
         f"Priority列={priority_col}, 名称列={headline_col}, 描述列={desc_col}"
     )
 
+    # 用户规则：博物馆展览一律不记录（不作为大型会议和展览纳入事件列表）。
+    # 在任何处理前整行丢弃，避免进入 Priority 过滤 / LLM 筛选流程。
+    if category_col and category_col in df.columns:
+        before = len(df)
+        df = df[df[category_col].astype(str).str.strip() != "博物馆展览"].reset_index(drop=True)
+        dropped = before - len(df)
+        if dropped:
+            logger.info(f"[城市活动列表] 排除博物馆展览 {dropped} 行（用户规则不记录）")
+
     def _is_major_city_list_concert(event: dict) -> bool:
         text = " ".join(str(v or "") for v in event.values()).lower()
         if not any(k in text for k in ["演唱会", "concert", "音乐嘉年华"]):
@@ -906,7 +866,7 @@ def extract_from_city_activity_list(
     filtered_empty = []
     if empty_priority_events:
         client = get_llm_client()
-        model = os.getenv("OPENAI_MODEL", "deepseek-v4-flash")
+        model = get_llm_model()
         batch_size = 30
 
         for i in range(0, len(empty_priority_events), batch_size):
@@ -937,7 +897,7 @@ def extract_from_city_activity_list(
                 "- 沉浸式戏剧/密室逃脱/剧本杀类演出\n"
                 "- 小型Livehouse音乐会/个人小型演唱会（非大型巡演）\n"
                 "- 社区活动/公园常规科普/周末市集\n"
-                "- 博物馆常规常设展览（非特展/大型临展）\n"
+                "- 所有博物馆/纪念馆/美术馆展览（含常设展、特展、临展、馆藏精品展、科普主题展、光影展等，不论规模一律排除）\n"
                 "- 普通游园/赏花/徒步活动（无特殊影响）\n"
                 "- 任何名称中带有'脱口秀''儿童剧''开放麦''驻场''常规'等字样的活动\n"
                 "- 任何没有明确旅游影响或公共安全影响的小型商业演出\n\n"
@@ -979,7 +939,6 @@ def extract_from_city_activity_list(
     # Topic → standard 8-category mapping (city activity list uses non-standard Topic names)
     _TOPIC_TO_CATEGORY = {
         "展会活动": "大型会议和展览",
-        "博物馆展览": "大型会议和展览",
         "会议": "大型会议和展览",
         "展览": "大型会议和展览",
         "体育赛事": "体育赛事",
@@ -1021,9 +980,9 @@ def extract_from_city_activity_list(
         mapped_category = _TOPIC_TO_CATEGORY.get(topic_val, topic_val)
         # Ensure final value is one of the 8 standard categories
         if mapped_category in CATEGORIES:
-            std_event["事件类型"] = get_category_type_name(mapped_category)
+            std_event["Topic"] = get_category_type_name(mapped_category)
         else:
-            std_event["事件类型"] = _normalize_category(mapped_category)
+            std_event["Topic"] = _normalize_category(mapped_category)
 
         for orig_col, std_col in [
             (headline_col, "Headline"),
@@ -1032,8 +991,7 @@ def extract_from_city_activity_list(
             (keywords_col, "Event Keywords"),
             (impact_col, "Impact"),
             (priority_col, "Priority"),
-            (location_col, "备注/地点"),
-            (source_col, "来源"),
+            (location_col, "备注"),
         ]:
             if orig_col and orig_col in event:
                 std_event[std_col] = event[orig_col]
@@ -1072,60 +1030,62 @@ def _find_col_from_map(col_map: dict, candidates: list[str]) -> Optional[str]:
 
 
 def _deduplicate_events(events: List[Dict]) -> List[Dict]:
-    """Deduplicate events by city+date+type combination."""
+    """Deduplicate events across the full merged set (existing Excel + new).
+
+    Thin wrapper over src.dedup_key.deduplicate_events so the extraction flow
+    and the standalone Excel dedup share ONE key definition. Returns the kept
+    list (main.py expects a list). See dedup_key for the city-level,
+    vacation-type-aware keying rationale (replaces the old province-level key
+    that both missed dups and risked false merges).
+    """
     if not events:
         return events
+    kept, removed = dedup_key.deduplicate_events(events)
+    if removed:
+        logger.info(f"Deduplication: {len(events)} -> {len(kept)} (removed {len(removed)})")
+    return kept
 
-    seen = {}
-    result = []
-    for event in events:
-        headline = str(event.get("Headline", "")).strip()
-        start_date = str(event.get("Start Date", "")).strip()
-        end_date = str(event.get("End Date", "")).strip()
-        event_type = str(event.get("事件类型", "")).strip()
-        event_keywords = str(event.get("Event Keywords", "")).strip()
 
-        city = _extract_city_from_headline(headline)
-        if not city:
-            city = _extract_city_from_headline(event_keywords)
+def _vacation_topic_for_event(event: Dict, fallback_category: str = "中小学春秋假") -> str:
+    """按事件内容判定中小学春秋假 / 中小学寒暑假。
 
-        key = f"{city}|{start_date}|{end_date}|{event_type}"
-
-        if not city:
-            key = f"{headline}|{start_date}|{end_date}"
-
-        if key not in seen:
-            seen[key] = len(result)
-            result.append(event)
-        else:
-            existing_idx = seen[key]
-            existing_source = str(result[existing_idx].get("_source", "")).strip()
-            new_source = str(event.get("_source", "")).strip()
-            if new_source == "city_activity_list" and existing_source != "city_activity_list":
-                result[existing_idx] = event
-                logger.info(f"Deduplication: replaced with city_activity_list version for key={key}")
-
-    logger.info(f"Deduplication: {len(events)} events → {len(result)} unique events")
-    return result
+    只有明确的 暑假/寒假 放假时间公告归入中小学寒暑假；春假/秋假/雪假以及无法判定
+    假期类型的（如"暑期公益托管"配套措施，含"暑期"而非"暑假"）一律归入中小学春秋假。
+    注意："暑期托管"不算暑假放假，不归入中小学寒暑假。
+    与 canonical 主表、calendar 的 topic_subtype 逻辑一致（复用 dedup_key.vacation_type）。
+    """
+    kw = str(event.get("Event Keywords", "") or event.get("keywords_zh", ""))
+    hl = str(event.get("Headline", "") or event.get("headline", ""))
+    vtype = dedup_key.vacation_type(kw) or dedup_key.vacation_type(hl)
+    if vtype in ("暑假", "寒假"):
+        return get_category_type_name("中小学寒暑假")
+    # 春假/秋假/雪假/暑期托管/无法判定 -> 中小学春秋假（默认假期类别）
+    return get_category_type_name("中小学春秋假")
 
 
 def _postprocess_events(events: List[Dict], effective_category: str) -> List[Dict]:
     """Post-process: unify event type field + field name mapping."""
+    is_vacation = effective_category in ("中小学春秋假", "中小学寒暑假")
     if effective_category:
-        type_name = get_category_type_name(effective_category)
         for event in events:
-            event["事件类型"] = type_name
+            if is_vacation:
+                event["Topic"] = _vacation_topic_for_event(event, effective_category)
+            else:
+                event["Topic"] = get_category_type_name(effective_category)
+            event.pop("事件类型", None)
     else:
         for event in events:
-            if not event.get("事件类型"):
-                event["事件类型"] = "自动判断"
+            topic_val = event.get("Topic") or event.get("事件类型")
+            if not topic_val:
+                event["Topic"] = "自动判断"
             else:
                 # Normalize non-standard category names to one of the 8 standard categories
-                event["事件类型"] = _normalize_category(event["事件类型"])
+                event["Topic"] = _normalize_category(topic_val)
+                event.pop("事件类型", None)
 
     for event in events:
-        if "备注" in event and "备注/地点" not in event:
-            event["备注/地点"] = event.pop("备注")
+        if "备注/地点" in event:
+            event.setdefault("备注", event.pop("备注/地点"))
         event.pop("Headline.1", None)
 
     return events
