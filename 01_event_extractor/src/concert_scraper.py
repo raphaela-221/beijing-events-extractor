@@ -17,7 +17,7 @@ from urllib.parse import quote
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 from openai import OpenAI
-from src.llm_client import get_llm_client, get_llm_model
+from src.llm_client import call_llm
 
 logger = logging.getLogger(__name__)
 
@@ -106,8 +106,6 @@ def _translate_concert_names(names: List[str]) -> Dict[str, str]:
     fallback = {name: _fallback_english_title(name) for name in unique_names}
 
     try:
-        client = get_llm_client(timeout=120.0)
-        model = get_llm_model()
         messages = [
             {
                 "role": "system",
@@ -121,17 +119,14 @@ def _translate_concert_names(names: List[str]) -> Dict[str, str]:
 
         # Some providers (including Ark) do not support response_format=json_object.
         # Try it first; if it fails, fall back to plain text and parse JSON manually.
+        # call_llm also adds provider fallback (Ark -> DeepSeek direct) on API errors.
         try:
-            response = client.chat.completions.create(
-                model=model,
+            response = call_llm(
                 messages=messages,
                 response_format={"type": "json_object"},
             )
         except Exception:
-            response = client.chat.completions.create(
-                model=model,
-                messages=messages,
-            )
+            response = call_llm(messages=messages)
 
         content = response.choices[0].message.content or "{}"
         data = json.loads(content)
