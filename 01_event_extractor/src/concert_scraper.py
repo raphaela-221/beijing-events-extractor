@@ -182,6 +182,96 @@ def _save_state(state: dict) -> None:
 
 
 # ============================================================
+# 采集统计与回显
+# ============================================================
+
+_LAST_SCRAPE_STATS: Optional[dict] = None
+
+
+def _new_scrape_stats() -> dict:
+    """采集过程各阶段的计数与失败样本，用于最后回显。"""
+    return {
+        "list_total": 0,       # 列表页分段：真正尝试抓取的段数（拆分探测不计）
+        "list_ok": 0,          # 列表页分段：成功
+        "list_failed": 0,      # 列表页分段：失败
+        "list_failures": [],   # 失败样本 [{range, error}, ...] 最多 5
+        "list_items": 0,       # 列表页抓到的原始条目数
+        "detail_total": 0,     # 详情页：尝试
+        "detail_ok": 0,        # 详情页：成功解析
+        "detail_no_table": 0,  # 详情页：页面无详情表格
+        "detail_failed": 0,    # 详情页：异常
+        "detail_failures": [], # 失败样本 [{name, url, error}, ...] 最多 5
+        "filt_keyword": 0,     # 过滤：非演唱会关键词
+        "filt_dup": 0,         # 过滤：增量已采集
+        "filt_non_bj": 0,      # 过滤：非北京
+        "filt_venue": 0,       # 过滤：场地过小
+        "final": 0,            # 最终事件数
+    }
+
+
+def _record_failure(bucket: list, item: dict, limit: int = 5) -> None:
+    if len(bucket) < limit:
+        bucket.append(item)
+
+
+def _set_last_scrape_stats(stats: dict) -> None:
+    global _LAST_SCRAPE_STATS
+    _LAST_SCRAPE_STATS = stats
+
+
+def get_last_scrape_stats() -> Optional[dict]:
+    """返回最近一次 scrape_beijing_concerts 的采集统计，供调用方判断成败。"""
+    return _LAST_SCRAPE_STATS
+
+
+def _print_concert_report(stats: dict) -> None:
+    """打印演唱会采集回显块（照 [LLM] 用量回显的风格）。"""
+    print("\n🎤 [Concert] 采集回显")
+    print(
+        f"  列表页分段：{stats['list_total']} 段"
+        f"（成功 {stats['list_ok']} / 失败 {stats['list_failed']}）"
+        f" | 列表条目 {stats['list_items']}"
+    )
+    print(
+        f"  详情页：{stats['detail_total']} 条"
+        f"（成功 {stats['detail_ok']} / 失败 {stats['detail_failed']}"
+        f" / 无表格 {stats['detail_no_table']}）"
+    )
+    print(
+        f"  过滤：关键词 {stats['filt_keyword']} / 已采集 {stats['filt_dup']}"
+        f" / 非北京 {stats['filt_non_bj']} / 场地小 {stats['filt_venue']}"
+    )
+    print(f"  最终：{stats['final']} 条演唱会")
+
+    # 列表页失败判定
+    if stats["list_total"] > 0 and stats["list_ok"] == 0:
+        print(
+            "  ⚠️ 列表页全部分段失败！网站可能不可达或 SM4 接口变更，"
+            "请检查 zwfw.mct.gov.cn 是否能打开、chromium 是否已安装。"
+        )
+    elif stats["list_failed"] > 0:
+        n = len(stats["list_failures"])
+        print(f"  ⚠️ 列表页 {stats['list_failed']} 个分段失败（样本 {n} 条）：")
+        for f in stats["list_failures"]:
+            print(f"     - {f['range']}: {f['error']}")
+
+    # 详情页失败判定
+    detail_all_bad = (
+        stats["detail_total"] > 0
+        and stats["detail_ok"] == 0
+        and stats["detail_total"] == stats["detail_failed"] + stats["detail_no_table"]
+    )
+    if detail_all_bad:
+        print("  ⚠️ 详情页全部解析失败！可能详情页结构变更，请检查。")
+    elif stats["detail_failed"] > 0:
+        n = len(stats["detail_failures"])
+        print(f"  ⚠️ 详情页 {stats['detail_failed']} 条异常（样本 {n} 条）：")
+        for f in stats["detail_failures"]:
+            label = f.get("name") or f.get("url", "")
+            print(f"     - {label}: {f['error']}")
+
+
+# ============================================================
 # Playwright 辅助函数
 # ============================================================
 
@@ -250,7 +340,7 @@ def _split_range(start_dt: datetime, end_dt: datetime, step: str) -> List[tuple]
     return _build_ranges_by_step(start_dt, end_dt, next_step)
 
 
-def _scrape_list_items(page, start_date: str, end_date: str) -> List[Dict]:
+def _scrape_list_items(page, start_date: str, end_date: str, stats: dict) -> List[Dict]:
     """
     用 Playwright 抓取指定日期范围的列表页，返回详情链接列表。
     分段策略：过去按3天，未来6个月内按月，6个月以后按半年；超过15条逐级拆小。
@@ -277,6 +367,7 @@ def _scrape_list_items(page, start_date: str, end_date: str) -> List[Dict]:
         )
 
         try:
+            stats["list_total"] += 1
             logger.info(f"Fetching list: {s} to {e}")
             page.goto(url, wait_until="networkidle", timeout=30000)
 
@@ -292,6 +383,7 @@ def _scrape_list_items(page, start_date: str, end_date: str) -> List[Dict]:
             if total_count > 15 and (e_dt - s_dt).days >= 1:
                 smaller_ranges = _split_range(s_dt, e_dt, step)
                 if smaller_ranges:
+                    stats["list_total"] -= 1  # 拆分探测，不计入分段统计
                     logger.info(
                         f"Range {s}~{e} ({step}) has {total_count} items, "
                         f"splitting into {smaller_ranges[0][2]} ranges"
@@ -336,16 +428,24 @@ def _scrape_list_items(page, start_date: str, end_date: str) -> List[Dict]:
                         "date": list_date,
                     })
 
+            stats["list_ok"] += 1
             logger.info(f"Found {len(rows) - 1} items for {s}~{e}")
 
         except Exception as ex:
             logger.error(f"Error fetching list for {s} to {e}: {ex}")
+            stats["list_failed"] += 1
+            _record_failure(
+                stats["list_failures"],
+                {"range": f"{s}~{e}", "error": str(ex)[:120]},
+            )
 
+    stats["list_items"] = len(all_items)
     return all_items
 
 
-def _scrape_detail_page(page, url: str) -> Optional[Dict]:
+def _scrape_detail_page(page, url: str, name: str, stats: dict) -> Optional[Dict]:
     """用 Playwright + BeautifulSoup 抓取详情页。"""
+    stats["detail_total"] += 1
     try:
         page.goto(url, wait_until="networkidle", timeout=30000)
         html = page.content()
@@ -355,6 +455,7 @@ def _scrape_detail_page(page, url: str) -> Optional[Dict]:
         table = soup.find("table", class_="list")
         if not table:
             logger.warning(f"No detail table found at {url}")
+            stats["detail_no_table"] += 1
             return None
 
         data = {
@@ -406,10 +507,16 @@ def _scrape_detail_page(page, url: str) -> Optional[Dict]:
                     data[field_name] = value
                     break
 
+        stats["detail_ok"] += 1
         return data
 
     except Exception as ex:
         logger.error(f"Error fetching detail {url}: {ex}")
+        stats["detail_failed"] += 1
+        _record_failure(
+            stats["detail_failures"],
+            {"name": name, "url": url, "error": str(ex)[:120]},
+        )
         return None
 
 
@@ -422,7 +529,7 @@ def _scrape_concerts_impl(
     end_date: str,
     incremental: bool = False,
     min_venue_size: str = "medium",
-) -> List[Dict]:
+) -> tuple:
     """
     抓取北京演唱会信息的核心逻辑。
 
@@ -433,8 +540,9 @@ def _scrape_concerts_impl(
         min_venue_size: 最小场馆规模 "small"|"medium"|"large"
 
     返回:
-        标准事件格式（与本项目 extractor.py 输出兼容）的列表
+        (concerts, stats): concerts 为标准事件 dict 列表，stats 为采集统计 dict
     """
+    stats = _new_scrape_stats()
     # 加载已采集 URL
     state = _load_state()
     known_urls = set(state.get("scraped_urls", [])) if incremental else set()
@@ -466,16 +574,18 @@ def _scrape_concerts_impl(
         try:
             # 1. 采集列表页
             logger.info(f"Fetching list from {start_date} to {end_date}...")
-            items = _scrape_list_items(page, start_date, end_date)
+            items = _scrape_list_items(page, start_date, end_date, stats)
             logger.info(f"Total list items: {len(items)}")
 
             # 2. 列表页关键词过滤 + URL 去重
             filtered = []
             for item in items:
                 if not _is_concert(item["name"]):
+                    stats["filt_keyword"] += 1
                     logger.debug(f"Excluded by keyword: {item['name']}")
                     continue
                 if incremental and item["url"] in known_urls:
+                    stats["filt_dup"] += 1
                     logger.debug(f"Already scraped: {item['url']}")
                     continue
                 filtered.append(item)
@@ -484,13 +594,15 @@ def _scrape_concerts_impl(
 
             # 3. 采集详情页
             for item in filtered:
-                detail = _scrape_detail_page(page, item["url"])
+                detail = _scrape_detail_page(page, item["url"], item["name"], stats)
                 if not detail:
+                    # _scrape_detail_page 内部已统计（no_table / failed）
                     logger.info(f"Dropped concert candidate: detail parse failed | {item['name']} | {item['url']}")
                     continue
 
                 location = detail.get("location", "")
                 if "北京" not in location:
+                    stats["filt_non_bj"] += 1
                     logger.info(
                         f"Dropped concert candidate: non-Beijing or missing location | "
                         f"{detail.get('name') or item['name']} | location={location}"
@@ -502,6 +614,7 @@ def _scrape_concerts_impl(
                 venue_size = _get_venue_size(venue)
                 min_level = SIZE_ORDER.get(min_venue_size, 1)
                 if SIZE_ORDER.get(venue_size, 0) < min_level:
+                    stats["filt_venue"] += 1
                     logger.info(
                         f"Dropped concert candidate: venue too small | "
                         f"{detail.get('name') or item['name']} | venue={venue} | size={venue_size}"
@@ -526,7 +639,8 @@ def _scrape_concerts_impl(
         _save_state(state)
         logger.info(f"State updated: {len(new_urls)} new URLs, total {len(all_urls)}")
 
-    return _dedupe_concert_details(concerts)
+    deduped = _dedupe_concert_details(concerts)
+    return deduped, stats
 
 
 def _dedupe_concert_details(concerts: List[Dict]) -> List[Dict]:
@@ -590,7 +704,7 @@ def scrape_beijing_concerts(
         f"incremental={incremental}, min_venue={min_venue_size}"
     )
 
-    concerts = _scrape_concerts_impl(
+    concerts, stats = _scrape_concerts_impl(
         start_date=start_date,
         end_date=end_date,
         incremental=incremental,
@@ -605,6 +719,10 @@ def scrape_beijing_concerts(
         if event:
             events.append(event)
 
+    # 最终事件数以翻译/转换后为准
+    stats["final"] = len(events)
+    _set_last_scrape_stats(stats)
+    _print_concert_report(stats)
     logger.info(f"Total concert events: {len(events)}")
     return events
 

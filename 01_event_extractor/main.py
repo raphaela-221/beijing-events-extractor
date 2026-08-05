@@ -49,7 +49,7 @@ from src.extractor import (
 from src.preprocess import read_and_preprocess_file, pre_filter_raw_text
 from src.excel_builder import build_excel
 from src.file_utils import extract_filename_from_url
-from src.concert_scraper import scrape_beijing_concerts
+from src.concert_scraper import scrape_beijing_concerts, get_last_scrape_stats
 from src.llm_client import print_usage_summary
 
 logging.basicConfig(
@@ -262,7 +262,17 @@ def process_files(
                 all_events.extend(concert_events)
                 print(f"采集到 {len(concert_events)} 条演唱会信息")
             else:
-                print("本次未采集到新的演唱会信息")
+                # 区分"真没有新数据" vs "抓取失败"
+                st = get_last_scrape_stats() or {}
+                list_total = st.get("list_total", 0)
+                list_ok = st.get("list_ok", 0)
+                if list_total > 0 and list_ok == 0:
+                    print(
+                        "⚠️ 演唱会采集失败：列表页全部分段抓取失败（见上方 [Concert] 回显），"
+                        "本次无新增。请检查网站可达性 / chromium 是否安装。"
+                    )
+                else:
+                    print("本次未采集到新的演唱会信息（网站可能暂无新数据，或全部已采集过）")
         except Exception as e:
             logger.warning(f"演唱会采集失败: {e}")
             print(f"⚠️ 演唱会采集失败: {e}")
