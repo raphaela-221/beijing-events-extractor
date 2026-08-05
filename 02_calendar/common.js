@@ -570,9 +570,50 @@ function shortLabel(e, lang, opts) {
 }
 
 function eventOnDay(e, d) {
+  /* 离散场次（Dates 列展开）：d 命中日期数组即算；否则按 start/end 连续区间 */
+  if (e.dates && e.dates.length) {
+    const key = d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+    return e.dates.indexOf(key) !== -1;
+  }
   const s = stripTime(parseDate(e.start));
   const t = stripTime(parseDate(e.end));
   return d >= s && d <= t;
+}
+
+/* 把 e.dates 压缩成「8月14-16日、19日、21-23日、28-30日 · 共 10 场」。
+   单日「8月14日」；跨月用 ; 分隔。e 无 dates 返回 null（调用方回退 start/end 显示）。 */
+function fmtDateList(e, lang) {
+  const ds = e && e.dates;
+  if (!ds || !ds.length) return null;
+  const en = lang === 'en';
+  const parsed = ds.map(s => { const p = s.split('-'); return { y: +p[0], m: +p[1], d: +p[2] }; });
+  const groups = [];
+  let cur = null;
+  parsed.forEach(p => {
+    if (cur && cur.y === p.y && cur.m === p.m) cur.days.push(p.d);
+    else { cur = { y: p.y, m: p.m, days: [p.d] }; groups.push(cur); }
+  });
+  const parts = groups.map(g => {
+    g.days.sort((a, b) => a - b);
+    const segs = [];
+    let segStart = g.days[0], prev = g.days[0];
+    for (let i = 1; i < g.days.length; i++) {
+      if (g.days[i] === prev + 1) { prev = g.days[i]; continue; }
+      segs.push([segStart, prev]); segStart = prev = g.days[i];
+    }
+    segs.push([segStart, prev]);
+    const mLabel = en ? (g.m + '/') : (g.m + '月');
+    return segs.map((sg, idx) => {
+      const prefix = idx === 0 ? mLabel : '';  /* 首段带月份，同月后续段省略 */
+      if (sg[0] === sg[1]) return en ? (prefix + sg[0]) : (prefix + sg[0] + '日');
+      return en ? (prefix + sg[0] + '-' + sg[1]) : (prefix + sg[0] + '-' + sg[1] + '日');
+    }).join(en ? ', ' : '、');
+  });
+  const dateStr = parts.join(en ? '; ' : '、');
+  const count = ds.length;
+  return dateStr + (en ? ` · ${count} shows` : ` · 共 ${count} 场`);
 }
 
 /* ---- 过滤 ---- */
@@ -762,7 +803,7 @@ function getWatchlist(events, opts) {
     .map((e) => {
       const s = stripTime(parseDate(e.start));
       const en = stripTime(parseDate(e.end));
-      const ongoing = s <= today && en >= today;
+      const ongoing = (e.dates && e.dates.length) ? eventOnDay(e, today) : (s <= today && en >= today);
       const upcoming = s >= today && s <= limit;
       if (!ongoing && !upcoming) return null;
 
@@ -819,7 +860,7 @@ function getMonthHighlights(events, y, m) {
     .map((e) => {
       const s = stripTime(parseDate(e.start));
       const en = stripTime(parseDate(e.end));
-      const ongoing = s <= today && en >= today;
+      const ongoing = (e.dates && e.dates.length) ? eventOnDay(e, today) : (s <= today && en >= today);
       const days = Math.round((en - s) / DAY_MS) + 1;
 
       let score = topicWeight[e.topic_zh] || 10;
@@ -854,6 +895,7 @@ function openModal(e) {
   if (!modal || !modalBg) return;
 
   const lang = getLang();
+  const dateList = fmtDateList(e, lang);
   const multi = e.start !== e.end;
   const days = Math.round((stripTime(parseDate(e.end)) - stripTime(parseDate(e.start))) / DAY_MS) + 1;
   const startLabel = fmtDateL(parseDate(e.start), lang);
@@ -876,8 +918,7 @@ function openModal(e) {
     </span>
     <h2>${esc(e.headline)}</h2>
     <div class="meta">
-      <span class="date">${startLabel}</span>
-      ${multi ? `<span class="date">→ ${endLabel}</span><span class="dur">${days} ${t("dayUnit")}</span>` : ""}
+      ${dateList ? `<span class="date">${dateList}</span>` : `<span class="date">${startLabel}</span>${multi ? `<span class="date">→ ${endLabel}</span><span class="dur">${days} ${t("dayUnit")}</span>` : ""}`}
     </div>
     ${e.description ? `<div class="desc">${esc(e.description)}</div>` : ""}
     ${keywordsSection}
@@ -1051,6 +1092,7 @@ let _evtTipAnchor = null;
 function showEventTip(e, anchor) {
   if (!e) return;
   const lang = getLang();
+  const dateList = fmtDateList(e, lang);
   const multi = e.start !== e.end;
   const days = Math.round((stripTime(parseDate(e.end)) - stripTime(parseDate(e.start))) / DAY_MS) + 1;
   const sl = fmtDateL(parseDate(e.start), lang);
@@ -1059,7 +1101,7 @@ function showEventTip(e, anchor) {
   _evtTip.innerHTML =
     `<div class="tt-topic" data-topic="${e.topic_zh}"><span class="swatch"></span>${esc(topicName(e.topic_zh))}</div>` +
     `<div class="tt-head">${esc(e.headline)}</div>` +
-    `<div class="tt-date">${esc(sl)}${multi ? ` -> ${esc(el2)} · ${days} ${t('dayUnit')}` : ''}</div>` +
+    `<div class="tt-date">${dateList ? esc(dateList) : (esc(sl) + (multi ? ` -> ${esc(el2)} · ${days} ${t('dayUnit')}` : ''))}</div>` +
     (kws.length ? `<div class="tt-kw">${kws.map(k => `<span class="k">${esc(k)}</span>`).join('')}</div>` : '');
   _evtTip.classList.add('show');
   const r = anchor.getBoundingClientRect();
