@@ -31,6 +31,7 @@ from openpyxl import load_workbook
 # display layer and the extractor stay consistent.
 sys.path.insert(0, str(Path(__file__).parent.parent / "01_event_extractor"))
 from src import dedup_key
+from dates_parser import parse_dates_field
 
 
 def parse_args():
@@ -128,21 +129,36 @@ def extract_records(ws):
             span = duration_days(start, end)
             if span is not None and span > 20:
                 continue
-        records.append(
-            {
-                "no": cell(row, "No."),
-                "topic_zh": topic_zh,
-                "topic_en": topic_en,
-                "topic_subtype": topic_subtype,
-                "start": start,
-                "end": end,
-                "headline": str(cell(row, "Headline") or ""),
-                "keywords_zh": str(cell(row, "Event Keywords") or ""),
-                "keywords_en": str(cell(row, "Event English Keywords") or ""),
-                "description": str(cell(row, "Event Description") or ""),
-                "link": str(cell(row, "Link") or ""),
-            }
-        )
+        # 离散场次日期（Dates 列）：8.14-16, 8.19, 8.21-23, 8.28-30 -> 日期数组。
+        # 解析成功时用首末覆写 start/end（时间轴横条 / eventsInMonth 归类与月历一致）；
+        # 为空则回退 start/end 连续区间模型（向后兼容，未填 Dates 的事件不受影响）。
+        dates_raw = cell(row, "Dates")
+        fy = fm = None
+        if start:
+            try:
+                _parts = str(start).replace("/", "-").split("-")
+                fy, fm = int(_parts[0]), int(_parts[1])
+            except (ValueError, IndexError):
+                pass
+        dates_list = parse_dates_field(dates_raw, fy, fm)
+        if dates_list:
+            start, end = dates_list[0], dates_list[-1]
+        rec = {
+            "no": cell(row, "No."),
+            "topic_zh": topic_zh,
+            "topic_en": topic_en,
+            "topic_subtype": topic_subtype,
+            "start": start,
+            "end": end,
+            "headline": str(cell(row, "Headline") or ""),
+            "keywords_zh": str(cell(row, "Event Keywords") or ""),
+            "keywords_en": str(cell(row, "Event English Keywords") or ""),
+            "description": str(cell(row, "Event Description") or ""),
+            "link": str(cell(row, "Link") or ""),
+        }
+        if dates_list:
+            rec["dates"] = dates_list
+        records.append(rec)
     return records, total
 
 
@@ -160,6 +176,7 @@ def record_signature(record: dict) -> str:
             "keywords_en": record.get("keywords_en"),
             "description": record.get("description"),
             "link": record.get("link"),
+            "dates": record.get("dates"),
         },
         ensure_ascii=False,
         sort_keys=True,
@@ -292,6 +309,13 @@ def main():
     print("\nMonthly High counts:")
     for m in sorted(mc):
         print(f"  {m}  {mc[m]}")
+
+    # 断点处理回显：含 dates 字段的事件（月历按天精确显示，中间断点不标色块）
+    dated = [r for r in records if r.get("dates")]
+    if dated:
+        print(f"\n含离散场次（Dates 列）的事件 {len(dated)} 条（月历按天精确显示，断点日不标色块）：")
+        for r in dated:
+            print(f"  [{r['start']}~{r['end']}] {r['headline'][:30]}  ({len(r['dates'])} 场)")
 
     starts = [r["start"] for r in records if r["start"]]
     if starts:

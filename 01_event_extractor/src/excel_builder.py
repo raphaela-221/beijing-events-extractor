@@ -76,15 +76,17 @@ EV_DATA_BORDER_LAST = Border(
 )
 
 COLUMNS = [
-    "No.", "Topic", "Link", "Start Date", "End Date", "Priority",
+    "No.", "Topic", "Link", "Start Date", "End Date", "Dates", "Priority",
     "Event Keywords", "Event English Keywords", "Event Description",
     "Headline", "备注"
 ]
 
+# 离散场次日期（可选列，留空回退 Start/End 连续区间）：8.14-16, 8.19, 8.21-23, 8.28-30
+# 详见 02_calendar/dates_parser.py。F 列紧跟 End Date，方便和日期字段成组。
 EV_COL_WIDTHS = {
-    "A": 8.27, "B": 27.09, "C": 8.73, "D": 13, "E": 12.09,
-    "F": 11, "G": 35, "H": 22.82, "I": 36.09,
-    "J": 46, "K": 19.54
+    "A": 8.27, "B": 27.09, "C": 8.73, "D": 13, "E": 12.09, "F": 13,
+    "G": 11, "H": 35, "I": 22.82, "J": 36.09,
+    "K": 46, "L": 19.54
 }
 
 
@@ -241,7 +243,7 @@ def _apply_events_list_styles(ws, num_events: int):
             elif col_name == "Link":
                 cell.font = EV_LINK_FONT
                 cell.alignment = Alignment(vertical="center", wrap_text=True)
-            elif col_name in ("Start Date", "End Date"):
+            elif col_name in ("Start Date", "End Date", "Dates"):
                 cell.alignment = Alignment(horizontal="center", vertical="center")
             elif col_name == "Priority":
                 if str(cell.value).lower() == "high":
