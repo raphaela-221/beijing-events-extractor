@@ -2,7 +2,13 @@
 # -*- coding: utf-8 -*-
 """Enrich canonical Events List.xlsx：LLM 从 Event Description 抽离散场次日期写回 Dates 列。
 
-幂等：已有 Dates 的行跳过；Dates 列不存在则在 End Date 后插入。
+安全写法（零损耗，不损坏 canonical）：
+  - openpyxl 只读读 canonical（read_only=True，绝不 save）
+  - LLM 抽 Dates -> parse_dates_field 校验 -> _compress 压成 "8.14-16, 8.19, ..."
+  - 调 add_dates_column.write_dates() 直接改 XML 把 Dates 写到 R 列（表外）
+  - 不 openpyxl save（避免削 sharedStrings/printerSettings/数据验证 + insert_cols 破坏 table）
+
+幂等：已有 Dates 的行跳过；Dates 列不存在则首次写入时加表头（R1="Dates"）+ 写到 R 列。
 只处理含演唱会/音乐节/演出/巡演 且 description 有日期线索 的行。
 抽取结果用 parse_dates_field 校验，解析失败则跳过（不污染数据）。
 
@@ -18,6 +24,7 @@ from datetime import datetime
 from pathlib import Path
 
 from openpyxl import load_workbook
+from openpyxl.utils import get_column_letter
 from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parent.parent  # 项目根
@@ -26,9 +33,10 @@ CANONICAL = ROOT / "01_event_list_output" / "Events List.xlsx"
 # 先加载 .env（src 模块 import 时读 env var），再 import src
 load_dotenv(dotenv_path=ROOT / ".env")
 
-# dates_parser 在 02_calendar/
+# dates_parser / add_dates_column 在 02_calendar/
 sys.path.insert(0, str(ROOT / "02_calendar"))
 from dates_parser import parse_dates_field  # noqa: E402
+from add_dates_column import write_dates  # noqa: E402
 
 # llm_client 在本目录 src/
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -60,20 +68,6 @@ DATE_HINT = re.compile(
     r"\d{1,2}月\d{1,2}日|\d{4}-\d{1,2}-\d{1,2}|\d{1,2}\.\d{1,2}|至|到"
 )
 CONCERT_HINT = re.compile(r"演唱会|音乐节|巡演|concert|演出")
-
-
-def _ensure_dates_col(ws):
-    """确保 Events List sheet 有 Dates 列，返回 1-based 列号。"""
-    header = [str(c.value).strip() if c.value else "" for c in ws[1]]
-    if "Dates" in header:
-        return header.index("Dates") + 1
-    if "End Date" not in header:
-        raise ValueError("Events List 表头缺 End Date 列，无法定位 Dates 插入位置")
-    end_idx = header.index("End Date") + 1  # 1-based
-    ws.insert_cols(end_idx + 1)
-    ws.cell(row=1, column=end_idx + 1, value="Dates")
-    print(f"  插入 Dates 列于第 {end_idx + 1} 列（End Date 后）")
-    return end_idx + 1
 
 
 def _compress(dates_list):
@@ -113,32 +107,61 @@ def _parse_llm_output(raw):
 
 
 def enrich(excel_path, dry_run=False):
-    wb = load_workbook(excel_path)
+    """openpyxl 只读抽 Dates，write_dates 写 R 列。不 openpyxl save。"""
+    wb = load_workbook(excel_path, read_only=True, data_only=True)
     if "Events List" not in wb.sheetnames:
+        wb.close()
         raise ValueError(f"{excel_path} 无 'Events List' sheet")
     ws = wb["Events List"]
 
-    dates_col = _ensure_dates_col(ws)
-    header = [str(c.value).strip() if c.value else "" for c in ws[1]]
-    col = {n: i + 1 for i, n in enumerate(header)}  # 1-based
+    # 读表头
+    header = []
+    for row in ws.iter_rows(min_row=1, max_row=1, values_only=True):
+        header = [str(c).strip() if c is not None else "" for c in row]
+        break
+    col = {n: i for i, n in enumerate(header)}  # 0-based index into row tuple
 
+    # Dates 列位置检查：只允许 R 列（或不存在）
+    dates_tuple_idx = None
+    if "Dates" in header:
+        dates_tuple_idx = header.index("Dates")
+        dates_letter = get_column_letter(dates_tuple_idx + 1)
+        if dates_letter != "R":
+            wb.close()
+            raise ValueError(
+                f"已有 Dates 列在 {dates_letter} 列，不是 R。本脚本只写 R 列，"
+                f"不与旧 openpyxl insert_cols 版混用。请先恢复无 Dates 列的干净 canonical。"
+            )
+
+    row_dates = {1: "Dates"}  # R1 表头（幂等：已有则替换）
     enriched, skipped_has_dates, skipped_no_concert, failed = 0, 0, 0, 0
-    for r in range(2, ws.max_row + 1):
-        dates_val = ws.cell(row=r, column=dates_col).value
-        if dates_val and str(dates_val).strip():
-            skipped_has_dates += 1
-            continue
+    r = 1  # 当前行号（min_row=2 起，循环内 +1）
 
-        topic = str(ws.cell(row=r, column=col.get("Topic", 0)).value or "")
-        desc = str(ws.cell(row=r, column=col.get("Event Description", 0)).value or "")
-        if not (CONCERT_HINT.search(topic) or CONCERT_HINT.search(desc)):
+    for row in ws.iter_rows(min_row=2, values_only=True):
+        r += 1
+
+        def cell(name):
+            idx = col.get(name)
+            return row[idx] if idx is not None and idx < len(row) else None
+
+        # 已有 Dates（R 列）跳过
+        if dates_tuple_idx is not None and dates_tuple_idx < len(row):
+            existing = row[dates_tuple_idx]
+            if existing is not None and str(existing).strip():
+                skipped_has_dates += 1
+                continue
+
+        topic = str(cell("Topic") or "")
+        desc = str(cell("Event Description") or "")
+        headline = str(cell("Headline") or "")
+        if not (CONCERT_HINT.search(topic) or CONCERT_HINT.search(desc) or CONCERT_HINT.search(headline)):
             skipped_no_concert += 1
             continue
         if not DATE_HINT.search(desc):
             continue
 
         # fallback 年/月从 Start Date 取
-        sd = ws.cell(row=r, column=col.get("Start Date", 0)).value
+        sd = cell("Start Date")
         start_str = sd.strftime("%Y-%m-%d") if isinstance(sd, datetime) else (str(sd) if sd else None)
         fy = fm = None
         if start_str:
@@ -171,14 +194,17 @@ def enrich(excel_path, dry_run=False):
             continue
 
         dates_str = _compress(dates_list)
-        if not dry_run:
-            ws.cell(row=r, column=dates_col, value=dates_str)
+        row_dates[r] = dates_str
         print(f"  ✓ row {r}: {dates_str}   ({desc[:30]}...)")
         enriched += 1
 
-    if not dry_run and enriched:
-        wb.save(excel_path)
-        print(f"\n已写回 {excel_path}")
+    wb.close()  # read-only，不 save
+
+    if not dry_run and (enriched > 0 or dates_tuple_idx is None):
+        n = write_dates(excel_path, row_dates)
+        print(f"\n已写回 {excel_path}（{n} 个单元格写到 R 列，含表头）")
+    elif dry_run:
+        print(f"\n[dry-run] 将写 {len(row_dates)} 个单元格（含表头）到 R 列")
 
     print(
         f"\n[Enrich] enriched={enriched}  "
@@ -191,7 +217,7 @@ def enrich(excel_path, dry_run=False):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="LLM 从 Event Description 抽离散场次日期写回 Dates 列。")
+    ap = argparse.ArgumentParser(description="LLM 从 Event Description 抽离散场次日期写回 Dates 列（R 列，零损耗 XML）。")
     ap.add_argument("--excel", default=str(CANONICAL), help=f"Excel 路径（默认 canonical：{CANONICAL}）")
     ap.add_argument("--dry-run", action="store_true", help="只打印不写回")
     args = ap.parse_args()

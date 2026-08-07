@@ -86,6 +86,18 @@ def main():
     if not src_path.exists():
         raise FileNotFoundError(f"Excel not found: {src_path}")
 
+    # ⚠️ 危险：本脚本 wb.save(src_path) 会 openpyxl 往返 canonical，损坏手工 Excel
+    # 特性（削 sharedStrings/printerSettings、删数据验证扩展、可能错位 table 列定义
+    # -> Excel 修复框）。canonical 含 Table2 表 + 手工数据验证，openpyxl 保不住。
+    # 跑完后必须用 verify_canonical.py 检查 + 重铺 canonical（02_calendar 干净 base
+    # + 重跑 enrich XML 写），否则 canonical 带病、package 守卫会拦截。
+    # 长期方案：dedup 改成直接 XML 删行（不 openpyxl save），暂未实现。
+    print("⚠️  警告：dedup 用 openpyxl save canonical，会损坏文件结构（见上）。")
+    print("    跑完务必 verify_canonical.py 检查 + 重铺 canonical。建议改用 XML 方式或先备份。")
+    if not args.dry_run:
+        print("    （--dry-run 不写盘，无此风险）")
+    print()
+
     wb = load_workbook(src_path)
     if SHEET not in wb.sheetnames:
         raise ValueError(f"'{src_path}' has no sheet named '{SHEET}'. Sheets: {wb.sheetnames}")
