@@ -10,10 +10,13 @@ Usage:
 """
 import argparse
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent
 PROJECT_ROOT = ROOT.parent
+HERE = Path(__file__).resolve().parent
 
 # The canonical, manually-edited event list lives in 01_event_list_output.
 CANONICAL_EXCEL = PROJECT_ROOT / "01_event_list_output" / "Events List.xlsx"
@@ -52,6 +55,20 @@ def main():
     args = parse_args()
     source = Path(args.source_dir)
     out = Path(args.output_dir)
+
+    # 打包前守卫：canonical 若被 openpyxl 往返损坏（sharedStrings/printerSettings
+    # 被削、table 错位），中止打包，坏文件永远 ship 不出去。
+    if CANONICAL_EXCEL.exists():
+        rc = subprocess.run(
+            [sys.executable, str(HERE / "verify_canonical.py"),
+             "--excel", str(CANONICAL_EXCEL), "--quiet"],
+            capture_output=True, text=True,
+        )
+        if rc.returncode != 0:
+            print("ERROR: canonical 结构损坏，中止打包（防坏文件发布）：")
+            print(rc.stdout)
+            print("  修复：用 02_calendar 干净 base 重铺 canonical + 重跑 enrich（XML 写），勿发布坏文件。")
+            return 1
 
     missing = [f for f in VIEWER_FILES if not (source / f).exists()]
     if missing:
