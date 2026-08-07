@@ -5,19 +5,18 @@ set PYTHONIOENCODING=utf-8
 set "ROOT=%~dp0"
 set "ROOT=%ROOT:~0,-1%"
 
-:: Pick Python: system python first, then py launcher
-where python >nul 2>nul
-if %errorlevel% == 0 (
-    set "PYTHON_PATH=python"
-) else (
-    where py >nul 2>nul
-    if %errorlevel% == 0 (
-        set "PYTHON_PATH=py"
-    ) else (
-        echo 错误：找不到 Python。请先运行 setup.bat 安装 Python。
-        pause
-        exit /b 1
+:: Pick Python: try py launcher first, then python; skip Microsoft Store stub
+set "PYTHON_PATH="
+for %%C in (py python) do (
+    if not defined PYTHON_PATH (
+        %%C -c "print(1)" >nul 2>&1 && set "PYTHON_PATH=%%C"
     )
+)
+if not defined PYTHON_PATH (
+    echo 错误：找不到可用的 Python。请先运行 setup.bat 安装 Python。
+    echo 注意：Windows 自带的 Microsoft Store "python" 不是真 Python，跑不了代码。
+    pause
+    exit /b 1
 )
 
 :: Command-line mode: run.bat step1 [args...] / run.bat step2
