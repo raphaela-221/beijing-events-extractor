@@ -10,20 +10,19 @@ set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
 set "EVENT_LIST_DIR=%SCRIPT_DIR%\..\01_event_list_output"
 set "CANONICAL_SOURCE=%EVENT_LIST_DIR%\Events List.xlsx"
 
-:: Use PYTHON_PATH if passed from the top-level launcher, otherwise fall back.
+:: Use PYTHON_PATH if passed from the top-level launcher, otherwise detect.
 if not defined PYTHON_PATH (
-    where python >nul 2>nul
-    if %errorlevel% == 0 (
-        set "PYTHON_PATH=python"
-    ) else (
-        where py >nul 2>nul
-        if %errorlevel% == 0 (
-            set "PYTHON_PATH=py"
-        ) else (
-            echo 错误：找不到 Python。请先运行根目录的 setup.bat。
-            pause
-            exit /b 1
+    set "PYTHON_PATH="
+    for %%C in (py python) do (
+        if not defined PYTHON_PATH (
+            %%C -c "print(1)" >nul 2>&1 && set "PYTHON_PATH=%%C"
         )
+    )
+    if not defined PYTHON_PATH (
+        echo 错误：找不到可用的 Python。请先运行根目录的 setup.bat。
+        echo 注意：Windows 自带的 Microsoft Store "python" 不是真 Python，跑不了代码。
+        pause
+        exit /b 1
     )
 )
 

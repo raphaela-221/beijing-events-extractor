@@ -5,19 +5,20 @@ set PYTHONIOENCODING=utf-8
 set "ROOT=%~dp0"
 set "ROOT=%ROOT:~0,-1%"
 
-:: Pick Python: system python first, then py launcher
-where python >nul 2>nul
-if %errorlevel% == 0 (
-    set "PYTHON_PATH=python"
-) else (
-    where py >nul 2>nul
-    if %errorlevel% == 0 (
-        set "PYTHON_PATH=py"
-    ) else (
-        echo 错误：找不到 Python。请安装 Python 3.10+ 并加到 PATH。
-        pause
-        exit /b 1
+:: Pick Python: try py launcher first, then python; skip Microsoft Store stub
+:: (Store 占位跑不了 print(1),会被跳过)
+set "PYTHON_PATH="
+for %%C in (py python) do (
+    if not defined PYTHON_PATH (
+        %%C -c "print(1)" >nul 2>&1 && set "PYTHON_PATH=%%C"
     )
+)
+if not defined PYTHON_PATH (
+    echo 错误：找不到可用的 Python。请安装 Python 3.10+（https://www.python.org/downloads/），
+    echo 安装时勾选 "Add Python to PATH"，然后重跑 setup.bat。
+    echo 注意：Windows 自带的 Microsoft Store "python" 不是真 Python，跑不了代码。
+    pause
+    exit /b 1
 )
 
 echo 使用 Python: %PYTHON_PATH%
