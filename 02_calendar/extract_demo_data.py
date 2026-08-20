@@ -300,6 +300,10 @@ def main():
     print(f"Wrote: {state_path}")
     print(f"Changed months: {', '.join(changed_months) if changed_months else '(none)'}")
 
+    # 阶段成果块（操作台摘要解析器消费；桌面 run.bat 仅多几行输出，无副作用）
+    print(f"📊 [Pipeline] extract 事件数: {len(records)}")
+    print(f"📊 [Pipeline] extract 总行: {total}")
+
     tc = Counter(r["topic_zh"] for r in records)
     print("\nTopics:")
     for t, c in tc.most_common():

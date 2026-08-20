@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>工具箱 · 北京大事件操作台</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="topbar-lock">
+      <span class="dot idle"></span>
+      当前无人占用编辑锁
+    </div>
+    <div class="topbar-user">
+      <span>王晓 · 社媒监测组</span>
+      <div class="avatar">王</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-logo">北京大事件操作台<small>Beijing Events Console</small></div>
+    <div class="nav-group-label">流程</div>
+    <a class="nav-item" href="总览仪表盘.html"><span class="ic">&#9673;</span> 总览仪表盘</a>
+    <a class="nav-item" href="上传与抽取.html"><span class="ic">&#9673;</span> Step 1 上传与抽取</a>
+    <a class="nav-item" href="人工核对.html"><span class="ic">&#9673;</span> 人工核对</a>
+    <a class="nav-item" href="生成日历.html"><span class="ic">&#9673;</span> Step 2 生成日历</a>
+    <a class="nav-item" href="预览与发布.html"><span class="ic">&#9673;</span> 预览与发布</a>
+    <div class="nav-group-label">管理</div>
+    <a class="nav-item active" href="工具箱.html"><span class="ic">&#9673;</span> 工具箱</a>
+    <a class="nav-item" href="运行记录.html"><span class="ic">&#9673;</span> 运行记录</a>
+    <a class="nav-item" href="设置.html"><span class="ic">&#9673;</span> 设置</a>
+  </div>
+
+  <div class="main">
+    <div class="breadcrumb"><a href="总览仪表盘.html">总览仪表盘</a> <span class="sep">/</span> 工具箱</div>
+    <div class="page-header">
+      <div>
+        <div class="page-title">工具箱</div>
+        <div class="page-sub">流程卡住时的自救入口——覆盖全部可运行操作，参数全暴露。取代原来的终端兜底</div>
+      </div>
+      <a href="总览仪表盘.html" class="btn ghost sm">← 返回总览</a>
+    </div>
+
+    <div class="toolbox-group-title">抽取</div>
+    <div class="job-grid">
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">全量抽取（文件+演唱会）</span><span class="tag-mini write">写 canonical</span></div>
+        <div class="jc-desc">处理上传文件并同时采集演唱会，合并去重后写入人工审核清单。</div>
+        <div class="jc-foot"><span class="jc-last">上次：8月7日 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">只处理上传文件</span><span class="tag-mini write">写 canonical</span></div>
+        <div class="jc-desc">跳过演唱会采集，仅从上传文件抽取事件。</div>
+        <div class="jc-foot"><span class="jc-last">未运行过</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">只采集演唱会</span><span class="tag-mini write">写 canonical</span></div>
+        <div class="jc-desc">不处理本地文件，只重新采集北京地区演唱会信息。</div>
+        <div class="jc-foot"><span class="jc-last">上次：8月7日 20:11 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+    </div>
+
+    <div class="toolbox-group-title">canonical 维护</div>
+    <div class="job-grid">
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">Dates 列自动抽取（试运行）</span></div>
+        <div class="jc-desc">LLM 从事件描述抽取演唱会离散场次日期，只预览不写入。</div>
+        <div class="jc-foot"><span class="jc-last">上次：8月6日 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">试运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">Dates 列自动抽取（写入）</span><span class="tag-mini write">写 canonical</span></div>
+        <div class="jc-desc">将试运行确认过的离散场次日期写入 R 列（零损耗 XML 写法）。</div>
+        <div class="jc-foot"><span class="jc-last">昨天 · 失败</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">Dates 手动补单行</span><span class="tag-mini write">写 canonical</span></div>
+        <div class="jc-desc">enrich 抽不出的行（反向排除/跨月/点分日期），手动指定行号和值。</div>
+        <div class="jc-foot"><span class="jc-last">7月20日 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">canonical 去重（试运行）</span></div>
+        <div class="jc-desc">检测重复事件行，只报告不写回。</div>
+        <div class="jc-foot"><span class="jc-last">未运行过</span><a href="任务监控.html?from=toolbox" class="btn sm">试运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">canonical 去重（写入）</span><span class="tag-mini destructive">破坏性</span><span class="tag-mini admin">管理员</span></div>
+        <div class="jc-desc">删除重复行；勾选 prune-malformed 会额外删除格式异常的行。强制先跑试运行。</div>
+        <div class="jc-foot"><span class="jc-last">未运行过</span><a href="任务监控.html?from=toolbox" class="btn sm danger">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">结构守卫自检</span></div>
+        <div class="jc-desc">检测 canonical 是否被 openpyxl 往返损坏（sharedStrings/printerSettings/table 错位）。</div>
+        <div class="jc-foot"><span class="jc-last">刚刚 · <span style="color:var(--error); font-weight:600;">失败</span></span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">用源 Excel 铺底</span><span class="tag-mini destructive">破坏性</span><span class="tag-mini admin">管理员</span></div>
+        <div class="jc-desc">用干净的源 Excel 覆盖当前 canonical。用于结构损坏后的恢复重铺。</div>
+        <div class="jc-foot"><span class="jc-last">未运行过</span><a href="任务监控.html?from=toolbox" class="btn sm danger">运行</a></div>
+      </div>
+    </div>
+
+    <div class="toolbox-group-title">日历生成</div>
+    <div class="job-grid">
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">抽取 High 事件</span></div>
+        <div class="jc-desc">从 canonical 抽出 High 优先级事件，生成 events_data.js。</div>
+        <div class="jc-foot"><span class="jc-last">7月31日 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">月度主题（增量）</span></div>
+        <div class="jc-desc">只重新生成 changed_months 里的月份，其余复用已有主题。</div>
+        <div class="jc-foot"><span class="jc-last">昨天 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">月度主题（强制单月）</span></div>
+        <div class="jc-desc">不管增量状态，强制重新生成指定月份的主题。</div>
+        <div class="jc-foot"><span class="jc-last">7月20日 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">主题双模型对比</span></div>
+        <div class="jc-desc">同时用 Ark 与 Qwen 生成同一个月的主题，供人工比较取用。</div>
+        <div class="jc-foot"><span class="jc-last">未运行过</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">页面文件齐全性校验</span></div>
+        <div class="jc-desc">检查日历所需的 html/js/css 文件是否齐全。</div>
+        <div class="jc-foot"><span class="jc-last">7月31日 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+      <div class="job-card">
+        <div class="jc-head"><span class="jc-title">打包分享文件</span></div>
+        <div class="jc-desc">打包 02_web_output/，打包前自动跑结构守卫，损坏则中止。</div>
+        <div class="jc-foot"><span class="jc-last">7月31日 · 成功</span><a href="任务监控.html?from=toolbox" class="btn sm">运行</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<a class="mock-note" href="index.html">静态原型 · 无真实交互 · ↩ 返回原型索引</a>
+</body>
+</html>

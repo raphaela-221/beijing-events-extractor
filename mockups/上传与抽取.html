@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>Step 1 上传与抽取 · 北京大事件操作台</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .radio-card-note { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="topbar-lock">
+      <span class="dot idle"></span>
+      当前无人占用编辑锁
+    </div>
+    <div class="topbar-user">
+      <span>王晓 · 社媒监测组</span>
+      <div class="avatar">王</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-logo">北京大事件操作台<small>Beijing Events Console</small></div>
+    <div class="nav-group-label">流程</div>
+    <a class="nav-item" href="总览仪表盘.html"><span class="ic">&#9673;</span> 总览仪表盘</a>
+    <a class="nav-item active" href="上传与抽取.html"><span class="ic">&#9673;</span> Step 1 上传与抽取</a>
+    <a class="nav-item" href="人工核对.html"><span class="ic">&#9673;</span> 人工核对</a>
+    <a class="nav-item" href="生成日历.html"><span class="ic">&#9673;</span> Step 2 生成日历</a>
+    <a class="nav-item" href="预览与发布.html"><span class="ic">&#9673;</span> 预览与发布</a>
+    <div class="nav-group-label">管理</div>
+    <a class="nav-item" href="工具箱.html"><span class="ic">&#9673;</span> 工具箱</a>
+    <a class="nav-item" href="运行记录.html"><span class="ic">&#9673;</span> 运行记录</a>
+    <a class="nav-item" href="设置.html"><span class="ic">&#9673;</span> 设置</a>
+  </div>
+
+  <div class="main">
+    <div class="breadcrumb"><a href="总览仪表盘.html">总览仪表盘</a> <span class="sep">/</span> Step 1 上传与抽取</div>
+    <div class="page-header">
+      <div>
+        <div class="page-title">Step 1 · 上传与抽取</div>
+        <div class="page-sub">选一个预设，或展开高级选项自定义参数</div>
+      </div>
+      <a href="总览仪表盘.html" class="btn ghost sm">← 返回总览</a>
+    </div>
+
+    <!-- 三预设 -->
+    <div class="card">
+      <div class="card-title">选择运行方式</div>
+      <div class="preset-grid">
+        <div class="preset-card selected">
+          <div class="pc-icon">📦</div>
+          <div class="pc-title">全量抽取</div>
+          <div class="pc-desc">处理上传文件 + 同时采集北京演唱会。月度例行首选，覆盖最全。</div>
+        </div>
+        <div class="preset-card">
+          <div class="pc-icon">📄</div>
+          <div class="pc-title">只处理上传文件</div>
+          <div class="pc-desc">跳过演唱会采集。政务网站不可达时的备选，先出文件类结果。</div>
+        </div>
+        <div class="preset-card">
+          <div class="pc-icon">🎤</div>
+          <div class="pc-title">只采集演唱会</div>
+          <div class="pc-desc">不处理本地文件，只重新采集演唱会信息。用于单独刷新演出数据。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 上传区 -->
+    <div class="card">
+      <div class="card-title">上传原始监测文件</div>
+      <div class="dropzone">
+        <div class="icon">⇪</div>
+        <div class="main-txt">拖拽文件到此处，或点击选择文件</div>
+        <div class="sub-txt">支持 xlsx / csv / txt / json / doc / docx / pdf，可同时选择多个</div>
+      </div>
+      <div class="page-sub" style="margin-top:10px;">已添加 2 个文件：Consolidated Social Listening Report v20260803.xlsx（4.2MB）、补充说明.docx（220KB）</div>
+    </div>
+
+    <!-- 高级选项：原生 details，无需 JS 即可折叠 -->
+    <details class="advanced-opts">
+      <summary>高级选项（提取模式、演唱会采集参数）</summary>
+      <div class="opts-body">
+        <div class="field-grid">
+          <div class="field-row">
+            <label>提取模式</label>
+            <select><option>auto（自动判断）</option><option>spring_break（中小学春秋假）</option><option>event_summary（事件总结）</option></select>
+            <div class="field-help">留空即 auto，系统会自动判断文件类型</div>
+          </div>
+          <div class="field-row">
+            <label>手动指定分类（可选）</label>
+            <input type="text" placeholder="如：大型会议和展览" />
+          </div>
+        </div>
+        <div class="field-row">
+          <label>提取主题补充描述（可选）</label>
+          <input type="text" placeholder="给本次提取的额外说明" />
+        </div>
+
+        <div class="settings-row" style="padding-top:4px;">
+          <div><div class="sr-label">同时采集演唱会</div><div class="sr-desc">从文化和旅游部政务服务平台采集北京地区演唱会信息</div></div>
+          <div class="sr-control"><span class="switch on"></span></div>
+        </div>
+        <div class="settings-row">
+          <div><div class="sr-label">强制重抓</div><div class="sr-desc">不跳过已采集过的场次，全部重新抓取一次</div></div>
+          <div class="sr-control"><span class="switch"></span></div>
+        </div>
+        <div class="field-grid" style="margin-top:14px;">
+          <div class="field-row">
+            <label>演唱会日期范围 · 开始（可选）</label>
+            <input type="date" />
+            <div class="field-help">默认过去 2 个月</div>
+          </div>
+          <div class="field-row">
+            <label>演唱会日期范围 · 结束（可选）</label>
+            <input type="date" />
+            <div class="field-help">默认未来 2 年</div>
+          </div>
+        </div>
+        <div class="field-row">
+          <label>最小场馆规模</label>
+          <select><option>medium（默认，排除小型 LiveHouse）</option><option>large（只保留大型场馆）</option><option>small（保留全部）</option></select>
+        </div>
+      </div>
+    </details>
+
+    <div style="margin-top:18px; display:flex; gap:10px; align-items:center;">
+      <a href="任务监控.html?from=step1" class="btn primary">开始抽取</a>
+      <span class="page-sub" style="margin:0;">预计用时约 4 分钟（参考上次同类运行）</span>
+    </div>
+
+  </div>
+</div>
+<a class="mock-note" href="index.html">静态原型 · 无真实交互 · ↩ 返回原型索引</a>
+</body>
+</html>

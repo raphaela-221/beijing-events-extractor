@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>原型索引 · 北京大事件操作台</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+  body { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 0; }
+  .wrap { width: 640px; }
+  .wrap h1 { font-size: 18px; margin-bottom: 4px; }
+  .wrap p.desc { font-size: 13px; color: var(--text-tertiary); margin-bottom: 24px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .link-card {
+    display: block; background: #fff; border: 1px solid var(--border-light); border-radius: 10px;
+    padding: 14px 16px; box-shadow: var(--shadow-card); color: var(--text);
+  }
+  .link-card:hover { border-color: var(--primary); }
+  .link-card .t { font-size: 13.5px; font-weight: 600; margin-bottom: 3px; }
+  .link-card .d { font-size: 11.5px; color: var(--text-tertiary); line-height: 1.5; }
+  .group-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin: 18px 0 8px; }
+  .group-label:first-of-type { margin-top: 0; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>北京大事件操作台 · 高保真原型</h1>
+    <p class="desc">静态 HTML，直接双击打开预览，页面之间可以真实点击跳转（导航、面包屑、发起任务后跳转监控页均可用）。风格对齐 Web前端开发指南.md，主色取自参考设计 pipelinepro。</p>
+
+    <div class="group-label">流程</div>
+    <div class="grid2">
+      <a class="link-card" href="总览仪表盘.html">
+        <div class="t">① 总览仪表盘</div>
+        <div class="d">健康检查条 + 下一步建议 + 4 步流程卡 + 最近运行</div>
+      </a>
+      <a class="link-card" href="上传与抽取.html">
+        <div class="t">② Step 1 上传与抽取</div>
+        <div class="d">三预设卡片 + 拖拽上传 + 高级选项折叠</div>
+      </a>
+      <a class="link-card" href="任务监控.html">
+        <div class="t">③ 任务监控</div>
+        <div class="d">阶段步骤器 + 实时日志 + 采集回显 + 成功/失败结束态参考</div>
+      </a>
+      <a class="link-card" href="人工核对.html">
+        <div class="t">④ 人工核对</div>
+        <div class="d">下载/上传三步流程 + 版本过期警告 + 差异摘要 + Dates 工具区</div>
+      </a>
+      <a class="link-card" href="生成日历.html">
+        <div class="t">⑤ Step 2 生成日历</div>
+        <div class="d">整跑/分步切换 + 增量重算月份提示</div>
+      </a>
+      <a class="link-card" href="预览与发布.html">
+        <div class="t">⑥ 预览与发布</div>
+        <div class="d">三 tab 预览 + 手动发布四步 + 发布历史</div>
+      </a>
+    </div>
+
+    <div class="group-label">管理</div>
+    <div class="grid2">
+      <a class="link-card" href="工具箱.html">
+        <div class="t">⑦ 工具箱</div>
+        <div class="d">全部操作分组卡片，含破坏性/管理员标记</div>
+      </a>
+      <a class="link-card" href="运行记录.html">
+        <div class="t">⑧ 运行记录</div>
+        <div class="d">筛选 + 可展开日志 + 复用参数 + 回收站参考</div>
+      </a>
+      <a class="link-card" href="设置.html">
+        <div class="t">⑨ 设置</div>
+        <div class="d">保留策略 + key 状态 + 自动清理记录 + 数据备份</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

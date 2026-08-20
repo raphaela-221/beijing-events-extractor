@@ -40,9 +40,7 @@ COMMON_JS_PATH = ROOT / "common.js"
 THEMES_JSON_PATH = ROOT / "monthly_themes.json"
 COMPARISON_PATH = ROOT / "monthly_themes_comparison.json"
 STATE_PATH = ROOT / "state" / "last_run.json"
-POMP_SCRIPT = Path(
-    "/Users/raphaela-221/ClaudeCode/skills/pomp-llm-caller 2/scripts/pomp_minimal_call.py"
-)
+POMP_SCRIPT = ROOT.parent / "vendor" / "pomp_minimal_call.py"
 
 SYSTEM_PROMPT = "你是一位熟悉北京城市运行的分析助手。请严格按用户要求输出。"
 
@@ -320,6 +318,7 @@ def main():
 
     failed_months = set()
     processed_months = set()
+    skipped_count = 0
     for month in target_months:
         month_events = sorted(groups[month], key=lambda e: e["start"] or "")
 
@@ -333,6 +332,7 @@ def main():
                 f"Skipping {month} ({len(month_events)} events) — no changes since last run.",
                 file=sys.stderr,
             )
+            skipped_count += 1
             continue
 
         processed_months.add(month)
@@ -382,6 +382,11 @@ def main():
     state["changed_months"] = sorted((changed_months - processed) | failed_months)
     state["month_themes"] = cached_themes
     save_state(state)
+
+    # 阶段成果块（操作台摘要解析器消费）
+    print(f"📊 [Pipeline] themes 生成: {len(processed_months - failed_months)}")
+    print(f"📊 [Pipeline] themes 跳过: {skipped_count}")
+    print(f"📊 [Pipeline] themes 失败: {len(failed_months)}")
 
     # Print LLM usage (which API handled each call + token consumption)
     print_usage_summary()

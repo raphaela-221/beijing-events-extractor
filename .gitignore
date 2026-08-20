@@ -28,3 +28,19 @@ build/
 
 # 打包产物 / Build archives
 *.zip
+
+# ---- Web 操作台（P0+ 新增）----
+# 后端虚拟环境
+.venv/
+# 前端依赖与构建产物（dist/ 由 FastAPI StaticFiles 托管时单独处理）
+node_modules/
+frontend/dist/
+# 运行时数据：SQLite、运行日志、canonical 备份
+data/
+# 后端运行时配置（llm_keys/settings/users/session_secret，绝不进 commit）
+config/
+# 本地后端/前端开发日志
+backend/*.log
+frontend/*.log
+# 离线发布包产物（数百 MB，分发走局域网传输不入库）
+release/
