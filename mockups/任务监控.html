@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>任务监控 · 北京大事件操作台</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .timer { font-family: var(--font-mono); font-size: 14px; color: var(--text-secondary); }
+  .header-row { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+  .header-row .op-name { font-size: 16px; font-weight: 600; }
+  .header-actions { margin-left: auto; display: flex; gap: 8px; }
+  .end-state-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .end-state-demo .card { margin-top: 0; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- 顶栏：编辑锁状态条 -->
+  <div class="topbar">
+    <div class="topbar-lock">
+      <span class="dot busy"></span>
+      本人持有编辑锁 · 20:11 起（跑完自动释放）
+    </div>
+    <div class="topbar-user">
+      <span>王晓 · 社媒监测组</span>
+      <div class="avatar">王</div>
+    </div>
+  </div>
+
+  <!-- 左侧导航 -->
+  <div class="sidebar">
+    <div class="sidebar-logo">北京大事件操作台<small>Beijing Events Console</small></div>
+    <div class="nav-group-label">流程</div>
+    <a class="nav-item" href="总览仪表盘.html"><span class="ic">&#9673;</span> 总览仪表盘</a>
+    <a class="nav-item active" href="上传与抽取.html"><span class="ic">&#9673;</span> Step 1 上传与抽取</a>
+    <a class="nav-item" href="人工核对.html"><span class="ic">&#9673;</span> 人工核对</a>
+    <a class="nav-item" href="生成日历.html"><span class="ic">&#9673;</span> Step 2 生成日历</a>
+    <a class="nav-item" href="预览与发布.html"><span class="ic">&#9673;</span> 预览与发布</a>
+    <div class="nav-group-label">管理</div>
+    <a class="nav-item" href="工具箱.html"><span class="ic">&#9673;</span> 工具箱</a>
+    <a class="nav-item" href="运行记录.html"><span class="ic">&#9673;</span> 运行记录</a>
+    <a class="nav-item" href="设置.html"><span class="ic">&#9673;</span> 设置</a>
+  </div>
+
+  <!-- 主内容 -->
+  <div class="main">
+    <div class="breadcrumb">
+      <a href="总览仪表盘.html">总览仪表盘</a> <span class="sep">/</span>
+      <a id="crumbFrom" href="上传与抽取.html">Step 1 上传与抽取</a> <span class="sep">/</span>
+      任务监控
+    </div>
+
+    <div class="header-row">
+      <span class="badge running"><span class="bdot"></span>运行中</span>
+      <span class="op-name">只采集演唱会</span>
+      <span class="timer">用时 02:47</span>
+      <span class="header-actions">
+        <a id="backBtn" class="btn ghost" href="上传与抽取.html" title="任务会在后台继续运行，不会被中断">← 返回（任务继续在后台运行）</a>
+        <button class="btn danger">取消任务</button>
+      </span>
+    </div>
+    <div class="page-sub">发起人 王晓 · 开始于 20:11:15 · 参数：强制重抓=否，最小场馆规模=medium · 上次同类运行用时 4分12秒</div>
+
+    <!-- 阶段步骤器 -->
+    <div class="card" style="margin-top:16px;">
+      <div class="stepper">
+        <div class="step done">
+          <div class="step-dot">✓</div><div class="step-label">列表页采集</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step current">
+          <div class="step-dot">2</div><div class="step-label">详情页采集</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-dot">3</div><div class="step-label">过滤</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-dot">4</div><div class="step-label">合并去重</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <div class="step-dot">5</div><div class="step-label">写入 Excel</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 实时日志 -->
+    <div class="card" style="position:relative;">
+      <div class="card-title">
+        实时日志
+        <span class="hint">共 1,428 行 · 自动滚动中</span>
+      </div>
+      <div class="log-panel">
+        <div class="log-toolbar">
+          <span class="lvl active">全部</span>
+          <span class="lvl">info</span>
+          <span class="lvl">warn</span>
+          <span class="lvl">error</span>
+          <input type="text" placeholder="搜索日志内容，如 关键词、URL、场馆名…" />
+        </div>
+        <div class="log-body" id="logBody">
+          <div class="log-line info"><span class="seq">1401</span><span class="ts">20:13:58</span><span class="msg">正在处理详情页 187/240：汪苏泷《巡回演唱会》北京站</span></div>
+          <div class="log-line info"><span class="seq">1402</span><span class="ts">20:13:58</span><span class="msg">  场馆：国家体育馆 · 规模判定：large</span></div>
+          <div class="log-line success"><span class="seq">1403</span><span class="ts">20:13:59</span><span class="msg">  ✓ 抽取成功，日期 2026-08-14 ~ 2026-08-16</span></div>
+          <div class="log-line info"><span class="seq">1404</span><span class="ts">20:13:59</span><span class="msg">正在处理详情页 188/240：绿心森林音乐节</span></div>
+          <div class="log-line warn"><span class="seq">1405</span><span class="ts">20:14:00</span><span class="msg">  ⚠️ 未找到具体场次表格，回退 start~end 连续区间</span></div>
+          <div class="log-line info"><span class="seq">1406</span><span class="ts">20:14:01</span><span class="msg">正在处理详情页 189/240：五月天巡回演唱会</span></div>
+          <div class="log-line error"><span class="seq">1407</span><span class="ts">20:14:02</span><span class="msg">  ❌ 请求超时（10s），重试 1/3</span></div>
+          <div class="log-line info"><span class="seq">1408</span><span class="ts">20:14:04</span><span class="msg">  重试成功</span></div>
+          <div class="log-line success"><span class="seq">1409</span><span class="ts">20:14:04</span><span class="msg">  ✓ 抽取成功，日期 4.30, 5.1-3, 5.8-11, 5.15-18</span></div>
+          <div class="log-line info"><span class="seq">1410</span><span class="ts">20:14:05</span><span class="msg">正在处理详情页 190/240：Coldplay 北京站</span></div>
+          <div class="log-line info"><span class="seq">1411</span><span class="ts">20:14:06</span><span class="msg">  场馆：工人体育场 · 规模判定：large</span></div>
+          <div class="log-line success"><span class="seq">1412</span><span class="ts">20:14:07</span><span class="msg">  ✓ 抽取成功，日期 2026-09-05 ~ 2026-09-06</span></div>
+          <div class="log-line info"><span class="seq">1413</span><span class="ts">20:14:07</span><span class="msg">正在处理详情页 191/240：草莓音乐节北京站</span></div>
+          <div class="log-line warn"><span class="seq">1414</span><span class="ts">20:14:08</span><span class="msg">  ⚠️ 场馆规模判定为 small，按当前设置（medium）过滤剔除</span></div>
+          <div class="log-line info"><span class="seq">1415</span><span class="ts">20:14:09</span><span class="msg">正在处理详情页 192/240：周杰伦嘉年华世界巡回演唱会</span></div>
+          <div class="log-line success"><span class="seq">1416</span><span class="ts">20:14:10</span><span class="msg">  ✓ 抽取成功，日期 2026-10-18 ~ 2026-10-19</span></div>
+          <div class="log-line info"><span class="seq">1417</span><span class="ts">20:14:10</span><span class="msg">正在处理详情页 193/240：北京国际音乐节开幕音乐会</span></div>
+          <div class="log-line info"><span class="seq">1418</span><span class="ts">20:14:11</span><span class="msg">  场馆：国家大剧院 · 规模判定：large</span></div>
+          <div class="log-line success"><span class="seq">1419</span><span class="ts">20:14:12</span><span class="msg">  ✓ 抽取成功，日期 2026-10-01</span></div>
+          <div class="log-line info"><span class="seq">1420</span><span class="ts">20:14:13</span><span class="msg">正在处理详情页 194/240：动物园音乐节</span></div>
+          <div class="log-line warn"><span class="seq">1421</span><span class="ts">20:14:13</span><span class="msg">  ⚠️ 描述无明确日期，跳过离线场次解析</span></div>
+          <div class="log-line info"><span class="seq">1422</span><span class="ts">20:14:14</span><span class="msg">正在处理详情页 195/240：五四青年音乐嘉年华</span></div>
+          <div class="log-line info"><span class="seq">1423</span><span class="ts">20:14:15</span><span class="msg">  场馆：北京展览馆剧场 · 规模判定：medium</span></div>
+          <div class="log-line success"><span class="seq">1424</span><span class="ts">20:14:16</span><span class="msg">  ✓ 抽取成功，日期 2026-07-20</span></div>
+          <div class="log-line info"><span class="seq">1425</span><span class="ts">20:14:16</span><span class="msg">正在处理详情页 196/240：迷笛音乐节</span></div>
+          <div class="log-line info"><span class="seq">1426</span><span class="ts">20:14:17</span><span class="msg">  场馆：雁栖湖生态发展示范区 · 规模判定：large</span></div>
+          <div class="log-line success"><span class="seq">1427</span><span class="ts">20:14:18</span><span class="msg">  ✓ 抽取成功，日期 2026-05-01 ~ 2026-05-05</span></div>
+          <div class="log-line info"><span class="seq">1428</span><span class="ts">20:14:18</span><span class="msg">正在处理详情页 197/240：说唱新世代巡演</span></div>
+        </div>
+        <div class="jump-bottom">回到底部（新增 128 行）</div>
+        <div class="log-footer">
+          <span>已完成 197 / 240 详情页 · 预计还需约 40 秒</span>
+          <span>下载完整日志</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 摘要卡：进行中即高亮显示 -->
+    <div class="card">
+      <div class="card-title">演唱会采集回显 <span class="hint">阶段计数实时更新</span></div>
+      <div class="summary-grid">
+        <div class="summary-box">
+          <div class="k">列表页分段</div>
+          <div class="v">12<small>段</small></div>
+          <div class="sub">成功 12 / 失败 0</div>
+        </div>
+        <div class="summary-box">
+          <div class="k">详情页</div>
+          <div class="v">197<small>/ 240 条</small></div>
+          <div class="sub">成功 189 / 失败 1（已重试成功）/ 无表格 7</div>
+        </div>
+        <div class="summary-box">
+          <div class="k">过滤剔除</div>
+          <div class="v">23<small>条</small></div>
+          <div class="sub">已采集 14 · 非北京 6 · 场地小 3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">本次运行信息</div>
+      <div class="kv-list">
+        <div class="row"><span class="l">运行编号</span><span class="r">20260807-2011-step1_concert_only-a3f9</span></div>
+        <div class="row"><span class="l">操作</span><span class="r">只采集演唱会</span></div>
+        <div class="row"><span class="l">参数</span><span class="r">强制重抓=否 · 日期范围=默认（近2月~未来2年）· 最小场馆规模=medium</span></div>
+        <div class="row"><span class="l">发起人</span><span class="r">王晓</span></div>
+        <div class="row"><span class="l">开始时间</span><span class="r">2026-08-07 20:11:15</span></div>
+      </div>
+    </div>
+
+    <!-- 结束态设计参考（非当前状态，供设计确认两种终态呈现） -->
+    <div class="card-title" style="margin-top:24px; font-size:13px; color:var(--text-tertiary);">
+      ↓ 以下为结束态呈现参考（成功 / 失败），本页当前处于运行中
+    </div>
+    <div class="end-state-demo">
+      <div class="card">
+        <span class="badge success" style="margin-bottom:10px;"><span class="bdot"></span>成功</span>
+        <div style="font-size:13.5px; margin:8px 0 4px;">用时 4分12秒 · 采集到 226 条演唱会（较上次 +8）</div>
+        <div style="font-size:12.5px; color:var(--text-tertiary); margin-bottom:14px;">已合并写入 Events List.xlsx，已自动备份</div>
+        <button class="btn primary">前往人工核对</button>
+        <button class="btn ghost">查看完整日志</button>
+      </div>
+      <div class="card">
+        <span class="badge error" style="margin-bottom:10px;"><span class="bdot"></span>失败</span>
+        <div class="banner error" style="margin: 8px 0 12px;">
+          <span class="ic">⚠</span>
+          <div><b>政府站点采集失败</b><br/>zwfw.mct.gov.cn 可能不可达，或接口有变更。列表页 12 个分段全部失败。</div>
+        </div>
+        <button class="btn primary">用同参数重跑</button>
+        <button class="btn ghost">查看完整日志</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<a class="mock-note" href="index.html">静态原型 · 无真实交互 · ↩ 返回原型索引</a>
+
+<script>
+  // 演示「返回」按钮的设计意图：任务监控页可能从 Step1 / Step2 / 工具箱 任一处发起，
+  // 返回按钮应回到发起页，而不是强制留在监控页；离开不影响后台任务继续跑。
+  // 真实实现中该状态由路由参数或全局 store（当前运行中任务）驱动，这里用 ?from= 演示。
+  (function () {
+    var from = new URLSearchParams(location.search).get('from') || 'step1';
+    var map = {
+      step1: { label: 'Step 1 上传与抽取', href: '上传与抽取.html' },
+      step2: { label: 'Step 2 生成日历', href: '生成日历.html' },
+      toolbox: { label: '工具箱', href: '工具箱.html' }
+    };
+    var info = map[from] || map.step1;
+    var crumb = document.getElementById('crumbFrom');
+    var back = document.getElementById('backBtn');
+    if (crumb) { crumb.textContent = info.label; crumb.href = info.href; }
+    if (back) { back.href = info.href; back.textContent = '← 返回' + info.label + '（任务继续在后台运行）'; }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>Step 2 生成日历 · 北京大事件操作台</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .substep-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .substep-row {
+    display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+    border: 1px solid var(--border-light); border-radius: 6px; background: #FAFAFC;
+  }
+  .substep-row .ss-title { flex: 1; font-size: 13px; font-weight: 500; }
+  .substep-row .ss-desc { font-size: 11.5px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="topbar-lock">
+      <span class="dot idle"></span>
+      当前无人占用编辑锁
+    </div>
+    <div class="topbar-user">
+      <span>王晓 · 社媒监测组</span>
+      <div class="avatar">王</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-logo">北京大事件操作台<small>Beijing Events Console</small></div>
+    <div class="nav-group-label">流程</div>
+    <a class="nav-item" href="总览仪表盘.html"><span class="ic">&#9673;</span> 总览仪表盘</a>
+    <a class="nav-item" href="上传与抽取.html"><span class="ic">&#9673;</span> Step 1 上传与抽取 <span class="done">✓</span></a>
+    <a class="nav-item" href="人工核对.html"><span class="ic">&#9673;</span> 人工核对 <span class="done">✓</span></a>
+    <a class="nav-item active" href="生成日历.html"><span class="ic">&#9673;</span> Step 2 生成日历</a>
+    <a class="nav-item" href="预览与发布.html"><span class="ic">&#9673;</span> 预览与发布</a>
+    <div class="nav-group-label">管理</div>
+    <a class="nav-item" href="工具箱.html"><span class="ic">&#9673;</span> 工具箱</a>
+    <a class="nav-item" href="运行记录.html"><span class="ic">&#9673;</span> 运行记录</a>
+    <a class="nav-item" href="设置.html"><span class="ic">&#9673;</span> 设置</a>
+  </div>
+
+  <div class="main">
+    <div class="breadcrumb"><a href="总览仪表盘.html">总览仪表盘</a> <span class="sep">/</span> Step 2 生成日历</div>
+    <div class="page-header">
+      <div>
+        <div class="page-title">Step 2 · 生成日历</div>
+        <div class="page-sub">从人工审核清单抽取 High 事件，生成月度主题与日历页面</div>
+      </div>
+      <a href="总览仪表盘.html" class="btn ghost sm">← 返回总览</a>
+    </div>
+
+    <div class="banner info">
+      <span class="ic">ℹ</span>
+      <div><b>3 个月份将重新生成主题</b>：2026-06、2026-08、2026-09（人工核对后清单发生变化，其余月份复用已有主题，不会重复调用模型）。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">运行方式</div>
+      <div class="pill-tabs">
+        <div class="pill active">一键整跑</div>
+        <div class="pill">分步执行</div>
+      </div>
+
+      <!-- 整跑模式的参数 -->
+      <div class="field-grid" style="margin-top:18px;">
+        <div class="field-row">
+          <label>年份</label>
+          <select><option>2026（默认当前年）</option><option>2027</option></select>
+        </div>
+        <div class="field-row">
+          <label>强制重新生成月份（可选）</label>
+          <select><option>不强制，按增量判断</option><option>2026-06</option><option>2026-07</option><option>2026-08</option></select>
+          <div class="field-help">留空则只重算 changed_months 里的月份</div>
+        </div>
+      </div>
+      <div class="settings-row" style="border-top:1px solid var(--border-light); padding-top:14px;">
+        <div><div class="sr-label">跑完自动打包发布文件</div><div class="sr-desc">生成 02_web_output/ 供预览与发布页使用</div></div>
+        <div class="sr-control"><span class="switch on"></span></div>
+      </div>
+
+      <!-- 分步模式参考（默认隐藏于整跑视图之外，作为设计参考展示） -->
+      <div class="page-sub" style="margin:16px 0 6px;">↓ 「分步执行」模式参考：可单独跑其中一步，适合只想重跑某一环节时使用</div>
+      <div class="substep-list">
+        <div class="substep-row">
+          <div class="ss-title">① 抽取 High 事件</div>
+          <div class="ss-desc">run_pipeline.py extract</div>
+          <button class="btn sm ghost">单独运行</button>
+        </div>
+        <div class="substep-row">
+          <div class="ss-title">② 生成月度主题</div>
+          <div class="ss-desc">run_pipeline.py themes</div>
+          <button class="btn sm ghost">单独运行</button>
+        </div>
+        <div class="substep-row">
+          <div class="ss-title">③ 校验页面文件齐全</div>
+          <div class="ss-desc">run_pipeline.py calendar</div>
+          <button class="btn sm ghost">单独运行</button>
+        </div>
+        <div class="substep-row">
+          <div class="ss-title">④ 打包分享文件</div>
+          <div class="ss-desc">run_pipeline.py package</div>
+          <button class="btn sm ghost">单独运行</button>
+        </div>
+      </div>
+
+      <div style="margin-top:20px; display:flex; gap:10px; align-items:center;">
+        <a href="任务监控.html?from=step2" class="btn primary">开始生成</a>
+        <span class="page-sub" style="margin:0;">预计用时约 1 分 30 秒</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+<a class="mock-note" href="index.html">静态原型 · 无真实交互 · ↩ 返回原型索引</a>
+</body>
+</html>

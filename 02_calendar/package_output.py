@@ -137,6 +137,8 @@ def main():
             print(f"  清理残留: {stale.name}")
 
     print(f"\nPackaged {len(VIEWER_FILES)} files to {out}")
+    # 阶段成果块（操作台摘要解析器消费）
+    print(f"📊 [Pipeline] package 文件数: {len(VIEWER_FILES)}")
     for name in output_files:
         p = out / name
         size = p.stat().st_size

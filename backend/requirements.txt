@@ -1,0 +1,10 @@
+# Web 操作台后端依赖（dev 用 venv；生产便携包打包见 P3）
+# 现有 pipeline 依赖（openai/pandas/openpyxl/requests/python-dotenv/httpx/
+# playwright/beautifulsoup4/urllib3）见项目根 requirements.txt，
+# 后端子进程调用 main.py 复用同一 venv，故两份都要装。
+fastapi>=0.110
+uvicorn[standard]>=0.27
+psutil>=5.9
+bcrypt>=4.0
+python-multipart>=0.0.9
+itsdangerous>=2.1  # starlette SessionMiddleware 依赖（pip 不自动装）

@@ -63,6 +63,7 @@ def cmd_calendar(args):
     if missing:
         print(f"ERROR: missing calendar files: {', '.join(missing)}")
         print("  Run `python3 run_pipeline.py extract` first.")
+        print(f"📊 [Pipeline] calendar 状态: missing")
         return 1
 
     canonical_excel = Path(__file__).parent.parent / "01_event_list_output" / "Events List.xlsx"
@@ -72,6 +73,7 @@ def cmd_calendar(args):
         print("  If you edited the Excel, re-run `python3 run_pipeline.py extract` before opening the calendar.")
     else:
         print("\n✓ Step 3 ready: calendar pages are built on top of the reviewed data.")
+    print(f"📊 [Pipeline] calendar 状态: ok")
     print(f"  Open {root / 'index.html'} to view the overview.")
     return 0
 
@@ -167,9 +169,11 @@ To keep a manual HTML tweak across packages, put the modified file in 02_calenda
     p_all = sub.add_parser("all", help="Run extract + eventlist + optional themes + calendar + optional package")
     p_all.add_argument("--source", default=None, help="Path to source Excel")
     p_all.add_argument("--output-dir", default=None, help="Output directory")
+    p_all.add_argument("--source-dir", default=None, help="Source directory for package step (passed to package)")
     p_all.add_argument("--year", type=int, default=None, help="Year for themes")
     p_all.add_argument("--themes", action="store_true", help="Also run Ark theme enrichment")
     p_all.add_argument("--package", action="store_true", help="Also package output folder for sharing")
+    p_all.add_argument("--month", default=None, help="Force re-generate a single month YYYY-MM (passed to themes)")
     p_all.add_argument("--min-events", type=int, default=5, help="Skip months with fewer events")
     p_all.set_defaults(func=cmd_all)
 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>设置 · 北京大事件操作台</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="topbar-lock">
+      <span class="dot idle"></span>
+      当前无人占用编辑锁
+    </div>
+    <div class="topbar-user">
+      <span>王晓 · 管理员</span>
+      <div class="avatar">王</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-logo">北京大事件操作台<small>Beijing Events Console</small></div>
+    <div class="nav-group-label">流程</div>
+    <a class="nav-item" href="总览仪表盘.html"><span class="ic">&#9673;</span> 总览仪表盘</a>
+    <a class="nav-item" href="上传与抽取.html"><span class="ic">&#9673;</span> Step 1 上传与抽取</a>
+    <a class="nav-item" href="人工核对.html"><span class="ic">&#9673;</span> 人工核对</a>
+    <a class="nav-item" href="生成日历.html"><span class="ic">&#9673;</span> Step 2 生成日历</a>
+    <a class="nav-item" href="预览与发布.html"><span class="ic">&#9673;</span> 预览与发布</a>
+    <div class="nav-group-label">管理</div>
+    <a class="nav-item" href="工具箱.html"><span class="ic">&#9673;</span> 工具箱</a>
+    <a class="nav-item" href="运行记录.html"><span class="ic">&#9673;</span> 运行记录</a>
+    <a class="nav-item active" href="设置.html"><span class="ic">&#9673;</span> 设置</a>
+  </div>
+
+  <div class="main">
+    <div class="breadcrumb"><a href="总览仪表盘.html">总览仪表盘</a> <span class="sep">/</span> 设置</div>
+    <div class="page-header">
+      <div>
+        <div class="page-title">设置</div>
+        <div class="page-sub">保留策略、密钥状态、数据备份</div>
+      </div>
+      <a href="总览仪表盘.html" class="btn ghost sm">← 返回总览</a>
+    </div>
+
+    <div class="card">
+      <div class="card-title">LLM Key 状态 <span class="hint">只显示已配置/未配置，不显示明文</span></div>
+      <div class="kv-list">
+        <div class="row"><span class="l">DeepSeek 主（直连）</span><span class="r"><span class="badge success">已配置</span></span></div>
+        <div class="row"><span class="l">Ark 兜底</span><span class="r"><span class="badge success">已配置</span></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">运行记录保留策略 <span class="hint">改动会先预览影响范围</span></div>
+      <div class="settings-row">
+        <div><div class="sr-label">日志保留天数</div><div class="sr-desc">超期的日志会被自动清理（受下方保护规则约束）</div></div>
+        <div class="sr-control"><input type="number" value="180" /> 天</div>
+      </div>
+      <div class="settings-row">
+        <div><div class="sr-label">日志总容量上限</div><div class="sr-desc">超限从最旧的非置顶记录开始清理</div></div>
+        <div class="sr-control"><input type="number" value="2" /> GB</div>
+      </div>
+      <div class="settings-row">
+        <div><div class="sr-label">每种操作至少保留</div><div class="sr-desc">不论多老都会保留最近 N 次，防止清空唯一的成功记录</div></div>
+        <div class="sr-control"><input type="number" value="10" /> 次</div>
+      </div>
+      <div class="settings-row">
+        <div><div class="sr-label">回收站保留天数</div><div class="sr-desc">软删除后多久自动彻底删除</div></div>
+        <div class="sr-control"><input type="number" value="30" /> 天</div>
+      </div>
+      <div class="settings-row">
+        <div><div class="sr-label">canonical 备份（.bak）保留份数</div><div class="sr-desc">回滚用的救命绳，不随运行记录删除而删除，独立保留</div></div>
+        <div class="sr-control"><input type="number" value="20" /> 份</div>
+      </div>
+      <div style="margin-top:14px; display:flex; gap:8px;">
+        <button class="btn primary">保存设置</button>
+        <button class="btn ghost">预览本次改动将清理的记录</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">自动清理记录</div>
+      <div class="banner info">
+        <span class="ic">ℹ</span>
+        <div>上次自动清理：8月7日 03:00，清理 12 条记录，释放约 84 MB。清理时机：服务启动后 60 秒 + 每日 03:00。</div>
+      </div>
+      <button class="btn ghost sm">查看清理审计记录</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">数据备份</div>
+      <div class="kv-list" style="margin-bottom:12px;">
+        <div class="row"><span class="l">data/ 目录大小</span><span class="r">1.2 GB</span></div>
+        <div class="row"><span class="l">最后备份</span><span class="r">8月6日 03:00（自动）</span></div>
+      </div>
+      <button class="btn ghost">↓ 下载 data/ 备份</button>
+    </div>
+
+  </div>
+</div>
+<a class="mock-note" href="index.html">静态原型 · 无真实交互 · ↩ 返回原型索引</a>
+</body>
+</html>

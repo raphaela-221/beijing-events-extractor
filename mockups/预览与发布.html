@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>预览与发布 · 北京大事件操作台</title>
+<link rel="stylesheet" href="shared.css" />
+<style>
+  .calendar-fake { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .calendar-fake .cell { height: 46px; border-radius: 4px; background: #fff; border: 1px solid var(--border-light); font-size: 10px; color: var(--text-tertiary); padding: 3px; }
+  .calendar-fake .cell.ev1 { background: #EFF6FF; border-color: #BFDBFE; }
+  .calendar-fake .cell.ev2 { background: #F0FDF4; border-color: #BBF7D0; }
+  .calendar-fake .cell.ev3 { background: #FEF3C7; border-color: #FDE68A; }
+  .publish-steps { display: flex; flex-direction: column; gap: 10px; }
+  .publish-step { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--border-light); border-radius: 6px; background: #FAFAFC; }
+  .publish-step .ps-num { width: 22px; height: 22px; border-radius: 50%; background: var(--idle-bg); color: var(--text-secondary); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .publish-step .ps-body { flex: 1; font-size: 13px; }
+  .publish-step .ps-body .ps-desc { font-size: 11.5px; color: var(--text-tertiary); margin-top: 2px; }
+  .history-table td, .history-table th { font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+
+  <div class="topbar">
+    <div class="topbar-lock">
+      <span class="dot idle"></span>
+      当前无人占用编辑锁
+    </div>
+    <div class="topbar-user">
+      <span>王晓 · 社媒监测组</span>
+      <div class="avatar">王</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-logo">北京大事件操作台<small>Beijing Events Console</small></div>
+    <div class="nav-group-label">流程</div>
+    <a class="nav-item" href="总览仪表盘.html"><span class="ic">&#9673;</span> 总览仪表盘</a>
+    <a class="nav-item" href="上传与抽取.html"><span class="ic">&#9673;</span> Step 1 上传与抽取 <span class="done">✓</span></a>
+    <a class="nav-item" href="人工核对.html"><span class="ic">&#9673;</span> 人工核对 <span class="done">✓</span></a>
+    <a class="nav-item" href="生成日历.html"><span class="ic">&#9673;</span> Step 2 生成日历 <span class="done">✓</span></a>
+    <a class="nav-item active" href="预览与发布.html"><span class="ic">&#9673;</span> 预览与发布</a>
+    <div class="nav-group-label">管理</div>
+    <a class="nav-item" href="工具箱.html"><span class="ic">&#9673;</span> 工具箱</a>
+    <a class="nav-item" href="运行记录.html"><span class="ic">&#9673;</span> 运行记录</a>
+    <a class="nav-item" href="设置.html"><span class="ic">&#9673;</span> 设置</a>
+  </div>
+
+  <div class="main">
+    <div class="breadcrumb"><a href="总览仪表盘.html">总览仪表盘</a> <span class="sep">/</span> 预览与发布</div>
+    <div class="page-header">
+      <div>
+        <div class="page-title">预览与发布</div>
+        <div class="page-sub">发布前先在内置预览核对，确认无误后推送更新到对外日历</div>
+      </div>
+      <a href="总览仪表盘.html" class="btn ghost sm">← 返回总览</a>
+    </div>
+
+    <!-- 两个 URL -->
+    <div class="card">
+      <div class="card-title">链接</div>
+      <div class="field-row">
+        <label>内置预览 URL（操作台内托管，用于发布前核对）</label>
+        <div class="copy-field">
+          <span class="path">http://192.168.1.20:18432/preview/index.html</span>
+          <button class="btn ghost sm">复制</button>
+          <button class="btn ghost sm">在浏览器打开</button>
+        </div>
+      </div>
+      <div class="field-row" style="margin-bottom:0;">
+        <label>对外分享 URL（项目管理平台，固定不变）</label>
+        <div class="copy-field">
+          <span class="path">https://pm.internal.example.com/share/beijing-events-2026</span>
+          <button class="btn ghost sm">复制</button>
+          <button class="btn ghost sm">在浏览器打开</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 预览 -->
+    <div class="card">
+      <div class="card-title">
+        预览
+        <span class="pill-tabs">
+          <span class="pill active">总览页</span>
+          <span class="pill">月历页</span>
+          <span class="pill">时间轴页</span>
+        </span>
+      </div>
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="url">192.168.1.20:18432/preview/index.html</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:13px; font-weight:600; margin-bottom:10px;">2026年8月 · 信号卡片</div>
+          <div class="calendar-fake">
+            <div class="cell">1</div><div class="cell">2</div><div class="cell ev1">3<br/>会议</div><div class="cell">4</div><div class="cell">5</div><div class="cell">6</div><div class="cell ev2">7<br/>演出</div>
+            <div class="cell">8</div><div class="cell ev3">9<br/>假期</div><div class="cell">10</div><div class="cell">11</div><div class="cell ev1">12<br/>会议</div><div class="cell">13</div><div class="cell ev2">14<br/>演出</div>
+            <div class="cell ev2">15</div><div class="cell ev2">16</div><div class="cell">17</div><div class="cell">18</div><div class="cell ev2">19</div><div class="cell">20</div><div class="cell">21</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 发布 -->
+    <div class="card">
+      <div class="card-title">发布到对外日历 <span class="hint">v1 手动上传</span></div>
+      <div class="publish-steps">
+        <div class="publish-step">
+          <div class="ps-num">1</div>
+          <div class="ps-body">生成发布 zip<div class="ps-desc">打包 02_web_output/ 下全部文件</div></div>
+          <button class="btn primary sm">生成 zip</button>
+        </div>
+        <div class="publish-step">
+          <div class="ps-num">2</div>
+          <div class="ps-body">下载 zip 并上传到项目管理平台<div class="ps-desc">替换原文件，对外 URL 不变</div></div>
+          <button class="btn ghost sm" disabled>↓ 下载 zip</button>
+        </div>
+        <div class="publish-step">
+          <div class="ps-num">3</div>
+          <div class="ps-body">打开平台上传页<div class="ps-desc">在新标签页打开项目管理平台对应项目</div></div>
+          <button class="btn ghost sm" disabled>打开平台上传页</button>
+        </div>
+        <div class="publish-step">
+          <div class="ps-num">4</div>
+          <div class="ps-body">确认已在平台完成上传后<div class="ps-desc">标记本次发布完成，记录进发布历史</div></div>
+          <button class="btn ghost sm" disabled>标记已发布</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 发布历史 -->
+    <div class="card">
+      <div class="card-title">发布历史</div>
+      <table class="data-table history-table">
+        <thead><tr><th>时间</th><th>方式</th><th>操作人</th><th>备注</th></tr></thead>
+        <tbody>
+          <tr><td>2026-07-31 20:40</td><td>手动 zip</td><td>李娜</td><td>常规月度更新</td></tr>
+          <tr><td>2026-06-28 19:12</td><td>手动 zip</td><td>王晓</td><td>补充演唱会 Dates 后重新发布</td></tr>
+          <tr><td>2026-05-30 21:05</td><td>手动 zip</td><td>李娜</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+<a class="mock-note" href="index.html">静态原型 · 无真实交互 · ↩ 返回原型索引</a>
+</body>
+</html>
