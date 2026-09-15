@@ -136,6 +136,8 @@ export const runsApi = {
     getJson<LogPage>(`/api/runs/${id}/log?from_seq=${from_seq}&limit=${limit}`),
   cancel: (id: string) => postJson<{ ok: boolean }>(`/api/runs/${id}/cancel`),
   logDownloadUrl: (id: string) => `/api/runs/${id}/log/download`,
+  // Step1 类 run 的产出 Excel（Travel_Facilitators_..._日期.xlsx）；非 step1 类后端 404
+  outputDownloadUrl: (id: string) => `/api/runs/${id}/output`,
   streamUrl: (id: string, from_seq = 0) =>
     `/api/runs/${id}/stream?from_seq=${from_seq}`,
   listRuns: (params: ListRunsParams = {}) => {

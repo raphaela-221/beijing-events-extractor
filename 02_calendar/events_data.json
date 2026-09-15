@@ -546,19 +546,6 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzkwOTMzODI5Mg==&mid=2247511242&idx=1&sn=96061f3a5f4ecb02030dd30565ed9140"
   },
   {
-    "no": 172,
-    "topic_zh": "文娱活动",
-    "topic_en": "Cultural and Entertainment Activities",
-    "topic_subtype": "",
-    "start": "2024-09-21",
-    "end": "2024-09-22",
-    "headline": "北京朝阳又来一波演唱会！玛丽亚·凯莉、杨千嬅、周深……",
-    "keywords_zh": "周深演唱会",
-    "keywords_en": "Zhou Shen Concert",
-    "description": "2024周深9.29Hz 十周年巡回演唱会-北京场\n演出场馆：国家体育场-鸟巢",
-    "link": "http://a.mp.uc.cn/article.html?uc_param_str=&from=media#!wm_cid=638101250325352448!!wm_aid=6027341707086098512!!wm_id=b6ce593ab37949ec8a900202a616f945"
-  },
-  {
     "no": 176,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
@@ -596,6 +583,22 @@
     "keywords_en": "2024 Chinese Football Association Super League",
     "description": "赛事名称：2024年中国足球协会超级联赛（北京赛区）（北京国安VS长春亚泰）\n赛事级别：全国性体育赛事\n赛事类型：足球\n比赛时间：2024年9月28日 19:35\n场馆名称：北京工人体育场",
     "link": "https://www.beijing.gov.cn/fwcj/calendar/tyss/66d328667918915b23decffb.html"
+  },
+  {
+    "no": 172,
+    "topic_zh": "文娱活动",
+    "topic_en": "Cultural and Entertainment Activities",
+    "topic_subtype": "",
+    "start": "2024-09-29",
+    "end": "2024-09-29",
+    "headline": "北京朝阳又来一波演唱会！玛丽亚·凯莉、杨千嬅、周深……",
+    "keywords_zh": "周深演唱会",
+    "keywords_en": "Zhou Shen Concert",
+    "description": "2024周深9.29Hz 十周年巡回演唱会-北京场\n演出场馆：国家体育场-鸟巢",
+    "link": "http://a.mp.uc.cn/article.html?uc_param_str=&from=media#!wm_cid=638101250325352448!!wm_aid=6027341707086098512!!wm_id=b6ce593ab37949ec8a900202a616f945",
+    "dates": [
+      "2024-09-29"
+    ]
   },
   {
     "no": 213,
@@ -1752,6 +1755,24 @@
     "link": "https://wap.bjd.com.cn/news/2025/08/05/11259889.shtml"
   },
   {
+    "no": 543,
+    "topic_zh": "文娱活动",
+    "topic_en": "Cultural and Entertainment Activities",
+    "topic_subtype": "",
+    "start": "2025-09-15",
+    "end": "2025-09-17",
+    "headline": "北汽极狐·2025北京大运河音乐节，开票！",
+    "keywords_zh": "大运河音乐节",
+    "keywords_en": "Grand Canal Music Festival",
+    "description": "中秋夜晚的音乐列车即将到站\n大运河畔的热力狂欢倒数计时\n北汽极狐·2025北京大运河音乐节\n开票啦~~~",
+    "link": "https://www.163.com/dy/article/K93V68TG0514AM4I.html",
+    "dates": [
+      "2025-09-15",
+      "2025-09-16",
+      "2025-09-17"
+    ]
+  },
+  {
     "no": 513,
     "topic_zh": "高级别政府会议",
     "topic_en": "High-profile Government Meetings",
@@ -1897,19 +1918,6 @@
     "keywords_en": "Zhang Yixing's \"Great Voyage 5: The Monkey King's Rebellion in Heaven\" concert in 2025",
     "description": "演出场地：国家体育场",
     "link": "https://www.beijing.gov.cn/fwcj/calendar/whyc/68d9f148da495a1c2b9c5841.html"
-  },
-  {
-    "no": 543,
-    "topic_zh": "文娱活动",
-    "topic_en": "Cultural and Entertainment Activities",
-    "topic_subtype": "",
-    "start": "2025-10-06",
-    "end": "2025-10-07",
-    "headline": "北汽极狐·2025北京大运河音乐节，开票！",
-    "keywords_zh": "大运河音乐节",
-    "keywords_en": "Grand Canal Music Festival",
-    "description": "中秋夜晚的音乐列车即将到站\n大运河畔的热力狂欢倒数计时\n北汽极狐·2025北京大运河音乐节\n开票啦~~~",
-    "link": "https://www.163.com/dy/article/K93V68TG0514AM4I.html"
   },
   {
     "no": 545,
@@ -2500,7 +2508,10 @@
     "keywords_zh": "四海福临2025德云社郭德纲 于谦跨年相声专场演出",
     "keywords_en": "Fu Hai Fu Lin 2025 De Yun She Guo De Gang Yu Qian New Year Cross-Year Xiang Sheng Special Show",
     "description": "　　演出名称：四海福临2025德云社郭德纲 于谦跨年相声专场演出\n　　演出简介：北京德云社是以弘扬北方民族文化、培养曲艺人才、服务大众为主旨的曲艺演出团体。上世纪九十年代中期相声艺术走进低谷时，在老艺术家的支持下郭德纲组织起了当初的演出社团“北京相声大会”，经历了二十一年的风雨历程走到今日实属艰辛，然值得欣慰的是经过郭德纲先生和众多位新老相声演员的不懈努力，德云社正在逐步走向辉煌。德云社在各地的演出持续火爆，也从一定程度上说明了好的相声在各地都是有很大的市场。如今，“到德云社听相声”已经成为一种时尚文化消费。\n　　演出时间：2025-12-31至2025-12-31 19:30\n　　演出场地：北京展览馆剧场\n　　演出类型：相声\n　　演出性质：营业性演出\n　　演出是否收费：是\n　　演出参考票价：380|680|980|1280|1580|1800",
-    "link": "http://www.beijing.gov.cn/fwcj/calendar/whyc/69286107091e1a7398401b47.html"
+    "link": "http://www.beijing.gov.cn/fwcj/calendar/whyc/69286107091e1a7398401b47.html",
+    "dates": [
+      "2025-12-31"
+    ]
   },
   {
     "no": 636,
@@ -5100,6 +5111,19 @@
   },
   {
     "no": 933,
+    "topic_zh": "极端天气及自然灾害",
+    "topic_en": "Extreme Weather & Natural Disasters",
+    "topic_subtype": "",
+    "start": "2026-08-05",
+    "end": "2026-08-06",
+    "headline": "8月6日湖北的天气可不太妙。中央气象台8月5日预警，8月5日08时至6日08时，湖北西部部分地区有大到暴雨。而且湖北北部部分地区会有10级以上雷暴大风，最大风力可达11级以上。",
+    "keywords_zh": "湖北西部北部暴雨雷暴大风 宜万铁路部分列车停运",
+    "keywords_en": "Heavy rain and thunderstorms in western and northern Hubei caused partial suspension of trains on the Yichang-Wanzhou Railway",
+    "description": "8月5日至6日，湖北西部和北部出现大到暴雨，局地伴有10级以上雷暴大风。受强降雨影响，宜万铁路部分列车临时停运或折返，如北京西至重庆北D95次等多趟列车停运。相关部门提醒旅客关注天气和交通信息，停运列车30日内可办理退票。",
+    "link": "http://www.toutiao.com/item/1872722008320012"
+  },
+  {
+    "no": 934,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5112,7 +5136,36 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/tyss/6a38ed6f92c0e70bf722e675.html"
   },
   {
-    "no": 934,
+    "no": 935,
+    "topic_zh": "体育赛事",
+    "topic_en": "Sports Events",
+    "topic_subtype": "",
+    "start": "2026-08-08",
+    "end": "2026-08-08",
+    "headline": "2026年索道滑水世界锦标赛开幕式在北京顺义举行",
+    "keywords_zh": "2026年索道滑水世界锦标赛",
+    "keywords_en": "2026 IWWF Cable Waterski World Championship",
+    "description": "2026年索道滑水世界锦标赛于8月8日至15日在北京顺义奥林匹克水上公园举行。这是索道滑水世锦赛首次落地中国，汇聚全球30个国家和地区、180名顶尖索道滑水选手参赛，并吸引国际组织官员、10位体育冠军及各界嘉宾参与。赛事依托2008北京奥运水上遗产，填补了国内高端国际索道滑水赛事的空白。",
+    "link": "https://xinwen.bjd.com.cn/content/s6a780465e4b03fa51a82b199.html",
+    "dates": [
+      "2026-08-08"
+    ]
+  },
+  {
+    "no": 936,
+    "topic_zh": "体育赛事",
+    "topic_en": "Sports Events",
+    "topic_subtype": "",
+    "start": "2026-08-08",
+    "end": "2026-08-10",
+    "headline": "BODF北京国际标准舞国际公开赛举办",
+    "keywords_zh": "BODF北京国际标准舞国际公开赛",
+    "keywords_en": "BODF Beijing International Ballroom Dancing Open",
+    "description": "BODF北京国际标准舞国际公开赛近日在京举办，作为第三届BODF北京国际舞蹈节的核心竞赛板块，赛事吸引了来自英国、美国、意大利、俄罗斯、澳大利亚等30多个国家和地区的选手参与，报名组次近4000组。赛事期间还举办了国际少年对抗赛、省际少儿对抗赛和师生壮年对抗赛三场表演赛。",
+    "link": "https://www.peopleapp.com/column/30052900481-500007644875"
+  },
+  {
+    "no": 937,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5125,7 +5178,20 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/tyss/6a38ed6f92c0e70bf722e66f.html"
   },
   {
-    "no": 935,
+    "no": 938,
+    "topic_zh": "体育赛事",
+    "topic_en": "Sports Events",
+    "topic_subtype": "",
+    "start": "2026-08-08",
+    "end": "2026-08-08",
+    "headline": "全民健身——北京孩子的“世界杯”开赛",
+    "keywords_zh": "第43届百队杯足球赛",
+    "keywords_en": "The 43rd Baidui Cup Football Tournament",
+    "description": "2026年第43届“百队杯”足球赛于8月8日在北京开赛。本届赛事首次设立普及组与竞技组两条独立通道，共设八个赛区，1481支球队、15314名队员报名参赛，总参与人数达到20075人，整体规模创近年新高。作为北京传统青少年足球赛事，百队杯延续43年的草根足球传统，成为北京青少年暑期的足球盛会。",
+    "link": "http://www.bj.xinhuanet.com/20260808/81b5ced263e24ea4ae880477dcd4e932/c.html"
+  },
+  {
+    "no": 939,
     "topic_zh": "文娱活动",
     "topic_en": "Cultural and Entertainment Activities",
     "topic_subtype": "",
@@ -5141,20 +5207,62 @@
     ]
   },
   {
-    "no": 936,
-    "topic_zh": "大型会议和展览",
-    "topic_en": "Significant Conferences and Exhibitions",
+    "no": 940,
+    "topic_zh": "极端天气及自然灾害",
+    "topic_en": "Extreme Weather & Natural Disasters",
     "topic_subtype": "",
-    "start": "2026-08-13",
-    "end": "2026-08-15",
-    "headline": "第54届中国·北京国际礼品、赠品及家庭用品展览会",
-    "keywords_zh": "第54届中国·北京国际礼品、赠品及家庭用品展览会",
-    "keywords_en": "The 54th China·Beijing International Gifts, Souvenirs and Household Products Exhibition",
-    "description": "会展名称：第54届中国·北京国际礼品、赠品及家庭用品展览会\n　　会展简介：北京礼品展是由国内领先的礼品家居行业展会主办机构，同时也是英国励展博览集团（国际领先的展览及会议主办机构）的成员公司励展华博展览（深圳）有限公司主办、北京励展华群展览有限公司承办。公司旗下的礼品及家居用品展会系列是国内规模庞大也是广受赞誉的展会品牌之一。北京国际礼品、赠品及家庭用品展览会一年两届，吸引了全国乃至海外近千家优质礼品供应商携新一年的新奇特产品前来展览，是年度礼品潮流资讯、原创设计及品牌的集中发布平台。每年每届近4万多名来自北京及华北、东北地区的礼品渠道商、传统零售商、网络分销商、企业客户都会如约而至，汲取灵感、找寻供应商、捕捉商机，并与同行交流学习；通过展会的精准配对服务，帮助买家锁定实力工厂及优质本地服务商，为客户实现高性价比采购。\n　　会展时间：2026-08-13至2026-08-15 09:00-17:00\n　　会展类型：礼品及家居用品\n　　会展场馆名称：中国国际展览中心（朝阳馆）\n　　会展面积：29672㎡\n　　会展规模：大型（≥10000人）\n　　会展地址：北京市朝阳区北三环东路6号\n　　交通信息：公交300、302等均可到达；自驾车停车场共有3个，可按场馆周边指示牌停车，有工作人员引导。\n　　观展是否预约：是\n　　观展预约方式：线上预约\n　　观展预约途径：关注“励展华博”公众号并提前1天预约，凭预约二维码进场。\n　　会展适合人群：行业采购商、经销商、\n　　参展对象：行业企业",
-    "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a429b219405807783d024a3.html"
+    "start": "2026-08-09",
+    "end": "2026-08-09",
+    "headline": "三预警齐发！“白海豚”逼近，多个明星演唱会紧急取消，多家机场航班取消，云南孟连发布暴雨红色预警，上海暴雨预警22分钟内连续升级",
+    "keywords_zh": "云南孟连暴雨红色预警",
+    "keywords_en": "Red rainstorm warning issued in Menglian, Yunnan",
+    "description": "2026年8月9日，云南孟连发布暴雨红色预警，这是暴雨预警中的最高等级，提示当地已出现或预计出现极强降雨。强降雨可能引发城乡内涝、山洪、滑坡等次生灾害，对道路通行和公众出行造成明显影响，需加强防范。",
+    "link": "http://3g.k.sohu.com/h5apps/t/feed?action=300&uid=1722344609-6417311081832034366-U&type=1&currentPage=1&pageSize=20&cursorId=0&snstype=1",
+    "dates": [
+      "2026-08-09"
+    ]
   },
   {
-    "no": 937,
+    "no": 942,
+    "topic_zh": "极端天气及自然灾害",
+    "topic_en": "Extreme Weather & Natural Disasters",
+    "topic_subtype": "",
+    "start": "2026-08-10",
+    "end": "2026-08-10",
+    "headline": "洪水蓝色预警虽为最低档，但也会给居民生活带来不少影响",
+    "keywords_zh": "洪水蓝色预警 涉及十省份 无锡地铁关闭 苏通大桥禁行",
+    "keywords_en": "Blue flood warning covering ten provinces, Wuxi metro station closed, Sutong Bridge closed to traffic",
+    "description": "8月10日洪水蓝色预警涉及浙江、江苏等十个省份。出行方面，无锡地铁1号线胜利门站临时关闭，铁路无锡站部分列车停运，购票乘客30天内可免费退票；苏通大桥、沪苏通大桥禁止车辆通行，崇启大桥只允许小型客车低速通过，长江江苏段船舶停航、跨江渡线停运。生活方面，惠山古镇景区、无锡市图书馆闭园闭馆。",
+    "link": "http://www.toutiao.com/item/1873202552567114"
+  },
+  {
+    "no": 943,
+    "topic_zh": "极端天气及自然灾害",
+    "topic_en": "Extreme Weather & Natural Disasters",
+    "topic_subtype": "",
+    "start": "2026-08-11",
+    "end": "2026-08-12",
+    "headline": "台风影响⚠️天津及周边多趟铁路临时停运！",
+    "keywords_zh": "京津冀大到暴雨 多趟铁路临时停运 免费退票",
+    "keywords_en": "Heavy rain in Beijing-Tianjin-Hebei region, multiple railway lines temporarily suspended, free ticket refunds",
+    "description": "近期京津冀有大到暴雨天气，铁路部门发布最新临时停运通知。8月11日至12日，丰沙、京原、京通、京承、邯济、邯长、阳涉、阳大铁路干线及北京市郊线路S2线、怀密线、通密线途经相关列车分时段临时停运，天津关联途经车次同步受影响。已购买停运列车车票的旅客，自乘车日期起30日内可通过12306办理免费退票。",
+    "link": "http://www.toutiao.com/item/1873325994788864"
+  },
+  {
+    "no": 944,
+    "topic_zh": "极端天气及自然灾害",
+    "topic_en": "Extreme Weather & Natural Disasters",
+    "topic_subtype": "",
+    "start": "2026-08-11",
+    "end": "2026-08-14",
+    "headline": "8月11日山西省气象台发布暴雨蓝色预警，大同、阳泉、晋城等多地未来两日累计降雨量超50毫米",
+    "keywords_zh": "山西暴雨蓝色预警 城际列车停运 太行山大峡谷闭园",
+    "keywords_en": "Blue rainstorm warning in Shanxi, intercity trains suspended, Taihang Mountain Grand Canyon closed",
+    "description": "8月11日山西省气象台发布暴雨蓝色预警，大同、阳泉、晋城等多地未来两日累计降雨量超50毫米。受强降雨影响，多趟往返太原的城际列车11日至14日临时停运，太行山大峡谷、通天峡两大山区景区同步闭园。铁路部门提醒旅客出行前在12306查看班次动态，停运车票可免费改签、全额退款。山区土质松软极易出现滑坡，近期不要进山游玩。",
+    "link": "http://www.toutiao.com/item/1873227706162179"
+  },
+  {
+    "no": 946,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5167,7 +5275,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a42949b9405807783d0242f.html"
   },
   {
-    "no": 939,
+    "no": 949,
     "topic_zh": "文娱活动",
     "topic_en": "Cultural and Entertainment Activities",
     "topic_subtype": "",
@@ -5192,7 +5300,7 @@
     ]
   },
   {
-    "no": 940,
+    "no": 950,
     "topic_zh": "文娱活动",
     "topic_en": "Cultural and Entertainment Activities",
     "topic_subtype": "",
@@ -5210,6 +5318,22 @@
   },
   {
     "no": 941,
+    "topic_zh": "大型会议和展览",
+    "topic_en": "Significant Conferences and Exhibitions",
+    "topic_subtype": "",
+    "start": "2026-08-16",
+    "end": "2026-08-16",
+    "headline": "2026国际基础科学大会专场沙龙今起密集举行",
+    "keywords_zh": "2026国际基础科学大会",
+    "keywords_en": "2026 International Congress of Basic Science",
+    "description": "2026国际基础科学大会正在北京举行，大会主题为“聚焦基础科学，引领人类未来”，共有千余名中外科学家、科研工作者和青年学子参会。据央视新闻等报道，8月10日起大会举办“数学之夜”“物理之夜”“工程之夜”及“基础科学与人工智能论坛”等多场专场沙龙，汇聚多位菲尔兹奖、图灵奖等国际大奖得主，活动将持续至8月21日。",
+    "link": "http://www.toutiao.com/item/1873102609220615",
+    "dates": [
+      "2026-08-16"
+    ]
+  },
+  {
+    "no": 951,
     "topic_zh": "文娱活动",
     "topic_en": "Cultural and Entertainment Activities",
     "topic_subtype": "",
@@ -5225,7 +5349,20 @@
     ]
   },
   {
-    "no": 942,
+    "no": 952,
+    "topic_zh": "极端天气及自然灾害",
+    "topic_en": "Extreme Weather & Natural Disasters",
+    "topic_subtype": "",
+    "start": "2026-08-18",
+    "end": "2026-08-23",
+    "headline": "台风\"白海豚\"逼近，暴雨如注！上海时隔13年再发中心城区暴雨红色预警！近八成航班取消，长途客运总站临时关停，上海今天将转移安置14.42万人",
+    "keywords_zh": "台风'白海豚'逼近上海 暴雨红色预警 近八成航班取消",
+    "keywords_en": "Typhoon 'Baihaitun' approaches Shanghai, red rainstorm warning issued, nearly 80% of flights cancelled",
+    "description": "台风'白海豚'逼近上海，带来强降雨，上海时隔13年再发中心城区暴雨红色预警。受此影响，上海近八成航班取消，长途客运总站临时关停，当地计划转移安置14.42万人。此次台风对上海的交通和居民生活造成严重影响。",
+    "link": "http://www.toutiao.com/item/1874267640132608"
+  },
+  {
+    "no": 953,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5238,7 +5375,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a429e799405807783d024db.html"
   },
   {
-    "no": 943,
+    "no": 954,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5251,7 +5388,36 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a4298409405807783d0246d.html"
   },
   {
-    "no": 944,
+    "no": 945,
+    "topic_zh": "大型会议和展览",
+    "topic_en": "Significant Conferences and Exhibitions",
+    "topic_subtype": "",
+    "start": "2026-08-22",
+    "end": "2026-08-22",
+    "headline": "第54届中国·北京国际礼品、赠品及家庭用品展览会",
+    "keywords_zh": "第54届中国·北京国际礼品、赠品及家庭用品展览会",
+    "keywords_en": "The 54th China·Beijing International Gifts, Souvenirs and Household Products Exhibition",
+    "description": "会展名称：第54届中国·北京国际礼品、赠品及家庭用品展览会\n　　会展简介：北京礼品展是由国内领先的礼品家居行业展会主办机构，同时也是英国励展博览集团（国际领先的展览及会议主办机构）的成员公司励展华博展览（深圳）有限公司主办、北京励展华群展览有限公司承办。公司旗下的礼品及家居用品展会系列是国内规模庞大也是广受赞誉的展会品牌之一。北京国际礼品、赠品及家庭用品展览会一年两届，吸引了全国乃至海外近千家优质礼品供应商携新一年的新奇特产品前来展览，是年度礼品潮流资讯、原创设计及品牌的集中发布平台。每年每届近4万多名来自北京及华北、东北地区的礼品渠道商、传统零售商、网络分销商、企业客户都会如约而至，汲取灵感、找寻供应商、捕捉商机，并与同行交流学习；通过展会的精准配对服务，帮助买家锁定实力工厂及优质本地服务商，为客户实现高性价比采购。\n　　会展时间：2026-08-13至2026-08-15 09:00-17:00\n　　会展类型：礼品及家居用品\n　　会展场馆名称：中国国际展览中心（朝阳馆）\n　　会展面积：29672㎡\n　　会展规模：大型（≥10000人）\n　　会展地址：北京市朝阳区北三环东路6号\n　　交通信息：公交300、302等均可到达；自驾车停车场共有3个，可按场馆周边指示牌停车，有工作人员引导。\n　　观展是否预约：是\n　　观展预约方式：线上预约\n　　观展预约途径：关注“励展华博”公众号并提前1天预约，凭预约二维码进场。\n　　会展适合人群：行业采购商、经销商、\n　　参展对象：行业企业",
+    "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a429b219405807783d024a3.html",
+    "dates": [
+      "2026-08-22"
+    ]
+  },
+  {
+    "no": 956,
+    "topic_zh": "大型会议和展览",
+    "topic_en": "Significant Conferences and Exhibitions",
+    "topic_subtype": "",
+    "start": "2026-08-22",
+    "end": "2026-08-22",
+    "headline": "中国共产党第二十届中央纪律检查委员会第六次全体会议，于2026年8月22日在北京举行。全会按照党章规定，选举赵世勇同志为中共中央纪律检查委员会副书记，张忠同志为中共中央纪律检查委员会常务委员会委员、副书记。",
+    "keywords_zh": "中国共产党第二十届中央纪律检查委员会第六次全体会议",
+    "keywords_en": "The Sixth Plenary Session of the 20th Central Commission for Discipline Inspection of the Communist Party of China",
+    "description": "中国共产党第二十届中央纪律检查委员会第六次全体会议于2026年8月22日在北京举行。全会按照党章规定，选举赵世勇同志为中共中央纪律检查委员会副书记，张忠同志为中共中央纪律检查委员会常务委员会委员、副书记。这是中国共产党内重要会议，属于国家级重要会议。",
+    "link": "https://view.inews.qq.com/a/20260822V085NX00"
+  },
+  {
+    "no": 957,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5264,7 +5430,23 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/tyss/6a38ed6f92c0e70bf722e679.html"
   },
   {
-    "no": 945,
+    "no": 958,
+    "topic_zh": "文娱活动",
+    "topic_en": "Cultural and Entertainment Activities",
+    "topic_subtype": "",
+    "start": "2026-08-22",
+    "end": "2026-08-22",
+    "headline": "2026黄子韬“未来纪元”演唱会",
+    "keywords_zh": "2026黄子韬“未来纪元”演唱会",
+    "keywords_en": "2026 Huang Zitao \"Future Era\" Concert",
+    "description": "演出名称：2026黄子韬“未来纪元”演唱会\n　　演出简介：黄子韬作为身兼C-pop音乐唱作人、明星企业家、演员等多重身份的全能艺人，此次以“未来纪元·New Era”作为巡演主题，主打未来潮酷街头风，是今夏北京极具辨识度的潮流舞台现场之一。千万级赛博朋克舞美配置，搭配百变造型风格，彰显张扬个性，贴合唱跳舞台的热血气场。高燃曲目、新编舞台，新歌重磅集结，只为与每一位热爱与陪伴的你相遇！现场穿插专属粉丝福利互动、即兴舞台彩蛋、近距离对话环节，打破舞台壁垒，满满的舞台诚意、炸裂的现场表现力，打造专属于年轻群体的热血潮流音乐狂欢。\n　　演出时间：2026-08-22至2026-08-22\n　　演出场地：国家体育馆\n　　演出类型：演唱会",
+    "link": "http://www.beijing.gov.cn/fwcj/calendar/whyc/6a854f7421f2a033ca99e0a8.html",
+    "dates": [
+      "2026-08-22"
+    ]
+  },
+  {
+    "no": 959,
     "topic_zh": "文娱活动",
     "topic_en": "Cultural and Entertainment Activities",
     "topic_subtype": "",
@@ -5280,7 +5462,33 @@
     ]
   },
   {
-    "no": 946,
+    "no": 960,
+    "topic_zh": "极端天气及自然灾害",
+    "topic_en": "Extreme Weather & Natural Disasters",
+    "topic_subtype": "",
+    "start": "2026-08-23",
+    "end": "2026-08-25",
+    "headline": "中央气象台“台风+暴雨”双预警齐发 部分铁路列车停运",
+    "keywords_zh": "台风'紫檀'影响华南 部分铁路列车停运",
+    "keywords_en": "Typhoon Zitan affects South China, causing partial suspension of railway train services",
+    "description": "中央气象台8月23日06时继续发布台风蓝色预警，今年第19号台风'紫檀'中心位于广西北海市西偏南方向约165公里的北部湾海面上，最强可达强热带风暴级。受台风'紫檀'和西南季风共同影响，广东局地有大暴雨到特大暴雨，国铁广州局动态调整列车开行方案，甬广高铁和海南高铁西环段部分列车分时段停运。国铁南宁局也启动应急响应，安排多趟旅客列车停运。",
+    "link": "http://jtyst.shanxi.gov.cn/jtzx/qgyw1/202608/t20260823_10205281.shtml"
+  },
+  {
+    "no": 961,
+    "topic_zh": "体育赛事",
+    "topic_en": "Sports Events",
+    "topic_subtype": "",
+    "start": "2026-08-23",
+    "end": "2026-08-23",
+    "headline": "2026国际篮联三人篮球挑战赛北京石景山站总决赛，德国波恩队夺冠",
+    "keywords_zh": "2026国际篮联三人篮球挑战赛北京石景山站",
+    "keywords_en": "2026 FIBA 3x3 Basketball Challenge Beijing Shijingshan Station",
+    "description": "2026国际篮联三人篮球挑战赛北京石景山站总决赛于8月23日举行，多支国际顶尖球队同场竞技。德国波恩队夺得冠军，荷兰阿姆斯特丹队获得亚军，中国上海队获得季军。现场观众沉浸式感受了国际高水平三人篮球赛事的魅力。",
+    "link": "https://xinwen.bjd.com.cn/content/s6a8af9aae4b0e45f3fd66680.html"
+  },
+  {
+    "no": 962,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5293,7 +5501,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a4298409405807783d0246f.html"
   },
   {
-    "no": 947,
+    "no": 963,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5306,7 +5514,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a429b219405807783d0249f.html"
   },
   {
-    "no": 948,
+    "no": 964,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5319,7 +5527,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a42949b9405807783d02435.html"
   },
   {
-    "no": 949,
+    "no": 965,
     "topic_zh": "文娱活动",
     "topic_en": "Cultural and Entertainment Activities",
     "topic_subtype": "",
@@ -5335,20 +5543,7 @@
     ]
   },
   {
-    "no": 953,
-    "topic_zh": "体育赛事",
-    "topic_en": "Sports Events",
-    "topic_subtype": "",
-    "start": "2026-09-02",
-    "end": "2026-09-06",
-    "headline": "2026障碍跑世界锦标赛九月亮相北京环球城市大道",
-    "keywords_zh": "2026障碍跑世界锦标赛",
-    "keywords_en": "2026 Obstacle Course Racing World Championships in Beijing Universal City Walk",
-    "description": "2026年障碍跑世界锦标赛将于9月2日至6日在北京环球城市大道举行。这项赛事是障碍跑项目全球最高级别的单项赛事，共设100米个人赛、400米个人赛、4×100米接力赛、3公里个人赛和3公里团体赛五个项目，并新增4×100米混合接力及U11、U13青少年组别。赛事走出传统体育场馆，依托城市空间打造街头赛事场景。",
-    "link": "https://www.qlwb.com.cn/detail/27888203.html"
-  },
-  {
-    "no": 955,
+    "no": 971,
     "topic_zh": "文娱活动",
     "topic_en": "Cultural and Entertainment Activities",
     "topic_subtype": "",
@@ -5365,7 +5560,7 @@
     ]
   },
   {
-    "no": 956,
+    "no": 973,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5378,7 +5573,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a4298409405807783d02463.html"
   },
   {
-    "no": 957,
+    "no": 974,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5391,7 +5586,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a42949b9405807783d02431.html"
   },
   {
-    "no": 958,
+    "no": 975,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5404,7 +5599,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a4298409405807783d0246b.html"
   },
   {
-    "no": 960,
+    "no": 977,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5417,20 +5612,20 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a429b219405807783d024af.html"
   },
   {
-    "no": 961,
+    "no": 978,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
     "start": "2026-09-09",
-    "end": "2026-09-13",
-    "headline": "第十三届服贸会将于9月9日至13日在北京首钢园区举办，本届服贸会聚焦出海服务，并首次搭建“出海服务推介路演区”……更多精彩，敬请期待吧~#服贸会 #首钢园 #2026服贸会",
-    "keywords_zh": "第十三届服贸会",
-    "keywords_en": "13th China Beijing International Fair for Trade in Services (CIFTIS)",
-    "description": "第十三届服贸会（中国国际服务贸易交易会）将于2026年9月9日至13日在北京首钢园区举办。本届服贸会聚焦出海服务，并首次搭建“出海服务推介路演区”，旨在推动服务贸易领域的国际合作与创新发展。服贸会是国家级、国际性大型展会，对促进全球服务贸易交流具有重要作用。",
-    "link": "https://mbd.baidu.com/newspage/data/videoshare?nid=sv_14048780237129196929&sourceFrom=homepage"
+    "end": "2026-09-14",
+    "headline": "第29届房车之家（北京）国际房车露营博览会将在奥林匹克水上公园举办",
+    "keywords_zh": "第29届房车之家（北京）国际房车露营博览会",
+    "keywords_en": "The 29th RV Home (Beijing) International RV Camping Expo",
+    "description": "第29届房车之家（北京）国际房车露营博览会将于2026年9月9日至14日在顺义奥林匹克水上公园举办。本届博览会总展览面积超5万平方米，汇聚上百家房车知名品牌，现场展出500台全品类房车，预计预约参观人数2万人次。展会实行免费入场，并配套试驾体验、商贸洽谈、旅居文化展示等功能区，融合房车展销与休闲文旅。",
+    "link": "http://www.bjshy.gov.cn/web/ywdt84/dtxx94/1821603/index.html"
   },
   {
-    "no": 962,
+    "no": 979,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5443,7 +5638,37 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/tyss/6a38e8f892c0e70bf722e5fd.html"
   },
   {
-    "no": 967,
+    "no": 980,
+    "topic_zh": "文娱活动",
+    "topic_en": "Cultural and Entertainment Activities",
+    "topic_subtype": "",
+    "start": "2026-09-12",
+    "end": "2026-09-13",
+    "headline": "赵雷“没有信号”2026年北京鸟巢演唱会（增加演员）（国家体育场有限责任公司（国家体育场、鸟巢））",
+    "keywords_zh": "赵雷“没有信号”2026年北京鸟巢演唱会（增加演员）",
+    "keywords_en": "Zhao Lei 'No Signal' 2026 Beijing Bird's Nest Concert (Additional Performers)",
+    "description": "赵雷“没有信号”2026年北京鸟巢演唱会（增加演员）。在国家体育场有限责任公司（国家体育场、鸟巢）举办。演出时间为2026/9/12至2026/9/13。",
+    "link": "https://zwfw.mct.gov.cn/wycx/qgswyyxychd/qgswyyxychdjg/xq/?id=4489f00f3107b19ad3fb3a6dfa13553e",
+    "dates": [
+      "2026-09-12",
+      "2026-09-13"
+    ]
+  },
+  {
+    "no": 981,
+    "topic_zh": "大型会议和展览",
+    "topic_en": "Significant Conferences and Exhibitions",
+    "topic_subtype": "",
+    "start": "2026-09-14",
+    "end": "2026-09-16",
+    "headline": "2026上合组织数字经济论坛新闻发布会在北京举行",
+    "keywords_zh": "2026上合组织数字经济论坛",
+    "keywords_en": "2026 SCO Digital Economy Forum",
+    "description": "2026上合组织数字经济论坛以“数连上合 智启未来”为主题，将于9月14日至16日在新疆乌鲁木齐市举办，并邀请天津市、重庆市作为主宾省（市）。论坛由国家数据局、新疆维吾尔自治区等共同推动，聚焦数字经济合作与数字技术交流，依托新疆丝绸之路经济带核心区优势，服务上合组织国家数字经济发展。",
+    "link": "http://xj.people.com.cn/n2/2026/0819/c186332-41671733.html"
+  },
+  {
+    "no": 986,
     "topic_zh": "大型会议和展览",
     "topic_en": "Significant Conferences and Exhibitions",
     "topic_subtype": "",
@@ -5456,7 +5681,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/zlzh/6a42949b9405807783d02429.html"
   },
   {
-    "no": 968,
+    "no": 987,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5469,7 +5694,7 @@
     "link": "https://www.cnr.cn/bj/sijh/20260722/t20260722_527723526.shtml"
   },
   {
-    "no": 969,
+    "no": 988,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5482,7 +5707,51 @@
     "link": "http://www.beijing.gov.cn/ywdt/gzdt/202607/t20260701_4742106.html"
   },
   {
-    "no": 970,
+    "no": 989,
+    "topic_zh": "文娱活动",
+    "topic_en": "Cultural and Entertainment Activities",
+    "topic_subtype": "",
+    "start": "2026-10-06",
+    "end": "2026-10-07",
+    "headline": "FForever 恒星之城 · 银河加冕（北京鸟巢）限定场演唱会（国家体育场有限责任公司（国家体育场、鸟巢））",
+    "keywords_zh": "FForever 恒星之城 · 银河加冕（北京鸟巢）限定场演唱会",
+    "keywords_en": "FForever Star City · Galaxy Coronation (Beijing Bird's Nest) Limited Edition Concert",
+    "description": "FForever 恒星之城 · 银河加冕（北京鸟巢）限定场演唱会。在国家体育场有限责任公司（国家体育场、鸟巢）举办。演出时间为2026/10/6至2026/10/7。",
+    "link": "https://zwfw.mct.gov.cn/wycx/qgswyyxychd/qgswyyxychdjg/xq/?id=cac32d19759a4a996cd3e306e23ef129",
+    "dates": [
+      "2026-10-06",
+      "2026-10-07"
+    ]
+  },
+  {
+    "no": 990,
+    "topic_zh": "文娱活动",
+    "topic_en": "Cultural and Entertainment Activities",
+    "topic_subtype": "",
+    "start": "2026-10-09",
+    "end": "2026-10-20",
+    "headline": "第29届北京国际音乐节将启 “京华·协奏”致敬莫扎特270周年诞辰",
+    "keywords_zh": "第29届北京国际音乐节",
+    "keywords_en": "The 29th Beijing International Music Festival",
+    "description": "第二十九届北京国际音乐节于2026年10月9日至20日在北京举行。本届音乐节以“京华·协奏”为主题，围绕莫扎特270周年诞辰，在12天内呈现歌剧、交响乐、室内乐及跨界演出等十余场高水准演出，并联动潮流商圈、文创园区推出商圈快闪、音乐派对、主题市集等沉浸式体验。开幕音乐会于10月9日在国家大剧院音乐厅举行，由指挥大师夏尔·迪图瓦执棒北京国际音乐节节日乐团。",
+    "link": "https://finance.sina.com.cn/jjxw/2026-08-21/doc-ininzyeu1484196.shtml",
+    "dates": [
+      "2026-10-09",
+      "2026-10-10",
+      "2026-10-11",
+      "2026-10-12",
+      "2026-10-13",
+      "2026-10-14",
+      "2026-10-15",
+      "2026-10-16",
+      "2026-10-17",
+      "2026-10-18",
+      "2026-10-19",
+      "2026-10-20"
+    ]
+  },
+  {
+    "no": 991,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5495,7 +5764,24 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/tyss/6a38e8f892c0e70bf722e603.html"
   },
   {
-    "no": 972,
+    "no": 969,
+    "topic_zh": "体育赛事",
+    "topic_en": "Sports Events",
+    "topic_subtype": "",
+    "start": "2026-10-17",
+    "end": "2026-10-18",
+    "headline": "2026障碍跑世界锦标赛九月亮相北京环球城市大道",
+    "keywords_zh": "2026障碍跑世界锦标赛",
+    "keywords_en": "2026 Obstacle Course Racing World Championships in Beijing Universal City Walk",
+    "description": "2026年障碍跑世界锦标赛将于9月2日至6日在北京环球城市大道举行。这项赛事是障碍跑项目全球最高级别的单项赛事，共设100米个人赛、400米个人赛、4×100米接力赛、3公里个人赛和3公里团体赛五个项目，并新增4×100米混合接力及U11、U13青少年组别。赛事走出传统体育场馆，依托城市空间打造街头赛事场景。",
+    "link": "https://www.qlwb.com.cn/detail/27888203.html",
+    "dates": [
+      "2026-10-17",
+      "2026-10-18"
+    ]
+  },
+  {
+    "no": 993,
     "topic_zh": "文娱活动",
     "topic_en": "Cultural and Entertainment Activities",
     "topic_subtype": "",
@@ -5512,7 +5798,7 @@
     ]
   },
   {
-    "no": 973,
+    "no": 994,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5525,7 +5811,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/tyss/6a38eb3a92c0e70bf722e62d.html"
   },
   {
-    "no": 974,
+    "no": 995,
     "topic_zh": "中小学假期",
     "topic_en": "Spring and Autumn Breaks",
     "topic_subtype": "春秋假",
@@ -5538,7 +5824,7 @@
     "link": "http://mp.weixin.qq.com/s?__biz=Mzg3NTIyMTY3NA==&mid=2247615837&idx=1&sn=2987c9cdc3ada2209a36c82e80833b7a"
   },
   {
-    "no": 975,
+    "no": 996,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5551,7 +5837,7 @@
     "link": "http://www.beijing.gov.cn/fwcj/calendar/tyss/6a38eb3a92c0e70bf722e63d.html"
   },
   {
-    "no": 976,
+    "no": 997,
     "topic_zh": "中小学假期",
     "topic_en": "Spring and Autumn Breaks",
     "topic_subtype": "春秋假",
@@ -5564,7 +5850,20 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzA3ODAwNzIyOQ==&mid=2653839749&idx=1&sn=bf5ea56fa4287b8f0b873dcbb3e77705"
   },
   {
-    "no": 977,
+    "no": 998,
+    "topic_zh": "中小学假期",
+    "topic_en": "Spring and Autumn Breaks",
+    "topic_subtype": "春秋假",
+    "start": "2026-11-14",
+    "end": "2026-11-18",
+    "headline": "不调休！最新放假通知",
+    "keywords_zh": "江苏省苏州市义务教育学校秋假11月16日至18日，与周末11月14日、15日连休合计5天",
+    "keywords_en": "Compulsory education schools in Suzhou, Jiangsu Province have autumn break from November 16 to 18, 2026, combined with the weekend of November 14-15 for a 5-day holiday",
+    "description": "苏州市教育局公布2026年义务教育学校秋假安排，秋假时间为11月16日至18日，与相邻的周末（11月14日、15日）连休，合计5天小长假。多个小长假接踵而至，供学生和家长提前规划。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MjM5MzY5ODY0Mw==&mid=2656573984&idx=1&sn=2641338b4bb74fd5570754d37f888773"
+  },
+  {
+    "no": 999,
     "topic_zh": "中小学假期",
     "topic_en": "Spring and Autumn Breaks",
     "topic_subtype": "春秋假",
@@ -5577,7 +5876,20 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MjM5NTc5Nzk1NA==&mid=2652483013&idx=1&sn=3df364600219747448ddce22e30f8b2b"
   },
   {
-    "no": 978,
+    "no": 1000,
+    "topic_zh": "中小学假期",
+    "topic_en": "Spring and Autumn Breaks",
+    "topic_subtype": "春秋假",
+    "start": "2026-11-16",
+    "end": "2026-11-18",
+    "headline": "江苏秋假最新消息来了！",
+    "keywords_zh": "江苏省南京市中小学秋假11月16日至18日 与周末连休共5天",
+    "keywords_en": "Nanjing, Jiangsu primary and secondary schools autumn break from November 16 to 18, with weekends forming a 5-day holiday",
+    "description": "江苏省推行中小学春秋假制度，多地已公布秋假时间。各校可在10月至11月期间自主安排3天秋假，与周末连休形成5天小长假。其中南京市明确秋假时间为11月16日至18日，与11月14日至15日周末相连，共形成5天假期，享受对象为义务教育阶段学生。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MjM5NTc5Nzk1NA==&mid=2652490211&idx=1&sn=3c4d93f8043438793d80f75cbfbae269"
+  },
+  {
+    "no": 1001,
     "topic_zh": "中小学假期",
     "topic_en": "Spring and Autumn Breaks",
     "topic_subtype": "春秋假",
@@ -5590,7 +5902,7 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzA4NTk4OTEyMg==&mid=2653549219&idx=1&sn=61bb768091a7d4ec61396ba176b6db50"
   },
   {
-    "no": 979,
+    "no": 1002,
     "topic_zh": "中小学假期",
     "topic_en": "Spring and Autumn Breaks",
     "topic_subtype": "春秋假",
@@ -5603,7 +5915,20 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzA4NTk4OTEyMg==&mid=2653547973&idx=1&sn=8d4d70cb5dc08b830638ae88f0b5deb4"
   },
   {
-    "no": 980,
+    "no": 1003,
+    "topic_zh": "中小学假期",
+    "topic_en": "Spring and Autumn Breaks",
+    "topic_subtype": "春秋假",
+    "start": "2026-11-25",
+    "end": "2026-11-29",
+    "headline": "今年中小学秋假最多连放13天？浙江多地发布秋假时间",
+    "keywords_zh": "浙江省宁波市中小学秋假11月25日至27日 与周末连休共5天",
+    "keywords_en": "Ningbo, Zhejiang primary and secondary schools autumn break from November 25 to 27, with weekends forming a 5-day holiday",
+    "description": "宁波市中小学秋假时间确定，秋假定于2026年11月25日至27日，共3天，与双休日连休形成5天小长假。该安排适用于小学、初中、普高、中职（技工）等学段，幼儿园参照义务教育阶段学校执行。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MTYzNTI5ODEwMQ==&mid=2652820905&idx=1&sn=60fc983d25d9d8aa33b7e9e39e3a2cfa"
+  },
+  {
+    "no": 1004,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",
@@ -5616,20 +5941,85 @@
     "link": "https://www3.xinhuanet.com/20250924/af46b9079d2344bab7f4ef4b0fd834d9/c.html"
   },
   {
-    "no": 981,
-    "topic_zh": "体育赛事",
-    "topic_en": "Sports Events",
-    "topic_subtype": "",
-    "start": "2026-12-01",
-    "end": "2026-12-06",
-    "headline": "北京短池游泳世锦赛12月开赛 世界泳联公布奖金方案",
-    "keywords_zh": "2026年北京世界短池游泳锦标赛",
-    "keywords_en": "The 2026 Beijing World Short Course Swimming Championships",
-    "description": "2026年北京世界短池游泳锦标赛将于12月1日至6日在北京举行。世界泳联公布了赛事奖金方案，奖金总额至少为202.5万美元，覆盖个人和接力项目，男女运动员奖金标准相同。冠军奖金为1万美元，亚军为8000美元，第八名也可获得2000美元。赛事还设有破世界纪录奖金，运动员改写一项世界纪录将获得2.5万美元，并可同时领取相应名次奖金。",
-    "link": "https://app.xinhuanet.com/news/article.html?articleId=20260730aae3af7250e048958cc5ba5ac6e31558"
+    "no": 1005,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-01-18",
+    "end": "2027-02-21",
+    "headline": "最新校历发布！2027年寒暑假时间定了——",
+    "keywords_zh": "北京市义务教育阶段中小学寒假2027年1月18日至2月21日，共5周",
+    "keywords_en": "Winter vacation for primary and secondary schools in the compulsory education stage in Beijing, from January 18 to February 21, 2027, lasting 5 weeks.",
+    "description": "北京市发布2026—2027学年度各级各类学校校历，明确义务教育阶段中小学寒假时间为2027年1月18日至2月21日，共5周。该安排为寒假起始和结束日期提供了官方依据，便于学校、家长和学生提前规划假期生活。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MzA4NTIyMjMyMw==&mid=2653554360&idx=1&sn=7b1035e914cc4cb6cf819cfefded9817"
   },
   {
-    "no": 983,
+    "no": 1006,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-01-23",
+    "end": "2027-02-21",
+    "headline": "事关新学期！东莞各学校开学时间→",
+    "keywords_zh": "广东省东莞市小学初中寒假自2027年1月23日开始，普通高中1月30日开始，预计至2月21日结束",
+    "keywords_en": "Primary and junior high schools in Dongguan, Guangdong Province start winter break on January 23, 2027; senior high schools start on January 30, expected to end on February 21, 2027",
+    "description": "东莞市教育局公布的2026—2027学年校历显示，小学、初中于2027年1月23日开始放寒假，普通高中于2027年1月30日开始放寒假。寒假预计持续至2月21日，在春季学期开学前结束。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MzA4OTk3NjEzMw==&mid=2650542424&idx=1&sn=a0706b6581e6cad187036260ef9ed682"
+  },
+  {
+    "no": 1007,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-01-23",
+    "end": "2027-02-21",
+    "headline": "佛山大中小学开学时间来了",
+    "keywords_zh": "广东省佛山市小学初中寒假自2027年1月23日开始，普通高中1月30日开始，预计至2月21日结束",
+    "keywords_en": "Primary and junior high schools in Foshan, Guangdong Province start winter break on January 23, 2027; senior high schools start on January 30, expected to end on February 21, 2027",
+    "description": "佛山市2026—2027学年全日制普通中小学校校历显示，普通中小学2026年9月1日开学，小学、初中2027年1月23日开始放寒假，普通高中2027年1月30日开始放寒假。寒假预计持续至2月21日。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MzA3ODAwNzIyOQ==&mid=2653849156&idx=1&sn=f5045a3198b56c3953f241eb213478e6"
+  },
+  {
+    "no": 1008,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-01-23",
+    "end": "2027-02-21",
+    "headline": "广州市中小学开学时间定了（附寒暑假）",
+    "keywords_zh": "广东省广州市中小学寒假自2027年1月23日开始，普通高中1月30日开始，至2月21日结束",
+    "keywords_en": "Primary and secondary schools in Guangzhou, Guangdong Province start winter break on January 23, 2027; senior high schools start on January 30, ending on February 21, 2027",
+    "description": "广州市2026—2027学年普通中小学校校历公布，义务教育阶段寒假从2027年1月23日开始，普通高中寒假从2027年1月30日开始。春季学期于2027年2月22日开学，寒假持续至2月21日，其中秋季学期9月1日开学。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MzA4MTgxNjMzOQ==&mid=2652226973&idx=1&sn=52cd6e83bae9739c9f691609adbc7c0f"
+  },
+  {
+    "no": 1009,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-01-23",
+    "end": "2027-02-21",
+    "headline": "开学时间定了！深圳市中小学新学年校历来了",
+    "keywords_zh": "广东省深圳市中小学寒假自2027年1月23日开始，普通高中1月30日开始，至2月21日结束",
+    "keywords_en": "Primary and secondary schools in Shenzhen, Guangdong Province start winter break on January 23, 2027; senior high schools start on January 30, ending on February 21, 2027",
+    "description": "深圳市2026—2027学年中小学校校历显示，义务教育阶段学校寒假从2027年1月23日开始，普通高中寒假从2027年1月30日开始。春季学期于2027年2月22日开学，寒假持续至2月21日。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MjM5MDA2MDMwMA==&mid=2651372186&idx=1&sn=543a40a6bd7cba4384cf32c1b7cfd164"
+  },
+  {
+    "no": 1010,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-01-23",
+    "end": "2027-02-21",
+    "headline": "武汉中小学开学及寒假时间确定",
+    "keywords_zh": "湖北省武汉市中小学寒假自2027年1月23日开始，普通高中1月30日开始，预计至2月21日结束",
+    "keywords_en": "Primary and secondary schools in Wuhan, Hubei Province start winter break on January 23, 2027; senior high schools start on January 30, expected to end on February 21, 2027",
+    "description": "武汉市2026—2027学年校历公布，义务教育学校、幼儿园于2027年1月23日正式放寒假，普通高中于2027年1月30日正式放寒假。全市中小学于2026年9月1日开学，春季学期预计2月22日开学，寒假至2月21日结束。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MzA5MzY2MDkzOQ==&mid=2651528712&idx=1&sn=f424dee395dff064007c6233f267da44"
+  },
+  {
+    "no": 1011,
     "topic_zh": "中小学假期",
     "topic_en": "Winter and Summer Vacations",
     "topic_subtype": "寒暑假",
@@ -5642,7 +6032,7 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzA4MDQzMzIxMQ==&mid=2652712820&idx=1&sn=4c415e774aaca4d316b7a95b28c6e98a"
   },
   {
-    "no": 984,
+    "no": 1013,
     "topic_zh": "中小学假期",
     "topic_en": "Winter and Summer Vacations",
     "topic_subtype": "寒暑假",
@@ -5655,7 +6045,20 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzA4MjEzOTQ4Mw==&mid=2651116339&idx=1&sn=d34af2b1dbefa9a3fec0ae9bc384049b"
   },
   {
-    "no": 985,
+    "no": 1014,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-01-27",
+    "end": "2027-02-21",
+    "headline": "定了！江苏大中小学开学时间",
+    "keywords_zh": "江苏省南京市中小学寒假自2027年1月27日开始，预计至2月21日结束",
+    "keywords_en": "Primary and secondary schools in Nanjing, Jiangsu Province start winter break on January 27, 2027, expected to end on February 21, 2027",
+    "description": "江苏省教育厅发布通知，2026年秋季学期全省中小学（含幼儿园）于9月1日正式上课。从南京和苏州公布的新校历看，学期预计于2027年1月26日结束，1月27日起放寒假。春季学期开学预计在2月下旬，寒假预计至2月21日结束。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MjM5MDk3MzE2MA==&mid=2649645801&idx=1&sn=d5d9bf55025449e7f1542f1a0dfaa6ca"
+  },
+  {
+    "no": 1015,
     "topic_zh": "中小学假期",
     "topic_en": "Winter and Summer Vacations",
     "topic_subtype": "寒暑假",
@@ -5668,7 +6071,20 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzA4NTk4OTEyMg==&mid=2653547973&idx=1&sn=8d4d70cb5dc08b830638ae88f0b5deb4"
   },
   {
-    "no": 986,
+    "no": 1016,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-01-30",
+    "end": "2027-02-21",
+    "headline": "中小学秋假最多连放13天？浙江多地发布秋假时间！",
+    "keywords_zh": "浙江省宁波市中小学寒假2027年1月30日至2月21日 2月22日开学",
+    "keywords_en": "Winter break for primary and secondary schools in Ningbo, Zhejiang from January 30 to February 21, 2027, with school resuming on February 22",
+    "description": "根据宁波市2026-2027学年第一学期校历，小学、初中、普高、中职（技工）于2027年1月29日学期结束，1月30日放寒假。第二学期定于2027年2月22日开学，因此寒假自1月30日起至2月21日止。幼儿园安排参照义务教育阶段学校执行。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MzAwNzY2NzgwOA==&mid=2765117731&idx=4&sn=4315411a05a4633877ab80a395705711"
+  },
+  {
+    "no": 1017,
     "topic_zh": "中小学假期",
     "topic_en": "Spring and Autumn Breaks",
     "topic_subtype": "春秋假",
@@ -5681,7 +6097,7 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzA4NTk4OTEyMg==&mid=2653549219&idx=1&sn=61bb768091a7d4ec61396ba176b6db50"
   },
   {
-    "no": 987,
+    "no": 1018,
     "topic_zh": "中小学假期",
     "topic_en": "Spring and Autumn Breaks",
     "topic_subtype": "春秋假",
@@ -5694,7 +6110,7 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzA4NTk4OTEyMg==&mid=2653549219&idx=1&sn=61bb768091a7d4ec61396ba176b6db50"
   },
   {
-    "no": 988,
+    "no": 1019,
     "topic_zh": "中小学假期",
     "topic_en": "Winter and Summer Vacations",
     "topic_subtype": "寒暑假",
@@ -5707,7 +6123,46 @@
     "link": "http://mp.weixin.qq.com/s?__biz=MzkzOTE4MzE0MQ==&mid=2247813994&idx=1&sn=41d05aa0a83a46b1012b51ad38b30a92"
   },
   {
-    "no": 989,
+    "no": 1020,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-07-06",
+    "end": "2027-08-31",
+    "headline": "最新校历发布！2027年寒暑假时间定了——",
+    "keywords_zh": "北京市义务教育阶段中小学暑假2027年7月6日至8月31日，共8周零1天",
+    "keywords_en": "Summer vacation for primary and secondary schools in the compulsory education stage in Beijing, from July 6 to August 31, 2027, lasting 8 weeks and 1 day.",
+    "description": "根据北京市发布的2026—2027学年度校历，义务教育阶段中小学暑假时间为2027年7月6日至8月31日，共8周零1天。该安排明确了暑假的起止日期，帮助学校和家庭做好暑期安排。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MzA4NTIyMjMyMw==&mid=2653554360&idx=1&sn=7b1035e914cc4cb6cf819cfefded9817"
+  },
+  {
+    "no": 1021,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-07-10",
+    "end": "2027-08-31",
+    "headline": "广州市中小学开学时间定了（附寒暑假）",
+    "keywords_zh": "广东省广州市中小学暑假自2027年7月10日开始，普通高中7月17日开始，预计8月31日结束",
+    "keywords_en": "Primary and secondary schools in Guangzhou start summer break on July 10, 2027; senior high schools start on July 17, expected to end on August 31, 2027",
+    "description": "广州市2026—2027学年校历明确，义务教育阶段学校暑假从2027年7月10日开始，普通高中暑假从2027年7月17日开始。暑假预计持续至8月31日，秋季学期9月1日开学。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MzA4MTgxNjMzOQ==&mid=2652226973&idx=1&sn=52cd6e83bae9739c9f691609adbc7c0f"
+  },
+  {
+    "no": 1022,
+    "topic_zh": "中小学假期",
+    "topic_en": "Winter and Summer Vacations",
+    "topic_subtype": "寒暑假",
+    "start": "2027-07-10",
+    "end": "2027-08-31",
+    "headline": "开学时间定了！深圳市中小学新学年校历来了",
+    "keywords_zh": "广东省深圳市中小学暑假自2027年7月10日开始，普通高中7月17日开始，预计8月31日结束",
+    "keywords_en": "Primary and secondary schools in Shenzhen start summer break on July 10, 2027; senior high schools start on July 17, expected to end on August 31, 2027",
+    "description": "深圳市2026—2027学年校历显示，义务教育阶段学校暑假从2027年7月10日开始，普通高中暑假从2027年7月17日开始。暑假预计持续至8月31日，秋季学期9月开学。",
+    "link": "http://mp.weixin.qq.com/s?__biz=MjM5MDA2MDMwMA==&mid=2651372186&idx=1&sn=543a40a6bd7cba4384cf32c1b7cfd164"
+  },
+  {
+    "no": 1024,
     "topic_zh": "体育赛事",
     "topic_en": "Sports Events",
     "topic_subtype": "",

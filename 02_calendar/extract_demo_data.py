@@ -29,6 +29,9 @@ from openpyxl import load_workbook
 
 # Shared dedup logic (leaf module, no heavy deps) so the calendar
 # display layer and the extractor stay consistent.
+# Windows 嵌入式 Python 的 ._pth 会关闭「脚本目录自动进 sys.path」，
+# 所以此处显式把本目录也插入，dates_parser 才能被找到。
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).parent.parent / "01_event_extractor"))
 from src import dedup_key
 from dates_parser import parse_dates_field

@@ -262,10 +262,13 @@ function KeysCard({ isAdmin }: { isAdmin: boolean }) {
   })
   const [dsKey, setDsKey] = useState('')
   const [arkKey, setArkKey] = useState('')
+  const [mlampKey, setMlampKey] = useState('')
   const [dsBaseUrl, setDsBaseUrl] = useState('')
   const [dsModel, setDsModel] = useState('')
   const [arkBaseUrl, setArkBaseUrl] = useState('')
   const [arkModel, setArkModel] = useState('')
+  const [mlampBaseUrl, setMlampBaseUrl] = useState('')
+  const [mlampModel, setMlampModel] = useState('')
 
   useEffect(() => {
     if (keys) {
@@ -273,6 +276,8 @@ function KeysCard({ isAdmin }: { isAdmin: boolean }) {
       setDsModel(keys.deepseek.model)
       setArkBaseUrl(keys.ark.base_url)
       setArkModel(keys.ark.model)
+      setMlampBaseUrl(keys.mlamp.base_url)
+      setMlampModel(keys.mlamp.model)
     }
   }, [keys])
 
@@ -281,6 +286,7 @@ function KeysCard({ isAdmin }: { isAdmin: boolean }) {
     onSuccess: () => {
       setDsKey('')
       setArkKey('')
+      setMlampKey('')
       qc.invalidateQueries({ queryKey: ['settings-keys'] })
       message.success('已保存，立即生效（注入环境变量，无需重启）')
     },
@@ -293,6 +299,7 @@ function KeysCard({ isAdmin }: { isAdmin: boolean }) {
     const body: {
       deepseek?: { key?: string; base_url?: string; model?: string }
       ark?: { key?: string; base_url?: string; model?: string }
+      mlamp?: { key?: string; base_url?: string; model?: string }
     } = {}
     const ds: { key?: string; base_url?: string; model?: string } = {}
     if (dsKey) ds.key = dsKey
@@ -304,6 +311,11 @@ function KeysCard({ isAdmin }: { isAdmin: boolean }) {
     if (arkBaseUrl !== keys.ark.base_url) ark.base_url = arkBaseUrl
     if (arkModel !== keys.ark.model) ark.model = arkModel
     if (Object.keys(ark).length) body.ark = ark
+    const mlamp: { key?: string; base_url?: string; model?: string } = {}
+    if (mlampKey) mlamp.key = mlampKey
+    if (mlampBaseUrl !== keys.mlamp.base_url) mlamp.base_url = mlampBaseUrl
+    if (mlampModel !== keys.mlamp.model) mlamp.model = mlampModel
+    if (Object.keys(mlamp).length) body.mlamp = mlamp
     if (!Object.keys(body).length) {
       message.info('无改动')
       return
@@ -314,8 +326,8 @@ function KeysCard({ isAdmin }: { isAdmin: boolean }) {
   return (
     <Card title="LLM Key 配置" style={{ marginTop: 16 }}>
       <Typography.Text type="secondary" style={{ fontSize: 12.5 }}>
-        抽取用两套互备：DeepSeek（主）+ Ark（兜底，DeepSeek 失败自动切）。key 保存到{' '}
-        <span className="mono">config/llm_keys.json</span>（gitignored），注入环境变量立即生效，不碰 .env。Key 留空=不改。
+        抽取用三套兜底：DeepSeek（主）+ Ark（兜底）+ mlamp（终极兜底），失败自动逐级切换。
+        key 保存到 <span className="mono">config/llm_keys.json</span>（gitignored），注入环境变量立即生效，不碰 .env。Key 留空=不改。
       </Typography.Text>
 
       <ProviderBlock
@@ -341,6 +353,18 @@ function KeysCard({ isAdmin }: { isAdmin: boolean }) {
         setBaseUrl={setArkBaseUrl}
         model={arkModel}
         setModel={setArkModel}
+      />
+      <ProviderBlock
+        title="mlamp 明略网关（终极兜底 · OpenAI 兼容）"
+        isAdmin={isAdmin}
+        keyVal={mlampKey}
+        setKey={setMlampKey}
+        masked={keys.mlamp.masked}
+        configured={keys.mlamp.configured}
+        baseUrl={mlampBaseUrl}
+        setBaseUrl={setMlampBaseUrl}
+        model={mlampModel}
+        setModel={setMlampModel}
       />
 
       <div style={{ marginTop: 16, padding: 14, border: '1px solid #F0F0F0', borderRadius: 6, background: '#FAFAFC' }}>

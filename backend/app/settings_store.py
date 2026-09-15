@@ -80,6 +80,8 @@ KEY_DEFAULTS = {
     "OPENAI_MODEL": "deepseek-v4-flash",
     "ARK_BASE_URL": "https://ark.cn-beijing.volces.com/api/plan",
     "ARK_MODEL": "deepseek-v4-flash",
+    "MLAMP_BASE_URL": "https://llmgw-bz.mlamp.cn/v1/chat/completions",
+    "MLAMP_MODEL": "deepseek-v4.1-flash",
 }
 
 

@@ -2,11 +2,12 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from io import BytesIO
 from typing import Optional
 
 from fastapi import APIRouter, HTTPException, Query, Request
-from fastapi.responses import PlainTextResponse, Response, StreamingResponse
+from fastapi.responses import FileResponse, PlainTextResponse, Response, StreamingResponse
 from openpyxl import Workbook
 from pydantic import BaseModel
 
@@ -165,6 +166,43 @@ def get_run(run_id: str, request: Request):
     if not r:
         raise HTTPException(status_code=404, detail="运行不存在")
     return r
+
+
+@router.get("/{run_id}/output")
+def download_output(run_id: str, request: Request):
+    """下载 Step1 类 run 的产出 Excel。
+
+    Step1 脚本（01_event_extractor/main.py）实际不写 canonical Events List.xlsx，
+    而是写带运行日期的 Travel_Facilitators_and_Hindrances_Events_{YYYY.MM.DD}.xlsx
+    到 01_event_list_output/。这里按 run 的开始日期定位该文件供前端下载，
+    代替让用户上服务器翻文件夹。
+    """
+    require_user(request)
+    r = store.get_run(run_id)
+    if not r:
+        raise HTTPException(status_code=404, detail="运行不存在")
+    if r.get("op_id") not in ("step1_full", "step1_input_only", "step1_concert_only"):
+        raise HTTPException(status_code=404, detail="该操作类型没有独立产出文件")
+    # started_at 形如 2026-08-07T22:12:29；文件名日期 = 运行当天（脚本用本地 now()）
+    try:
+        day = datetime.fromisoformat(r["started_at"]).strftime("%Y.%m.%d")
+    except (KeyError, ValueError):
+        raise HTTPException(status_code=404, detail="运行缺少开始时间，无法定位产出文件")
+    fname = f"Travel_Facilitators_and_Hindrances_Events_{day}.xlsx"
+    p = (config.PROJECT_ROOT / "01_event_list_output" / fname).resolve()
+    # 防路径穿越：必须落在 01_event_list_output/ 内（fname 是内部拼接的，此为双保险）
+    if not str(p).startswith(str((config.PROJECT_ROOT / "01_event_list_output").resolve())):
+        raise HTTPException(status_code=400, detail="非法路径")
+    if not p.is_file():
+        raise HTTPException(
+            status_code=404,
+            detail=f"产出文件 {fname} 不存在（当天多次运行会互相覆盖合并，若运行失败则可能未生成）",
+        )
+    return FileResponse(
+        str(p),
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        filename=fname,
+    )
 
 
 @router.get("/{run_id}/log")

@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Minimal streaming caller for the internal POMP/Qwen endpoint."""
+"""Minimal streaming caller for the internal POMP/Qwen endpoint (Qwen3.8).
+
+契约来自 skills/qwen38-pomp-caller（Qwen3.6→Qwen3.8 换代，2026-08）：
+- 模型 Qwen3.8-27B，OpenAI 兼容 chat/completions，免 key
+- 长请求必须流式：SLB/Nginx 约 60s 无响应数据会 504，客户端读超时给到 900s
+- thinking 用 chat_template_kwargs.enable_thinking 开关（不是顶层字段）
+- 流式 reasoning 在 delta.reasoning（旧 Qwen3.6 是 delta.reasoning_content，两个都读做兼容）
+- 内网端点默认绕过环境代理（session.trust_env=False）+ verify=False
+
+CLI 与旧版保持兼容：generate_monthly_themes.py 的调用参数不变
+（--prompt-file/--system/--enable-thinking/--max-tokens/--temperature/--print-mode）。
+top_k/repetition_penalty 已随契约换代移除，不再发送。
+"""
 
 import argparse
 import json
@@ -14,7 +26,7 @@ import urllib3
 
 
 DEFAULT_URL = "https://pomp.ubrmbqa.com:9997/modelapi/v1/chat/completions"
-DEFAULT_MODEL = "Qwen3.6-27B"
+DEFAULT_MODEL = "Qwen3.8-27B"
 
 
 def build_payload(
@@ -23,10 +35,8 @@ def build_payload(
     model: str,
     stream: bool = True,
     max_tokens: int = 8192,
-    temperature: float = 0.7,
+    temperature: float = 0.2,
     top_p: float = 0.8,
-    top_k: int = 20,
-    repetition_penalty: float = 1.07,
     enable_thinking: Optional[bool] = None,
 ) -> Dict[str, Any]:
     payload: Dict[str, Any] = {
@@ -37,9 +47,7 @@ def build_payload(
         ],
         "temperature": temperature,
         "top_p": top_p,
-        "top_k": top_k,
         "max_tokens": max_tokens,
-        "repetition_penalty": repetition_penalty,
         "stream": stream,
     }
     if enable_thinking is not None:
@@ -80,13 +88,11 @@ def call_pomp_stream(
     url: str = DEFAULT_URL,
     model: str = DEFAULT_MODEL,
     connect_timeout: float = 10.0,
-    read_timeout: float = 600.0,
+    read_timeout: float = 900.0,
     verify_tls: bool = False,
     max_tokens: int = 8192,
-    temperature: float = 0.7,
+    temperature: float = 0.2,
     top_p: float = 0.8,
-    top_k: int = 20,
-    repetition_penalty: float = 1.07,
     enable_thinking: Optional[bool] = None,
     print_mode: str = "answer",
 ) -> Dict[str, Any]:
@@ -108,11 +114,13 @@ def call_pomp_stream(
         max_tokens=max_tokens,
         temperature=temperature,
         top_p=top_p,
-        top_k=top_k,
-        repetition_penalty=repetition_penalty,
         enable_thinking=enable_thinking,
     )
     headers = {"Content-Type": "application/json"}
+
+    session = requests.Session()
+    # 内网端点：绕过环境代理（VPN/HTTP_PROXY 环境变量会误伤内网请求）
+    session.trust_env = False
 
     started = time.perf_counter()
     first_chunk_at: Optional[float] = None
@@ -123,7 +131,7 @@ def call_pomp_stream(
     reasoning_parts: List[str] = []
     answer_printing = False
 
-    with requests.post(
+    with session.post(
         url,
         json=payload,
         headers=headers,
@@ -147,7 +155,8 @@ def call_pomp_stream(
                 finish_reason = choice.get("finish_reason")
             delta = choice.get("delta") or {}
             content = delta.get("content") or ""
-            reasoning = delta.get("reasoning_content") or ""
+            # Qwen3.8 用 delta.reasoning；旧 Qwen3.6 用 delta.reasoning_content，都读
+            reasoning = delta.get("reasoning") or delta.get("reasoning_content") or ""
             if (content or reasoning) and first_chunk_at is None:
                 first_chunk_at = time.perf_counter()
             if reasoning:
@@ -184,11 +193,10 @@ def call_pomp_stream(
             "content_chars": len(raw_content),
             "reasoning_chars": len(raw_reasoning),
             "finish_reason": finish_reason,
+            "model": model,
             "max_tokens": max_tokens,
             "temperature": temperature,
             "top_p": top_p,
-            "top_k": top_k,
-            "repetition_penalty": repetition_penalty,
             "enable_thinking": enable_thinking,
         },
     }
@@ -203,7 +211,7 @@ def read_prompt(args: argparse.Namespace) -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Minimal POMP/Qwen streaming API caller")
+    parser = argparse.ArgumentParser(description="Minimal POMP/Qwen3.8 streaming API caller")
     parser.add_argument("--prompt", default=None, help="Prompt text. If omitted, stdin is used.")
     parser.add_argument("--prompt-file", default=None, help="UTF-8 text file containing the prompt.")
     parser.add_argument("--system", default="你是一个有帮助的助手。")
@@ -213,12 +221,10 @@ def main() -> int:
     parser.add_argument("--raw-out", default=None, help="Optional UTF-8 output file for raw streamed content.")
     parser.add_argument("--metrics-out", default=None, help="Optional JSON file for metrics.")
     parser.add_argument("--connect-timeout", type=float, default=10.0)
-    parser.add_argument("--read-timeout", type=float, default=600.0)
+    parser.add_argument("--read-timeout", type=float, default=900.0)
     parser.add_argument("--max-tokens", type=int, default=8192)
-    parser.add_argument("--temperature", type=float, default=0.7)
+    parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--top-p", type=float, default=0.8)
-    parser.add_argument("--top-k", type=int, default=20)
-    parser.add_argument("--repetition-penalty", type=float, default=1.07)
     parser.add_argument("--enable-thinking", action="store_true", help="Explicitly pass enable_thinking=true.")
     parser.add_argument("--disable-thinking", action="store_true", help="Explicitly pass enable_thinking=false.")
     parser.add_argument("--json-mode", action="store_true", help="Use low-temperature JSON-oriented defaults and validate final text as JSON.")
@@ -261,8 +267,6 @@ def main() -> int:
         max_tokens=max_tokens,
         temperature=temperature,
         top_p=top_p,
-        top_k=args.top_k,
-        repetition_penalty=args.repetition_penalty,
         enable_thinking=enable_thinking,
         print_mode=args.print_mode,
     )

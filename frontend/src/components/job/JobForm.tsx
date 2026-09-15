@@ -178,8 +178,13 @@ function DangerConfirm({
   onOk: () => void
   onCancel: () => void
 }) {
+  // Step1 三类 job 产出独立日期文件，不改 canonical（危险级为 none，正常不会进此分支，
+  // 这里按 job.id 兜底写准确文案，防止未来误标 danger 时又出现「已合并写入」的误导）
+  const isStep1 = ['step1_full', 'step1_input_only', 'step1_concert_only'].includes(job.id)
   const text =
-    job.danger === 'write_canonical'
+    isStep1
+      ? '将抽取新事件到独立日期文件（不动人工核对清单）。确认继续？'
+      : job.danger === 'write_canonical'
       ? '将修改人工审核清单（Events List.xlsx），已自动备份。确认继续？'
       : job.danger === 'destructive'
       ? '此操作不可恢复，已自动备份。确认继续？'

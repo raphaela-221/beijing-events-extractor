@@ -20,7 +20,8 @@ for %%C in (py python) do (
     )
 )
 if not defined PYTHON_PATH (
-    echo 错误：找不到可用的 Python。请先运行 setup.bat 安装依赖。
+    echo 错误：找不到可用的 Python。请确认已安装 Python 3.10+ 及项目依赖
+    echo （pip install -r requirements.txt，或使用离线包内置 python\python.exe）。
     echo 注意：Windows 自带的 Microsoft Store "python" 不是真 Python，跑不了代码。
     pause
     exit /b 1

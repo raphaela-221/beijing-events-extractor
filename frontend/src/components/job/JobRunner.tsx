@@ -85,6 +85,12 @@ export function JobRunner({ runId }: { runId: string }) {
   const meta = STATUS_META[status]
   const errMeta = errorKindMeta(run.error_kind)
   const fromPath = from === 'step2' ? '/step2' : from === 'toolbox' ? '/toolbox' : '/step1'
+  // Step1 三类 job 的产出是独立日期文件，不是 canonical；运行详情页直接给下载入口
+  const isStep1Op =
+    !!run &&
+    (run.op_id === 'step1_full' ||
+      run.op_id === 'step1_input_only' ||
+      run.op_id === 'step1_concert_only')
 
   const onCancel = async () => {
     setCanceling(true)
@@ -163,7 +169,14 @@ export function JobRunner({ runId }: { runId: string }) {
           {run.ended_at ? <Row l="结束时间" r={fmtDateTime(run.ended_at)} /> : null}
           {run.duration_ms ? <Row l="用时" r={fmtDuration(run.duration_ms)} /> : null}
           {run.canonical_backup_path ? (
-            <Row l="已备份" r="Events List.xlsx 已在运行前自动备份" />
+            <Row
+              l="已备份"
+              r={
+                isStep1Op
+                  ? 'Events List.xlsx 已在运行前自动备份（本次产出在独立日期文件，清单本身未被修改）'
+                  : 'Events List.xlsx 已在运行前自动备份'
+              }
+            />
           ) : null}
         </div>
       </Card>
@@ -179,6 +192,16 @@ export function JobRunner({ runId }: { runId: string }) {
                   message="本次无新数据采集"
                   description={run.error_summary || '站点可达，列表已抓取，但无新演唱会。'}
                 />
+              ) : isStep1Op ? (
+                <Alert
+                  type="success"
+                  showIcon
+                  message="抽取完成，产出已写入独立日期文件"
+                  description={
+                    '新事件不在人工核对清单里，在本次运行的产出 Excel（Travel_Facilitators_and_Hindrances_Events_日期.xlsx）。' +
+                    '下载后请到人工核对页合并：下载 Events List.xlsx → 把新增行粘贴到末尾 → 上传回传 → 确认提交。'
+                  }
+                />
               ) : (
                 <Typography.Text>
                   用时 {fmtDuration(run.duration_ms)}。已合并写入 Events List.xlsx，已自动备份。
@@ -193,6 +216,11 @@ export function JobRunner({ runId }: { runId: string }) {
                   <Button type="primary" onClick={() => nav('/review')}>
                     前往人工核对
                   </Button>
+                )}
+                {isStep1Op && run.error_kind !== 'no_new_data' && (
+                  <a href={runsApi.outputDownloadUrl(runId)} target="_blank" rel="noreferrer">
+                    <Button>下载本次产出 Excel</Button>
+                  </a>
                 )}
                 <a href={runsApi.logDownloadUrl(runId)} target="_blank" rel="noreferrer">
                   <Button>下载完整日志</Button>

@@ -66,6 +66,7 @@ export interface QwenStatus {
 export interface KeysConfig {
   deepseek: KeyProvider
   ark: KeyProvider
+  mlamp: KeyProvider
   qwen: QwenStatus
 }
 
@@ -79,5 +80,6 @@ export const settingsApi = {
   updateKeys: (body: {
     deepseek?: { key?: string; base_url?: string; model?: string }
     ark?: { key?: string; base_url?: string; model?: string }
+    mlamp?: { key?: string; base_url?: string; model?: string }
   }) => postJson<{ ok: boolean }>('/api/settings/keys', body),
 }

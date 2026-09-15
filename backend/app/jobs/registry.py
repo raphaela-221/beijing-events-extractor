@@ -172,13 +172,18 @@ def _build_mock(params: dict) -> list[str]:
 
 # ---- canonical 维护类（工具箱）----
 def _build_dates_enrich_dry(params: dict) -> list[str]:
-    """Dates 自动抽取试运行：LLM 抽离散场次日期，只打印不写。"""
-    return [sys.executable, str(config.ENRICH_DATES_MAIN), "--dry-run"]
+    """Dates 自动抽取试运行：LLM 抽离散场次日期，只打印不写。Qwen 主力 + 兜底链。"""
+    return [sys.executable, str(config.ENRICH_DATES_MAIN), "--dry-run", "--provider", "qwen"]
 
 
 def _build_dates_enrich_write(params: dict) -> list[str]:
-    """Dates 自动抽取写入：零损耗 XML 写到 R 列。"""
-    return [sys.executable, str(config.ENRICH_DATES_MAIN)]
+    """Dates 自动抽取写入：自愈模式（已有值归属校验失败才重抽），零损耗 XML 写到 R 列。"""
+    return [sys.executable, str(config.ENRICH_DATES_MAIN), "--provider", "qwen"]
+
+
+def _build_dates_reset(params: dict) -> list[str]:
+    """Dates 全量重抽：清空全部已有 R 值后逐行 LLM 重抽（行序错位大面积发生时用）。"""
+    return [sys.executable, str(config.ENRICH_DATES_MAIN), "--reset", "--provider", "qwen"]
 
 
 def _build_dates_add_row(params: dict) -> list[str]:
@@ -239,6 +244,7 @@ _BUILDERS: dict[str, Callable[[dict], list[str]]] = {
     "step2_package": _build_step2_package,
     "dates_enrich_dry": _build_dates_enrich_dry,
     "dates_enrich_write": _build_dates_enrich_write,
+    "dates_reset": _build_dates_reset,
     "dates_add_row": _build_dates_add_row,
     "canonical_dedup_dry": _build_canonical_dedup_dry,
     "canonical_dedup_write": _build_canonical_dedup_write,
@@ -291,8 +297,8 @@ register(
         id="step1_concert_only",
         group="抽取",
         label="只采集演唱会",
-        desc="从文化和旅游部政务服务平台采集北京地区演唱会信息，合并写入 Events List.xlsx。运行前自动备份。",
-        danger="write_canonical",
+        desc="从文化和旅游部政务服务平台采集北京地区演唱会信息，产出写入独立日期文件（Travel_Facilitators_and_Hindrances_Events_日期.xlsx，运行详情页可下载），不直接改人工核对清单；需到人工核对页手动合并。",
+        danger="none",
         needs_lock=True,
         stages=["列表页采集", "详情页采集", "过滤", "合并去重", "写入 Excel"],
         params=[
@@ -341,8 +347,8 @@ register(
         id="step1_full",
         group="抽取",
         label="全量抽取",
-        desc="处理上传文件 + 同时采集北京演唱会。月度例行首选，覆盖最全。运行前自动备份。",
-        danger="write_canonical",
+        desc="处理上传文件 + 同时采集北京演唱会。月度例行首选，覆盖最全。产出写入独立日期文件（Travel_Facilitators_and_Hindrances_Events_日期.xlsx，运行详情页可下载），不直接改人工核对清单；需到人工核对页手动合并。",
+        danger="none",
         needs_lock=True,
         stages=["读取文件", "LLM 抽取", "过滤去重", "演唱会采集", "合并写入"],
         params=[
@@ -431,8 +437,8 @@ register(
         id="step1_input_only",
         group="抽取",
         label="只处理上传文件",
-        desc="只处理上传的监测文件，跳过演唱会采集。政务网站不可达时的备选。运行前自动备份。",
-        danger="write_canonical",
+        desc="只处理上传的监测文件，跳过演唱会采集。政务网站不可达时的备选。产出写入独立日期文件（Travel_Facilitators_and_Hindrances_Events_日期.xlsx，运行详情页可下载），不直接改人工核对清单；需到人工核对页手动合并。",
+        danger="none",
         needs_lock=True,
         stages=["读取文件", "LLM 抽取", "过滤去重", "合并写入"],
         params=[
@@ -621,15 +627,30 @@ register(
     Job(
         id="dates_enrich_write",
         group="canonical 维护",
-        label="Dates 列自动抽取（写入）",
-        desc="将试运行确认过的离散场次日期零损耗 XML 写到 R 列（表外，避开 table 范围）。建议先跑试运行核对。",
+        label="Dates 列自动抽取（写入·自愈）",
+        desc="离散场次日期零损耗 XML 写到 R 列。自愈模式：已有值先校验是否属于本行（对照本行描述日期），校验通过的跳过不花 LLM，失败的自动清掉重抽——canonical 被 Step1 重建重排导致的 Dates 整体错位会在下次运行时自动归位。",
         danger="write_canonical",
         needs_lock=True,
-        stages=["LLM 抽取 Dates", "写入 Dates 列"],
+        stages=["归属校验", "LLM 重抽错位行", "写入 Dates 列"],
         params=[],
         artifacts=["01_event_list_output/Events List.xlsx"],
         preflight=["env_keys"],
         dry_run_pair="dates_enrich_dry",
+    )
+)
+
+register(
+    Job(
+        id="dates_reset",
+        group="canonical 维护",
+        label="Dates 列全量重抽（重置）",
+        desc="清空全部已有 Dates 值后逐行 LLM 重抽。用于错位大面积发生、或想放弃全部旧值重新来过时。比自愈模式贵（每行都调 LLM），一般先用自愈模式。",
+        danger="write_canonical",
+        needs_lock=True,
+        stages=["清空全部 Dates", "LLM 全量重抽", "写入 Dates 列"],
+        params=[],
+        artifacts=["01_event_list_output/Events List.xlsx"],
+        preflight=["env_keys"],
     )
 )
 

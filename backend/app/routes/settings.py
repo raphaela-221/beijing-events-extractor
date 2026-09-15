@@ -82,26 +82,34 @@ class KeyProviderUpdate(BaseModel):
 class KeysUpdate(BaseModel):
     deepseek: Optional[KeyProviderUpdate] = None
     ark: Optional[KeyProviderUpdate] = None
+    mlamp: Optional[KeyProviderUpdate] = None
 
 
 @router.get("/keys")
 def get_keys(request: Request):
-    """key 遮罩回显（首2+末4），base_url/model 明文。qwen 状态（免 key）。"""
+    """key 遮罩回显（首2+末4），base_url/model 明文。qwen 状态（免 key）。
+
+    configured/masked 从 os.getenv 读（= .env 或 llm_keys.json 注入后的实际生效值），
+    这样 .env 里配了 key、llm_keys.json 还没存过时也能正确显示「已配置」，
+    而不是误报「未配置」。base_url/model 缺省时用 KEY_DEFAULTS 兜底。
+    """
     require_user(request)
-    keys = settings_store.load_keys()
+
+    def _read(prefix: str) -> dict:
+        key = os.getenv(f"{prefix}_API_KEY", "") or ""
+        return {
+            "configured": bool(key),
+            "masked": settings_store.mask_key(key),
+            "base_url": os.getenv(f"{prefix}_BASE_URL")
+            or settings_store.KEY_DEFAULTS.get(f"{prefix}_BASE_URL", ""),
+            "model": os.getenv(f"{prefix}_MODEL")
+            or settings_store.KEY_DEFAULTS.get(f"{prefix}_MODEL", ""),
+        }
+
     return {
-        "deepseek": {
-            "configured": bool(keys.get("OPENAI_API_KEY")),
-            "masked": settings_store.mask_key(keys.get("OPENAI_API_KEY", "")),
-            "base_url": keys.get("OPENAI_BASE_URL", ""),
-            "model": keys.get("OPENAI_MODEL", ""),
-        },
-        "ark": {
-            "configured": bool(keys.get("ARK_API_KEY")),
-            "masked": settings_store.mask_key(keys.get("ARK_API_KEY", "")),
-            "base_url": keys.get("ARK_BASE_URL", ""),
-            "model": keys.get("ARK_MODEL", ""),
-        },
+        "deepseek": _read("OPENAI"),
+        "ark": _read("ARK"),
+        "mlamp": _read("MLAMP"),
         "qwen": maintenance.qwen_status(),
     }
 
@@ -125,6 +133,7 @@ def update_keys(request: Request, body: KeysUpdate):
 
     _apply("OPENAI", body.deepseek)
     _apply("ARK", body.ark)
+    _apply("MLAMP", body.mlamp)
     if not updates:
         raise HTTPException(400, "未提供可更新字段")
     settings_store.save_keys(updates)

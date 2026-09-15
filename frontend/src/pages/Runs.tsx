@@ -56,6 +56,10 @@ function fmtParams(json: string | null): string {
   }
 }
 
+function isStep1Op(opId: string): boolean {
+  return opId === 'step1_full' || opId === 'step1_input_only' || opId === 'step1_concert_only'
+}
+
 function fmtResult(run: Run): string {
   try {
     const s = JSON.parse(run.summary_json || '{}')
@@ -122,6 +126,17 @@ function RunRow({
           {fmtDuration(run.duration_ms)} · {run.operator}
         </span>
         <span className="rr-actions">
+          {run.status === 'success' && isStep1Op(run.op_id) && (
+            <a
+              className="btn ghost sm"
+              href={runsApi.outputDownloadUrl(run.run_id)}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              下载产出
+            </a>
+          )}
           <button className="btn ghost sm" onClick={(e) => { e.preventDefault(); onRerun(run) }}>
             用同参数再跑
           </button>
@@ -172,6 +187,11 @@ function RunRow({
           </div>
         )}
         <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+          {run.status === 'success' && isStep1Op(run.op_id) && (
+            <a className="btn ghost sm" href={runsApi.outputDownloadUrl(run.run_id)} target="_blank" rel="noreferrer">
+              下载产出 Excel
+            </a>
+          )}
           <a className="btn ghost sm" href={runsApi.logDownloadUrl(run.run_id)} download>
             下载完整日志
           </a>
